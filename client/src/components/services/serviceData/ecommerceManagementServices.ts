@@ -1,0 +1,210 @@
+import type { ServiceData } from '../serviceTypes';
+
+export const ecommerceManagementServicesData: ServiceData = {
+  id: 'ecommerce-management',
+  slug: 'ecommerce-management',
+  name: 'Ecommerce Management',
+  title: 'Ecommerce Account Management & Growth',
+  subtitle: 'Expert seller account management and digital marketing to scale your marketplace business.',
+  description:
+    'Digicommerce Solutions LLP provides end-to-end ecommerce seller account management plus performance marketing to grow visibility, conversions, and ROI across marketplaces like Amazon and Flipkart.',
+
+  heroSlides: [
+    {
+      id: 1,
+      title: 'Empower Your Ecommerce Business',
+      subtitle:
+        'Account setup, optimization, and compliance handled by specialists so you can focus on growth.',
+      image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1200&q=80',
+      imageAlt: 'Ecommerce dashboard',
+    },
+    {
+      id: 2,
+      title: 'Inventory & Listing Excellence',
+      subtitle: 'Optimized catalogs, pricing, and availability to win the buy box and convert traffic.',
+      image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?w=1200&q=80',
+      imageAlt: 'Product listing optimization',
+    },
+    {
+      id: 3,
+      title: 'Performance Marketing That Converts',
+      subtitle: 'Targeted campaigns that lift sales, visibility, and return on ad spend.',
+      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80',
+      imageAlt: 'Digital marketing performance',
+    },
+  ],
+
+  aboutSection: {
+    title: 'Comprehensive Seller Account Management',
+    content:
+      'From launch to scale, we manage your seller accounts, listings, ads, and compliance. Our ecommerce specialists ensure every lever—content, pricing, fulfillment, and support—is tuned for growth.',
+  },
+
+  industries: [
+    {
+      id: 'd2c',
+      name: 'D2C & Brands',
+      description: 'Grow branded storefronts with optimized listings and reviews.',
+      icon: '🛍️',
+    },
+    {
+      id: 'marketplace-sellers',
+      name: 'Marketplace Sellers',
+      description: 'Win on Amazon, Flipkart, and more with compliant, high-converting catalogs.',
+      icon: '🧭',
+    },
+    {
+      id: 'new-launch',
+      name: 'New Launches',
+      description: 'Fast-track new products with launch playbooks and ad acceleration.',
+      icon: '🚀',
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      description: 'Multi-category, multi-geo operations with rigorous SLA management.',
+      icon: '🏢',
+    },
+  ],
+
+  highlights: [
+    {
+      id: 'sales-growth',
+      title: 'Sales Growth',
+      description:
+        'Strategic solutions to boost conversions, revenue, and marketplace success.',
+      icon: '📈',
+    },
+    {
+      id: 'expert-services',
+      title: 'Expert Services',
+      description:
+        'Seller account management, product listing optimization, and targeted ads handled by specialists.',
+      icon: '🎯',
+    },
+    {
+      id: 'tailored-solutions',
+      title: 'Tailored Solutions',
+      description:
+        'Strategies aligned to your goals, ensuring efficient, effective execution that maximizes ROI.',
+      icon: '🧩',
+    },
+    {
+      id: 'compliance',
+      title: 'Compliance & Governance',
+      description:
+        'Adherence to marketplace policies with proactive issue resolution and escalation handling.',
+      icon: '🛡️',
+    },
+  ],
+
+  detailSections: [
+    {
+      id: 'account-setup',
+      title: 'Account Setup & Governance',
+      content:
+        'We configure and verify seller accounts, set up tax and shipping profiles, and implement governance to stay compliant with marketplace policies.',
+      image: '/images/account-setup-governance.jpg',
+      imageAlt: 'Account Setup & Governance',
+      features: [
+        'Seller account setup and verification',
+        'Policy compliance and health monitoring',
+        'Brand registry and storefront creation',
+        'Performance score tracking and appeals',
+      ],
+    },
+    {
+      id: 'catalog',
+      title: 'Catalog & Listing Optimization',
+      content:
+        'Optimized titles, bullets, A+ content, and images to lift CTR and conversion while keeping inventory organized and accurate.',
+      image: '/images/catalog-listing-optimization.jpg',
+      imageAlt: 'Catalog & Listing Optimization',
+      features: [
+        'Keyword-rich titles, bullets, and descriptions',
+        'A+ content / enhanced brand content',
+        'Image and video optimization',
+        'Inventory, pricing, and buy-box governance',
+      ],
+    },
+    {
+      id: 'marketing',
+      title: 'Advertising & Promotions',
+      content:
+        'Performance marketing across marketplace ads and off-platform channels to increase visibility and drive sales efficiently.',
+      image: '/images/advertising-promotions.jpg',
+      imageAlt: 'Advertising & Promotions',
+      features: [
+        'Sponsored products/brands/display campaign management',
+        'Budgeting, bidding, and negative keyword strategy',
+        'Promotions, coupons, and deal execution',
+        'ROAS and ACOS reporting with continuous optimization',
+      ],
+    },
+    {
+      id: 'operations',
+      title: 'Operations & Support',
+      content:
+        'We manage day-to-day operations—orders, returns, cases—and provide clear reporting so you always see the impact.',
+      image: '/images/operations-support.jpg',
+      imageAlt: 'Operations & Support',
+      features: [
+        'Order, return, and case management',
+        'Inventory planning and stockout prevention',
+        'Performance and compliance alerts',
+        'Weekly growth and efficiency reporting',
+      ],
+    },
+  ],
+
+  additionalServices: [
+    {
+      id: 'digital-marketing',
+      title: 'Digital Marketing Support',
+      content:
+        'Cross-channel campaigns (search, social, email) to amplify marketplace performance and brand visibility.',
+    },
+    {
+      id: 'creative',
+      title: 'Creative & Content',
+      content: 'Product creatives, A+ modules, and storefront design tuned for conversions.',
+    },
+    {
+      id: 'analytics',
+      title: 'Analytics & Insights',
+      content: 'Dashboards and insight loops to guide pricing, ads, and assortment decisions.',
+    },
+  ],
+
+  features: [
+    {
+      id: 'growth',
+      title: 'Growth Playbooks',
+      shortDescription: 'Proven launch and scale motions for Amazon, Flipkart, and more.',
+    },
+    {
+      id: 'roi',
+      title: 'ROI Focused',
+      shortDescription: 'Performance metrics and optimizations aimed at profitable growth.',
+    },
+    {
+      id: 'service',
+      title: 'Dedicated Support',
+      shortDescription: 'Specialists who manage issues, escalations, and continuous improvements.',
+    },
+  ],
+
+  testimonials: [],
+
+  cta: {
+    title: 'Ready To Grow Your Business',
+    description: 'Connect with our ecommerce account management experts for a tailored plan.',
+    primaryButton: {
+      text: 'Talk to an Expert',
+      href: '/contact',
+    },
+    showForm: true,
+  },
+};
+
+

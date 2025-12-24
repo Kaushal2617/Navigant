@@ -1,0 +1,185 @@
+import React from 'react';
+import AppLayout from '../components/layout/AppLayout';
+import ServiceCard from '../components/commons/ServiceCard';
+import DotGrid from '../components/commons/DotGrid';
+
+interface Service {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription: string;
+  icon?: string;
+  iconPath?: string;
+}
+
+const ServicesPage: React.FC = () => {
+  // Services data matching the dropdown services
+  const services: Service[] = [
+    {
+      id: '1',
+      name: 'Digital Workers',
+      slug: 'digital-workers',
+      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
+      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
+    },
+    {
+      id: '2',
+      name: 'BPO Services',
+      slug: 'bpo-services',
+      description: 'Comprehensive Business Process Outsourcing services to help you focus on core business activities.',
+      shortDescription: 'End-to-end BPO solutions designed to optimize your business processes and reduce costs.',
+    },
+    {
+      id: '3',
+      name: 'Healthcare Services',
+      slug: 'healthcare-services',
+      description: 'Specialized healthcare BPO services including medical billing, coding, and patient support.',
+      shortDescription: 'Dedicated healthcare outsourcing services to support medical practices and facilities.',
+    },
+    {
+      id: '4',
+      name: 'Tata Tele Services',
+      slug: 'tata-tele-services',
+      description: 'Connectivity, collaboration, cloud, and security solutions from TTBS.',
+      shortDescription: 'ICT solutions for resilient, secure, and scalable operations.',
+    },
+    {
+      id: '5',
+      name: 'Market Research',
+      slug: 'market-research',
+      description: 'Comprehensive market research and analytics services to drive informed business decisions.',
+      shortDescription: 'Data-driven market insights and research services to guide your strategic decisions.',
+    },
+    {
+      id: '6',
+      name: 'HR Services',
+      slug: 'hr-services',
+      description: 'Human Resources outsourcing services including recruitment, payroll, and employee management.',
+      shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
+    },
+    {
+      id: '7',
+      name: 'Finance & Accounting',
+      slug: 'finance-accounting',
+      description: 'Professional finance and accounting services including bookkeeping, tax preparation, and financial analysis.',
+      shortDescription: 'Expert financial management and accounting services for your business growth.',
+    },
+    {
+      id: '8',
+      name: 'Amazon Global Selling',
+      slug: 'amazon-global-selling',
+      description: 'Comprehensive Amazon marketplace management and seller support services to expand your business globally.',
+      shortDescription: 'Expert Amazon Global Selling services to establish and scale your presence on Amazon marketplaces worldwide.',
+    },
+    {
+      id: '9',
+      name: 'IT Services',
+      slug: 'it-services',
+      description: 'Comprehensive IT services including infrastructure management, cloud solutions, and technical support.',
+      shortDescription: 'End-to-end IT solutions to drive your business forward with cutting-edge technology.',
+    },
+    {
+      id: '10',
+      name: 'Digital Marketing',
+      slug: 'digital-marketing',
+      description: 'Digital marketing services including SEO, social media marketing, and content creation.',
+      shortDescription: 'Strategic digital marketing solutions to grow your online presence and reach.',
+    },
+    {
+      id: '11',
+      name: 'Ecommerce Management',
+      slug: 'ecommerce-management',
+      description: 'Complete ecommerce management services including order processing, inventory management, and customer support.',
+      shortDescription: 'End-to-end ecommerce solutions to streamline your online business operations.',
+    },
+    {
+      id: '12',
+      name: 'Lead Generation',
+      slug: 'lead-generation',
+      description: 'Professional lead generation services to identify, qualify, and convert prospects into customers.',
+      shortDescription: 'Data-driven lead generation strategies to grow your sales pipeline.',
+    },
+    {
+      id: '13',
+      name: 'End to End Sales',
+      slug: 'end-to-end-sales',
+      description: 'Comprehensive end-to-end sales services from lead qualification to closing deals and customer retention.',
+      shortDescription: 'Complete sales solutions to drive revenue growth and customer satisfaction.',
+    },
+  ];
+
+  return (
+    <AppLayout>
+      <section className="pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24 bg-gradient-to-b from-white via-gray-50/50 to-white w-full relative overflow-hidden">
+        {/* DotGrid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <DotGrid
+            dotSize={12}
+            gap={40}
+            baseColor="#E5E7EB"
+            activeColor="#CA1411"
+            proximity={120}
+            speedTrigger={80}
+            shockRadius={200}
+            shockStrength={4}
+            maxSpeed={4000}
+            resistance={800}
+            returnDuration={1.2}
+            className="opacity-40"
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
+            <div className="inline-block mb-3 sm:mb-4">
+              <span className="text-xs sm:text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
+                What We Offer
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
+              Our <span className="text-[#CA1411] relative">
+                Services
+                <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12"></span>
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
+              Comprehensive solutions designed to transform your business and drive sustainable growth
+            </p>
+          </div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
+            {services.map((service, index) => (
+              <div
+                key={service.id}
+                className="service-card-wrapper"
+                style={{
+                  animationDelay: `${index * 0.08}s`,
+                }}
+              >
+                <ServiceCard
+                  service={{
+                    id: service.id,
+                    title: service.name,
+                    name: service.name,
+                    shortDescription: service.shortDescription,
+                    description: service.description,
+                    slug: service.slug,
+                    iconPath: service.iconPath,
+                  }}
+                  index={index}
+                  variant="default"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </AppLayout>
+  );
+};
+
+export default ServicesPage;
+
