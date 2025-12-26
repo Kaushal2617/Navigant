@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../components/layout/AppLayout';
 import DotGrid from '../components/commons/DotGrid';
-import { type Job } from '../services/careersApi';
+import {
+  type Job,
+  getActiveJobsForUI,
+  submitJobApplicationLegacy,
+  type JobApplication
+} from '../services/careersApi';
 
 const CareersPage: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -156,24 +161,17 @@ const CareersPage: React.FC = () => {
     },
   ];
 
-  // Use mock data by default until backend API is ready
-  // To enable API calls, uncomment the API code below and comment out the setJobs line
+  // Fetch jobs from API with fallback to local data
   useEffect(() => {
-    // Currently using mock data
-    setJobs(fallbackJobs);
-    setLoading(false);
-    
-    // Uncomment below to enable API calls when backend is ready:
-    /*
     const fetchJobs = async () => {
       setLoading(true);
       try {
-        const response = await getActiveJobs();
-        if (response.success && response.data) {
+        const response = await getActiveJobsForUI();
+        if (response.success && response.data && response.data.length > 0) {
           setJobs(response.data);
         } else {
-          // Fallback to local data if API fails
-          console.warn('Failed to fetch jobs from API, using fallback data');
+          // Fallback to local data if API returns empty or fails
+          console.warn('API returned no jobs, using fallback data');
           setJobs(fallbackJobs);
         }
       } catch (error) {
@@ -186,7 +184,6 @@ const CareersPage: React.FC = () => {
     };
 
     fetchJobs();
-    */
   }, []); // Empty dependency array - only run on mount
 
   const handleJobClick = (job: Job) => {
@@ -270,13 +267,15 @@ const CareersPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       setSubmitting(true);
       try {
-        // Currently using mock submission (just log and show success)
-        // Uncomment below to enable API submission when backend is ready:
-        /*
+        // Find the job ID for the selected position
+        const selectedJobData = jobs.find(j => j.title === applicationData.position);
+        const jobId = selectedJobData?.id || '';
+
+        // Build JobApplication object
         const application: JobApplication = {
           fullName: applicationData.fullName,
           email: applicationData.email,
@@ -288,11 +287,12 @@ const CareersPage: React.FC = () => {
           coverLetter: applicationData.coverLetter || undefined,
         };
 
-        const response = await submitJobApplication(application);
-        
+        // Submit via API
+        const response = await submitJobApplicationLegacy(application, jobId);
+
         if (response.success) {
           alert('Thank you for your application! We will review it and get back to you soon.');
-          
+
           // Reset form
           setApplicationData({
             fullName: '',
@@ -305,28 +305,9 @@ const CareersPage: React.FC = () => {
             coverLetter: '',
           });
           setSelectedJob(null);
-          setShowApplicationForm(false);
         } else {
-          alert('Failed to submit application. Please try again later.');
+          alert(response.error || 'Failed to submit application. Please try again later.');
         }
-        */
-        
-        // Mock submission - just log and show success
-        console.log('Mock application submission:', applicationData);
-        alert('Thank you for your application! We will review it and get back to you soon.');
-        
-        // Reset form
-        setApplicationData({
-          fullName: '',
-          email: '',
-          mobileNo: '',
-          position: '',
-          experience: '',
-          currentCompany: '',
-          resume: null,
-          coverLetter: '',
-        });
-        setSelectedJob(null);
       } catch (error) {
         console.error('Error submitting application:', error);
         alert('An error occurred while submitting your application. Please try again later.');
@@ -371,7 +352,7 @@ const CareersPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Join Navigant Technologies and be part of a dynamic team that's transforming businesses worldwide. 
+              Join Navigant Technologies and be part of a dynamic team that's transforming businesses worldwide.
               Explore exciting career opportunities and grow with us.
             </p>
           </div>
@@ -496,62 +477,62 @@ const CareersPage: React.FC = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {jobs.map((job) => (
-              <div
-                key={job.id}
-                className="group relative rounded-2xl p-6 md:p-8 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9))',
-                  backdropFilter: 'blur(20px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                }}
-                onClick={() => handleJobClick(job)}
-              >
-                {/* Job Type Badge */}
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#CA1411]/10 text-[#CA1411]">
-                    {job.type}
-                  </span>
+                <div
+                  key={job.id}
+                  className="group relative rounded-2xl p-6 md:p-8 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer"
+                  style={{
+                    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9))',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  }}
+                  onClick={() => handleJobClick(job)}
+                >
+                  {/* Job Type Badge */}
+                  <div className="mb-4">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#CA1411]/10 text-[#CA1411]">
+                      {job.type}
+                    </span>
+                  </div>
+
+                  {/* Job Title */}
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#CA1411] transition-colors duration-300">
+                    {job.title}
+                  </h3>
+
+                  {/* Job Details */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span>{job.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      <span>{job.department}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{job.experience} experience</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                    {job.description}
+                  </p>
+
+                  {/* Apply Button */}
+                  <button className="mt-auto w-full px-6 py-3 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    Apply Now
+                  </button>
                 </div>
-
-                {/* Job Title */}
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#CA1411] transition-colors duration-300">
-                  {job.title}
-                </h3>
-
-                {/* Job Details */}
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{job.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span>{job.department}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>{job.experience} experience</span>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
-                  {job.description}
-                </p>
-
-                {/* Apply Button */}
-                <button className="mt-auto w-full px-6 py-3 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                  Apply Now
-                </button>
-              </div>
-            ))}
+              ))}
             </div>
           )}
         </div>
@@ -605,9 +586,8 @@ const CareersPage: React.FC = () => {
                     name="fullName"
                     value={applicationData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.fullName ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.fullName ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter your full name"
                   />
                   {errors.fullName && (
@@ -625,9 +605,8 @@ const CareersPage: React.FC = () => {
                     name="email"
                     value={applicationData.email}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter your email address"
                   />
                   {errors.email && (
@@ -648,9 +627,8 @@ const CareersPage: React.FC = () => {
                     name="mobileNo"
                     value={applicationData.mobileNo}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.mobileNo ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.mobileNo ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter your mobile number"
                   />
                   {errors.mobileNo && (
@@ -667,9 +645,8 @@ const CareersPage: React.FC = () => {
                     name="position"
                     value={applicationData.position}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all appearance-none bg-white ${
-                      errors.position ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all appearance-none bg-white ${errors.position ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23334155' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
                       backgroundRepeat: 'no-repeat',
@@ -702,9 +679,8 @@ const CareersPage: React.FC = () => {
                     name="experience"
                     value={applicationData.experience}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.experience ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.experience ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="e.g., 3-5 years"
                   />
                   {errors.experience && (
@@ -740,9 +716,8 @@ const CareersPage: React.FC = () => {
                     name="resume"
                     onChange={handleFileChange}
                     accept=".pdf,.doc,.docx"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#CA1411] file:text-white hover:file:bg-[#B0120F] ${
-                      errors.resume ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#CA1411] file:text-white hover:file:bg-[#B0120F] ${errors.resume ? 'border-red-500' : 'border-gray-300'
+                      }`}
                   />
                 </div>
                 {errors.resume && (

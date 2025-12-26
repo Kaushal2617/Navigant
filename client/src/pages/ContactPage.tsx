@@ -2,21 +2,34 @@ import React, { useState } from 'react';
 import AppLayout from '../components/layout/AppLayout';
 import DotGrid from '../components/commons/DotGrid';
 import { navConfig } from '../components/navbar/navconfig';
+import { submitLead, type LeadCreateRequest } from '../services/leadsApi';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    mobileNo: '',
-    subject: '',
-    message: '',
+    phone: '',
+    serviceType: '',
+    numberOfSeats: '',
+    remarks: '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Available service types
+  const serviceTypes = [
+    'BPO Services',
+    'IT Consulting',
+    'Co-working Space',
+    'Virtual Office',
+    'Staff Augmentation',
+    'Other',
+  ];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,6 +41,10 @@ const ContactPage: React.FC = () => {
         ...errors,
         [name]: '',
       });
+    }
+    // Clear success message on new input
+    if (submitSuccess) {
+      setSubmitSuccess(false);
     }
   };
 
@@ -44,16 +61,18 @@ const ContactPage: React.FC = () => {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!formData.mobileNo.trim()) {
-      newErrors.mobileNo = 'Mobile number is required';
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
     }
 
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
+    if (!formData.serviceType.trim()) {
+      newErrors.serviceType = 'Please select a service type';
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+    if (!formData.numberOfSeats.trim()) {
+      newErrors.numberOfSeats = 'Number of seats is required';
+    } else if (isNaN(Number(formData.numberOfSeats)) || Number(formData.numberOfSeats) <= 0) {
+      newErrors.numberOfSeats = 'Please enter a valid number';
     }
 
     setErrors(newErrors);
@@ -62,48 +81,40 @@ const ContactPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       setSubmitting(true);
       try {
-        // Mock submission - log and show success
-        // Uncomment below to enable API submission when backend is ready:
-        /*
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        
-        if (response.ok) {
-          alert('Thank you for contacting us! We will get back to you soon.');
+        // Prepare lead data matching server DTO
+        const leadData: LeadCreateRequest = {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          serviceType: formData.serviceType,
+          numberOfSeats: parseInt(formData.numberOfSeats, 10),
+          remarks: formData.remarks || undefined,
+        };
+
+        // Submit to API
+        const response = await submitLead(leadData);
+
+        if (response.success) {
+          setSubmitSuccess(true);
+          // Reset form
           setFormData({
             fullName: '',
             email: '',
-            mobileNo: '',
-            subject: '',
-            message: '',
+            phone: '',
+            serviceType: '',
+            numberOfSeats: '',
+            remarks: '',
           });
         } else {
-          alert('Failed to send message. Please try again later.');
+          alert(response.error || 'Failed to submit. Please try again later.');
         }
-        */
-        
-        // Mock submission
-        console.log('Mock contact form submission:', formData);
-        alert('Thank you for contacting us! We will get back to you soon.');
-        
-        // Reset form
-        setFormData({
-          fullName: '',
-          email: '',
-          mobileNo: '',
-          subject: '',
-          message: '',
-        });
       } catch (error) {
         console.error('Error submitting form:', error);
-        alert('An error occurred while sending your message. Please try again later.');
+        alert('An error occurred while sending your request. Please try again later.');
       } finally {
         setSubmitting(false);
       }
@@ -182,7 +193,7 @@ const ContactPage: React.FC = () => {
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-block mb-4">
               <span className="text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
-                Get In Touch
+                Get a Quote
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
@@ -193,8 +204,8 @@ const ContactPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Have a question or want to discuss how we can help your business? 
-              We'd love to hear from you. Reach out to us and let's make something great together.
+              Have a question or want to discuss how we can help your business?
+              Fill out the form below and our team will get back to you within 24 hours.
             </p>
           </div>
         </div>
@@ -227,6 +238,21 @@ const ContactPage: React.FC = () => {
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
             }}
           >
+            {/* Success Message */}
+            {submitSuccess && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <h3 className="font-semibold text-green-800">Request Submitted Successfully!</h3>
+                    <p className="text-green-700 text-sm">Thank you for contacting us. Our team will review your request and get back to you soon.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Full Name */}
               <div>
@@ -239,9 +265,8 @@ const ContactPage: React.FC = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                    errors.fullName ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.fullName ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   placeholder="Enter your full name"
                 />
                 {errors.fullName && (
@@ -249,7 +274,7 @@ const ContactPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Email and Mobile - Two Columns */}
+              {/* Email and Phone - Two Columns */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -261,9 +286,8 @@ const ContactPage: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
                     placeholder="Enter your email"
                   />
                   {errors.email && (
@@ -272,66 +296,92 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="mobileNo" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Your Mobile No. <span className="text-[#CA1411]">*</span>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Your Phone Number <span className="text-[#CA1411]">*</span>
                   </label>
                   <input
                     type="tel"
-                    id="mobileNo"
-                    name="mobileNo"
-                    value={formData.mobileNo}
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                      errors.mobileNo ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter your mobile number"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    placeholder="Enter your phone number"
                   />
-                  {errors.mobileNo && (
-                    <p className="mt-1 text-sm text-red-500">{errors.mobileNo}</p>
+                  {errors.phone && (
+                    <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
                   )}
                 </div>
               </div>
 
-              {/* Subject */}
-              <div>
-                <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Subject <span className="text-[#CA1411]">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${
-                    errors.subject ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="What is this regarding?"
-                />
-                {errors.subject && (
-                  <p className="mt-1 text-sm text-red-500">{errors.subject}</p>
-                )}
+              {/* Service Type and Number of Seats - Two Columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="serviceType" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Service Type <span className="text-[#CA1411]">*</span>
+                  </label>
+                  <select
+                    id="serviceType"
+                    name="serviceType"
+                    value={formData.serviceType}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all appearance-none bg-white ${errors.serviceType ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23334155' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'right 1rem center',
+                      paddingRight: '2.5rem',
+                    }}
+                  >
+                    <option value="">Select a service</option>
+                    {serviceTypes.map((service) => (
+                      <option key={service} value={service}>
+                        {service}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.serviceType && (
+                    <p className="mt-1 text-sm text-red-500">{errors.serviceType}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="numberOfSeats" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Number of Seats <span className="text-[#CA1411]">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="numberOfSeats"
+                    name="numberOfSeats"
+                    min="1"
+                    value={formData.numberOfSeats}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all ${errors.numberOfSeats ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    placeholder="How many seats do you need?"
+                  />
+                  {errors.numberOfSeats && (
+                    <p className="mt-1 text-sm text-red-500">{errors.numberOfSeats}</p>
+                  )}
+                </div>
               </div>
 
-              {/* Message */}
+              {/* Remarks / Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Your Message <span className="text-[#CA1411]">*</span>
+                <label htmlFor="remarks" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Additional Requirements (Optional)
                 </label>
                 <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
+                  id="remarks"
+                  name="remarks"
+                  value={formData.remarks}
                   onChange={handleChange}
                   rows={6}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all resize-none ${
-                    errors.message ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="Tell us how we can help you..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#CA1411] focus:border-transparent transition-all resize-none"
+                  placeholder="Tell us about your specific requirements, timeline, or any questions..."
                 />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-500">{errors.message}</p>
-                )}
               </div>
 
               {/* Submit Button */}
@@ -341,7 +391,7 @@ const ContactPage: React.FC = () => {
                   disabled={submitting}
                   className="w-full px-8 py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-base md:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? 'Sending...' : 'Send Message'}
+                  {submitting ? 'Submitting...' : 'Submit Request'}
                 </button>
               </div>
             </form>
@@ -458,4 +508,3 @@ const ContactPage: React.FC = () => {
 };
 
 export default ContactPage;
-
