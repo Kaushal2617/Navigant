@@ -691,6 +691,16 @@ html {
   -webkit-transform: rotateY(180deg);
 }
 
+/* Scrollbar Hide Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
 /* Testimonials 3D Carousel Styles */
 .testimonials-carousel-container {
   transform-style: preserve-3d;
@@ -702,4 +712,123 @@ html {
   -webkit-transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+/* Responsive Glassmorphism - Remove on mobile, keep on desktop */
+.hero-glass-effect {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@media (min-width: 768px) {
+  .hero-glass-effect {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+.service-hero-glass-effect {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@media (min-width: 768px) {
+  .service-hero-glass-effect {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.25), 0 8px 32px 0 rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+  }
+}
+
+/* Service Hero Content Wrapper - Fix navbar overlap on mobile */
+.service-hero-content-wrapper {
+  padding-top: 90px;
+  padding-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .service-hero-content-wrapper {
+    padding-top: 5rem;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .service-hero-content-wrapper {
+    padding-top: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-hero-content-wrapper {
+    padding-top: 6rem;
+  }
+}
+
+/* Service Hero Badge Glassmorphism */
+.service-hero-badge {
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@media (min-width: 768px) {
+  .service-hero-badge {
+    background: linear-gradient(135deg, rgba(202, 20, 17, 0.3), rgba(202, 20, 17, 0.2));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Service Hero Buttons Glassmorphism */
+.service-hero-primary-btn {
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .service-hero-primary-btn {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(202, 20, 17, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+.service-hero-secondary-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .service-hero-secondary-btn {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Service Hero Stats Cards Glassmorphism */
+.service-hero-stats {
+  background: transparent;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  .service-hero-stats {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }

@@ -81,7 +81,7 @@ export const hrServicesData: ServiceData = {
       title: 'Recruitment Process Outsourcing (RPO)',
       content:
         'End-to-end sourcing, screening, interviewing, and offer management with SLA-backed delivery for permanent and contract roles.',
-      image: '/images/rpo.jpg',
+      image: '/HR/rpo.jpg',
       imageAlt: 'Recruitment Process Outsourcing (RPO)',
       features: [
         'Full-cycle sourcing and screening',
@@ -95,7 +95,7 @@ export const hrServicesData: ServiceData = {
       title: 'Permanent & Contract Staffing',
       content:
         'Flexible staffing to ramp specialized or high-volume roles with governed onboarding and compliance.',
-      image: '/images/permanent-contract-staffing.jpg',
+      image: '/HR/staffing.jpg',
       imageAlt: 'Permanent & Contract Staffing',
       features: [
         'Permanent, contract, and project-based staffing',
@@ -109,7 +109,7 @@ export const hrServicesData: ServiceData = {
       title: 'HR Operations & Compliance',
       content:
         'Day-to-day HR administration with policy adherence, documentation, and risk controls aligned to GCC labor and tax requirements.',
-      image: '/images/hr-operations-compliance.jpg',
+      image: '/HR/hrops.jpg',
       imageAlt: 'HR Operations & Compliance',
       features: [
         'Employee records and HRMS administration',
@@ -123,7 +123,7 @@ export const hrServicesData: ServiceData = {
       title: 'HR Automation & Analytics',
       content:
         'Digital workers and dashboards that reduce manual effort, improve accuracy, and give leadership real-time visibility.',
-      image: '/images/hr-automation-analytics.jpg',
+      image: '/HR/automation.jpg',
       imageAlt: 'HR Automation & Analytics',
       features: [
         'Resume parsing and interview scheduling bots',
@@ -137,6 +137,8 @@ export const hrServicesData: ServiceData = {
       title: 'Employee Engagement & L&D',
       content:
         'Communication, training, and development programs that improve retention and performance.',
+      image: '/HR/engagement.jpg',
+      imageAlt: 'Employee Engagement & L&D',
       features: [
         'Internal communication programs',
         'Training and development tracks',
@@ -149,6 +151,8 @@ export const hrServicesData: ServiceData = {
       title: 'Payroll, Expenses & Compliance Support',
       content:
         'Accurate, compliant payroll and expense processes with clear controls and reporting.',
+      image: '/HR/payroll.jpg',
+      imageAlt: 'Payroll, Expenses & Compliance Support',
       features: [
         'Payroll processing and validation checks',
         'Expense management and reimbursements',

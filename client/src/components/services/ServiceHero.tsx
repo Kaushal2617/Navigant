@@ -35,7 +35,7 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
   const carouselItems: CarouselItem[] = slides.map((slide) => ({
     id: slide.id,
     content: (
-      <div className="relative w-full h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden">
+      <div className="relative w-full h-[500px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] overflow-hidden">
         {/* Background Image with Parallax Effect */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat service-hero-bg"
@@ -52,31 +52,23 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
         </div>
 
         {/* Content Container - Centered with Glassmorphism */}
-        <div className="relative z-10 h-full flex items-center justify-center pt-222 md:pt-24 lg:pt-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-4 w-full">
-            <div className="max-w-3xl mx-auto">
+        <div className="relative z-10 h-full flex items-start sm:items-center justify-center service-hero-content-wrapper">
+          <div className="container mx-auto px-2.5 sm:px-3 md:px-4 lg:px-6 xl:px-8 w-full">
+            <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto">
               {/* Main Glass Card - Centered, More Compact */}
               <div
-                className="relative p-4 md:p-5 lg:p-6 rounded-2xl service-hero-card"
-                style={{
-                  // Lighten the glass card so the background shines through more
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))',
-                  backdropFilter: 'blur(30px) saturate(200%)',
-                  WebkitBackdropFilter: 'blur(30px) saturate(200%)',
-                  border: '1px solid rgba(255, 255, 255, 0.18)',
-                  boxShadow: '0 20px 60px 0 rgba(0, 0, 0, 0.25), 0 8px 32px 0 rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18)',
-                }}
+                className="service-hero-glass-effect relative p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6 rounded-md sm:rounded-lg md:rounded-xl lg:rounded-2xl service-hero-card"
               >
-                {/* Decorative glass elements - Smaller */}
+                {/* Decorative glass elements - Smaller/Hidden on mini devices */}
                 <div
-                  className="absolute top-0 left-0 w-24 h-24 rounded-full blur-3xl opacity-25"
+                  className="hidden sm:block absolute top-0 left-0 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full blur-3xl opacity-25"
                   style={{
                     background: 'radial-gradient(circle, rgba(202, 20, 17, 0.4), transparent)',
                     transform: 'translate(-20%, -20%)',
                   }}
                 />
                 <div
-                  className="absolute bottom-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-15"
+                  className="hidden sm:block absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full blur-3xl opacity-15"
                   style={{
                     background: 'radial-gradient(circle, rgba(202, 20, 17, 0.3), transparent)',
                     transform: 'translate(20%, 20%)',
@@ -84,18 +76,12 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
                 />
 
                 {/* Content - More Compact */}
-                <div className="relative z-10 text-center space-y-3">
+                <div className="relative z-10 text-center space-y-1 sm:space-y-1.5 md:space-y-2 lg:space-y-3">
                   {/* Badge/Tag - Smaller */}
                   {badgeText && (
-                  <div className="inline-block">
+                  <div className="inline-block mb-0.5 sm:mb-1">
                     <div
-                      className="px-3 py-1.5 rounded-full text-xs font-semibold text-white"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.3), rgba(202, 20, 17, 0.2))',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                      }}
+                      className="service-hero-badge px-1.5 sm:px-2.5 md:px-3 py-0.5 sm:py-1 md:py-1.5 rounded-full text-[8px] sm:text-[10px] md:text-xs font-semibold text-white"
                     >
                         {badgeText}
                       </div>
@@ -104,32 +90,28 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
 
                   {/* Title - Smaller and more refined */}
                   {slide.title && (
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-2xl">
+                    <h1 className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold leading-tight sm:leading-[1.1] md:leading-[1.15] tracking-tight text-white drop-shadow-2xl px-1">
                       {slide.title}
                     </h1>
                   )}
 
                   {/* Subtitle - Smaller */}
                   {slide.subtitle && (
-                    <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl mx-auto leading-relaxed drop-shadow-lg">
+                    <p className="text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg text-white/90 max-w-full sm:max-w-lg md:max-w-xl mx-auto leading-snug sm:leading-relaxed drop-shadow-lg px-1 sm:px-1.5 md:px-2">
                       {slide.subtitle}
                     </p>
                   )}
 
                   {/* Action Buttons - Smaller */}
                   {(slide.primaryButton || slide.secondaryButton) && (
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4">
+                    <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 md:gap-3 justify-center items-center pt-1.5 sm:pt-2 md:pt-3 lg:pt-4">
                       {slide.primaryButton && (
                         <a
                           href={slide.primaryButton.href || '#'}
                           onClick={slide.primaryButton.onClick}
-                          className="group relative px-6 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 overflow-hidden"
+                          className="service-hero-primary-btn group relative px-2.5 py-1 sm:px-4 sm:py-2 md:px-5 md:py-2.5 lg:px-6 lg:py-2.5 rounded-md sm:rounded-lg font-semibold text-[9px] sm:text-xs md:text-sm lg:text-base transition-all duration-300 overflow-hidden w-full sm:w-auto md:backdrop-blur-[10px]"
                           style={{
                             background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.9), rgba(202, 20, 17, 0.8))',
-                            backdropFilter: 'blur(10px)',
-                            WebkitBackdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            boxShadow: '0 8px 32px 0 rgba(202, 20, 17, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
                             color: '#ffffff',
                           }}
                         >
@@ -146,13 +128,8 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
                         <a
                           href={slide.secondaryButton.href || '#'}
                           onClick={slide.secondaryButton.onClick}
-                          className="group relative px-6 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 overflow-hidden"
+                          className="service-hero-secondary-btn group relative px-2.5 py-1 sm:px-4 sm:py-2 md:px-5 md:py-2.5 lg:px-6 lg:py-2.5 rounded-md sm:rounded-lg font-semibold text-[9px] sm:text-xs md:text-sm lg:text-base transition-all duration-300 overflow-hidden w-full sm:w-auto md:backdrop-blur-[10px]"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1))',
-                            backdropFilter: 'blur(10px)',
-                            WebkitBackdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 255, 255, 0.3)',
-                            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                             color: '#ffffff',
                           }}
                         >
@@ -169,36 +146,24 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
                   )}
 
                   {/* Stats or Features - More Compact */}
-                  <div className="flex flex-wrap justify-center gap-3 md:gap-4 pt-5 border-t border-white/20">
+                  <div className="flex flex-wrap justify-center gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 xl:gap-4 pt-1.5 sm:pt-2 md:pt-3 lg:pt-4 border-t border-white/20 mt-1.5 sm:mt-2 md:mt-3">
                     <div
-                      className="px-4 py-3 rounded-lg text-center backdrop-blur-sm"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                      }}
+                      className="service-hero-stats px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-4 lg:py-3 rounded-md sm:rounded-lg text-center md:backdrop-blur-sm"
                     >
-                      <div className="text-xl md:text-2xl font-bold text-white mb-0.5">20+</div>
-                      <div className="text-[10px] md:text-xs text-white/80">Years Experience</div>
+                      <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white mb-0 sm:mb-0.5">20+</div>
+                      <div className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-xs text-white/80 leading-tight">Years Experience</div>
                     </div>
                     <div
-                      className="px-4 py-3 rounded-lg text-center backdrop-blur-sm"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                      }}
+                      className="service-hero-stats px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-4 lg:py-3 rounded-md sm:rounded-lg text-center md:backdrop-blur-sm"
                     >
-                      <div className="text-xl md:text-2xl font-bold text-white mb-0.5">500+</div>
-                      <div className="text-[10px] md:text-xs text-white/80">Happy Clients</div>
+                      <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white mb-0 sm:mb-0.5">500+</div>
+                      <div className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-xs text-white/80 leading-tight">Happy Clients</div>
                     </div>
                     <div
-                      className="px-4 py-3 rounded-lg text-center backdrop-blur-sm"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                      }}
+                      className="service-hero-stats px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-3 md:py-2 lg:px-4 lg:py-3 rounded-md sm:rounded-lg text-center md:backdrop-blur-sm"
                     >
-                      <div className="text-xl md:text-2xl font-bold text-white mb-0.5">24/7</div>
-                      <div className="text-[10px] md:text-xs text-white/80">Support</div>
+                      <div className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white mb-0 sm:mb-0.5">24/7</div>
+                      <div className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-xs text-white/80 leading-tight">Support</div>
                     </div>
                   </div>
                 </div>
@@ -207,14 +172,14 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({
           </div>
         </div>
 
-        {/* Floating Glass Orbs - Decorative */}
-        <div className="absolute top-20 left-10 w-20 h-20 rounded-full blur-2xl opacity-20 pointer-events-none"
+        {/* Floating Glass Orbs - Decorative - Hidden on mini devices */}
+        <div className="hidden sm:block absolute top-20 left-10 w-20 h-20 rounded-full blur-2xl opacity-20 pointer-events-none"
           style={{
             background: 'radial-gradient(circle, rgba(202, 20, 17, 0.5), transparent)',
             animation: 'float 6s ease-in-out infinite',
           }}
         />
-        <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full blur-3xl opacity-15 pointer-events-none"
+        <div className="hidden sm:block absolute bottom-20 right-10 w-32 h-32 rounded-full blur-3xl opacity-15 pointer-events-none"
           style={{
             background: 'radial-gradient(circle, rgba(202, 20, 17, 0.4), transparent)',
             animation: 'float 8s ease-in-out infinite reverse',

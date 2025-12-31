@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from '../components/layout/AppLayout';
 import DotGrid from '../components/commons/DotGrid';
-import TeamMembersSection from '../components/commons/TeamMembersSection';
 
 const AboutPage: React.FC = () => {
   const [readMore, setReadMore] = useState(false);
@@ -110,7 +109,7 @@ const AboutPage: React.FC = () => {
                 {readMore ? (
                   <>
                     <p>
-                      Its dedicated team of over 600 professionals cater to a complete range of BPO & KPO services for its clients spread across UK, USA, Canada and India. The BPO currently employees 600 people at a 25,000 sq. ft. facility located in New Delhi.
+                      Its dedicated team of over 600 professionals cater to a complete range of BPO & KPO services for its clients spread across UK, USA, Canada and India. The BPO currently employees 600 people at a 55,000 sq. ft. facility located in New Delhi.
                     </p>
                     <button
                       onClick={() => setReadMore(false)}
@@ -189,7 +188,7 @@ const AboutPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-gray-900 mb-1">Facility</h3>
-                      <p className="text-gray-600">25,000 sq. ft. in New Delhi</p>
+                      <p className="text-gray-600">55,000 sq. ft. in New Delhi</p>
                     </div>
                   </div>
                 </div>
@@ -229,8 +228,8 @@ const AboutPage: React.FC = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
-              { key: 'projects', value: counters.projects, label: 'Projects Done', icon: '📊', target: 320 },
-              { key: 'clients', value: counters.clients, label: 'Happy Clients', icon: '😊', target: 45 },
+              { key: 'projects', value: counters.projects, label: 'Projects Done', icon: '📊', target: 500 },
+              { key: 'clients', value: counters.clients, label: 'Happy Clients', icon: '😊', target: 50 },
               { key: 'employees', value: counters.employees, label: 'Employees', icon: '👥', target: 600 },
               { key: 'locations', value: counters.locations, label: 'Number Of Locations', icon: '📍', target: 3 },
             ].map((stat) => (
@@ -285,11 +284,17 @@ const AboutPage: React.FC = () => {
                 }}
               >
                 <div className="aspect-square relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#CA1411] to-[#B0120F] flex items-center justify-center">
-                    <div className="text-center text-white p-8">
-                      <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-6xl font-bold">
-                        AB
-                      </div>
+                  <img
+                    src="/team/ankur2.jpg"
+                    alt="Ankur Bhatia - Founder and CEO"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://via.placeholder.com/400x400/CA1411/FFFFFF?text=${encodeURIComponent('Ankur Bhatia')}`;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end">
+                    <div className="text-center text-white p-8 w-full">
                       <h3 className="text-3xl md:text-4xl font-bold mb-2">Ankur Bhatia</h3>
                       <p className="text-xl text-white/90">Founder and CEO</p>
                     </div>
@@ -341,7 +346,7 @@ const AboutPage: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Ankur Comes With Over{' '}
               <span className="text-[#CA1411] relative">
-                25 Years
+                35 Years
                 <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
               </span>{' '}
               Of Experience
@@ -396,8 +401,8 @@ const AboutPage: React.FC = () => {
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li>E-commerce</li>
-                  <li>Insurance</li>
-                  <li>Financial Services</li>
+                  <li>Startups</li>
+                  <li>Financial Go to Market Strategies</li>
                   <li>Travel</li>
                 </ul>
               </div>
@@ -406,7 +411,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+      {/* <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-block mb-4">
@@ -427,7 +432,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
         <TeamMembersSection initialCount={6} />
-      </section>
+      </section> */}
     </AppLayout>
   );
 };

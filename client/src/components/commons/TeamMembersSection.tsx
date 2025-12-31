@@ -101,6 +101,11 @@ const TeamMembersSection: React.FC<TeamMembersSectionProps> = ({
         </div>
 
         {/* Team Members Grid */}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#CA1411]"></div>
+          </div>
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8 lg:gap-10">
           {displayedMembers.map((member, index) => (
             <div
@@ -212,9 +217,10 @@ const TeamMembersSection: React.FC<TeamMembersSectionProps> = ({
             </div>
           ))}
         </div>
+        )}
 
         {/* Show More Button - Redirects to Team Page */}
-        {teamMembers.length > initialCount && (
+        {!loading && teamMembers.length > initialCount && (
           <div className="text-center mt-12 md:mt-16">
             <a
               href={teamPageLink}

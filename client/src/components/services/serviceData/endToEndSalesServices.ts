@@ -99,7 +99,7 @@ export const endToEndSalesServicesData: ServiceData = {
       title: 'Pipeline Creation',
       content:
         'Multi-channel outbound plus inbound follow-up to keep top-of-funnel healthy. We build and maintain target lists, cadences, and deliverability.',
-      image: '/images/pipeline-creation.jpg',
+      image: '/endtoendsales/pipeline.jpg',
       imageAlt: 'Pipeline Creation',
       features: [
         'ICP/TAM research and list governance',
@@ -113,7 +113,7 @@ export const endToEndSalesServicesData: ServiceData = {
       title: 'Discovery & Demos',
       content:
         'Experienced reps run discovery, demos, and tailored walkthroughs, capturing pains, stakeholders, and next steps directly in your CRM.',
-      image: '/images/discovery-demos.jpg',
+      image: '/endtoendsales/discovery.jpg',
       imageAlt: 'Discovery & Demos',
       features: [
         'Structured discovery notes and qualification',
@@ -127,7 +127,7 @@ export const endToEndSalesServicesData: ServiceData = {
       title: 'Proposals & Closing',
       content:
         'Proposal creation, pricing alignment, and negotiation support aimed at shortening cycle time and protecting margin.',
-      image: '/images/proposals-closing.jpg',
+      image: '/endtoendsales/closing.jpg',
       imageAlt: 'Proposals & Closing',
       features: [
         'Proposal and SOW drafts aligned to scope',

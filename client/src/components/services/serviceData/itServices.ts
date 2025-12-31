@@ -61,6 +61,8 @@ export const itServicesData: ServiceData = {
       title: 'IT Infrastructure & NOC Services',
       content:
         '24x7 monitoring and operations with incident, problem, and change management to keep services available and performant.',
+      image: '/IT/ITinfrastructure.jpg',
+      imageAlt: 'IT Infrastructure & NOC Services',
       features: [
         'Performance and availability monitoring',
         'Incident, problem, and change management',
@@ -73,7 +75,7 @@ export const itServicesData: ServiceData = {
       title: 'Cloud Engineering & DevOps',
       content:
         'Cloud migration, optimization, and platform operations with automation-first delivery and IaC.',
-      image: '/images/cloud-engineering-devops.jpg',
+      image: '/IT/Cloud.jpg',
       imageAlt: 'Cloud Engineering & DevOps',
       features: [
         'Cloud migration and cost optimization',
@@ -87,7 +89,7 @@ export const itServicesData: ServiceData = {
       title: 'Application Development & Maintenance',
       content:
         'Custom development, legacy modernization, and automation to keep apps secure, current, and reliable.',
-      image: '/images/application-development-maintenance.jpg',
+      image: '/IT/applicationdevelopment.jpg',
       imageAlt: 'Application Development & Maintenance',
       features: [
         'Custom application development',
@@ -101,7 +103,7 @@ export const itServicesData: ServiceData = {
       title: 'Cybersecurity & Compliance',
       content:
         'Security operations, risk assessments, and compliance aligned to GCC frameworks with proactive monitoring.',
-      image: '/images/cybersecurity-compliance.jpg',
+      image: '/IT/Cybersecurity.jpg',
       imageAlt: 'Cybersecurity & Compliance',
       features: [
         'Security operations and monitoring',
@@ -115,7 +117,7 @@ export const itServicesData: ServiceData = {
       title: 'Data & Analytics',
       content:
         'Data governance, reporting, and analytics aligned to sovereignty and privacy requirements.',
-      image: '/images/data-analytics.jpg',
+      image: '/IT/dataanalytics.jpg',
       imageAlt: 'Data & Analytics',
       features: [
         'Data governance and quality',
@@ -129,7 +131,7 @@ export const itServicesData: ServiceData = {
       title: 'QA & Testing',
       content:
         'Functional, regression, and performance testing including multilingual and payment gateway scenarios.',
-      image: '/images/qa-testing.jpg',
+      image: '/IT/qatesting.jpg',
       imageAlt: 'QA & Testing',
       features: [
         'Functional and regression testing',
@@ -143,7 +145,7 @@ export const itServicesData: ServiceData = {
       title: 'IT Helpdesk & Managed IT Operations',
       content:
         'End-user support and managed IT operations with clear SLAs, escalation paths, and user satisfaction tracking.',
-      image: '/images/it-helpdesk-managed-operations.jpg',
+      image: '/IT/servicedesk.jpg',
       imageAlt: 'IT Helpdesk & Managed IT Operations',
       features: [
         'L1/L2/L3 helpdesk coverage',
@@ -157,6 +159,8 @@ export const itServicesData: ServiceData = {
       title: 'BPO & KPO Services',
       content:
         'Process outsourcing with governance, quality, and continuous improvement baked in.',
+      image: '/IT/bpokpo.jpg',
+      imageAlt: 'BPO & KPO Services',
       features: [
         'Multishift, 24x7 delivery',
         'Governance and SLA/OLA management',

@@ -104,7 +104,7 @@ export const ecommerceManagementServicesData: ServiceData = {
       title: 'Account Setup & Governance',
       content:
         'We configure and verify seller accounts, set up tax and shipping profiles, and implement governance to stay compliant with marketplace policies.',
-      image: '/images/account-setup-governance.jpg',
+      image: '/ecommerce/accountsetup.jpg',
       imageAlt: 'Account Setup & Governance',
       features: [
         'Seller account setup and verification',
@@ -118,7 +118,7 @@ export const ecommerceManagementServicesData: ServiceData = {
       title: 'Catalog & Listing Optimization',
       content:
         'Optimized titles, bullets, A+ content, and images to lift CTR and conversion while keeping inventory organized and accurate.',
-      image: '/images/catalog-listing-optimization.jpg',
+      image: '/ecommerce/catalog.jpg',
       imageAlt: 'Catalog & Listing Optimization',
       features: [
         'Keyword-rich titles, bullets, and descriptions',
@@ -132,7 +132,7 @@ export const ecommerceManagementServicesData: ServiceData = {
       title: 'Advertising & Promotions',
       content:
         'Performance marketing across marketplace ads and off-platform channels to increase visibility and drive sales efficiently.',
-      image: '/images/advertising-promotions.jpg',
+      image: '/ecommerce/marketing.jpg',
       imageAlt: 'Advertising & Promotions',
       features: [
         'Sponsored products/brands/display campaign management',
@@ -146,7 +146,7 @@ export const ecommerceManagementServicesData: ServiceData = {
       title: 'Operations & Support',
       content:
         'We manage day-to-day operations—orders, returns, cases—and provide clear reporting so you always see the impact.',
-      image: '/images/operations-support.jpg',
+      image: '/ecommerce/operations.jpg',
       imageAlt: 'Operations & Support',
       features: [
         'Order, return, and case management',

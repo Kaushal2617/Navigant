@@ -25,31 +25,26 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
 
         {/* Glassmorphism Content Section - Left Side */}
         <div className="absolute inset-0 z-10 flex items-end sm:items-end lg:items-center">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full pb-8 sm:pb-16 lg:pb-0 lg:pt-28">
-            <div className="max-w-2xl">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full pb-4 sm:pb-8 md:pb-12 lg:pb-0 lg:pt-28">
+            <div className="w-full max-w-full sm:max-w-2xl">
               <div
-                className="p-6 sm:p-8 md:p-10 rounded-2xl backdrop-blur-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1))',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  boxShadow: '0 4px 16px 0 rgba(0, 0, 0, 0.2)',
-                }}
+                className="hero-glass-effect p-4 sm:p-5 md:p-6 lg:p-8 xl:p-10 rounded-lg sm:rounded-xl md:rounded-2xl"
               >
                 {/* Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-5 lg:mb-6 leading-tight drop-shadow-lg">
                   Scale Smarter. Operate Faster. Grow Stronger.
                 </h1>
 
                 {/* Sub-headline */}
-                <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed drop-shadow-md">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 mb-4 sm:mb-5 md:mb-6 lg:mb-8 leading-relaxed drop-shadow-md">
                   With Navigant's end-to-end outsourcing and staffing solutions, businesses unlock efficiency, agility, and measurable growth.
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4">
                   <a
                     href="/contact"
-                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                    className="inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base font-semibold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
                     style={{ 
                       backgroundColor: '#CA1411',
                       color: '#ffffff'
@@ -66,7 +61,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsVideoOpen(true)}
-                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                    className="inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base font-semibold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
                     style={{
                       backgroundColor: '#CA1411',
                       color: '#ffffff'

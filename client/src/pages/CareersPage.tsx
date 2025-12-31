@@ -372,7 +372,7 @@ const CareersPage: React.FC = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8">
             {[
               {
                 icon: '🚀',
@@ -407,18 +407,18 @@ const CareersPage: React.FC = () => {
             ].map((benefit, index) => (
               <div
                 key={index}
-                className="group relative rounded-2xl p-6 md:p-8 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full"
+                className="group relative rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full"
                 style={{
                   background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9))',
                   backdropFilter: 'blur(20px) saturate(180%)',
                   WebkitBackdropFilter: 'blur(20px) saturate(180%)',
                 }}
               >
-                <div className="text-5xl mb-4">{benefit.icon}</div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#CA1411] transition-colors duration-300">
+                <div className="text-3xl sm:text-4xl md:text-5xl mb-2 sm:mb-3 md:mb-4">{benefit.icon}</div>
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900 mb-2 sm:mb-2.5 md:mb-3 group-hover:text-[#CA1411] transition-colors duration-300 leading-tight">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">
                   {benefit.description}
                 </p>
               </div>

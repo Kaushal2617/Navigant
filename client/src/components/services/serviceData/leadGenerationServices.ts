@@ -99,7 +99,7 @@ export const leadGenerationServicesData: ServiceData = {
       title: 'ICP, TAM & Research',
       content:
         'Define ICP, segment TAM, and build target lists with firmographic, technographic, and intent signals. Every contact is enriched and verified before outreach.',
-      image: '/images/icp-tam-research.jpg',
+      image: '/leadGeneration/icpresearch.jpg',
       imageAlt: 'ICP, TAM & Research',
       features: [
         'ICP and persona mapping workshops',
@@ -113,7 +113,7 @@ export const leadGenerationServicesData: ServiceData = {
       title: 'Messaging & Cadences',
       content:
         'Channel-specific messaging that feels relevant and personalized. We run structured experiments on subject lines, calls-to-action, and steps per persona.',
-      image: '/images/messaging-cadences.jpg',
+      image: '/leadGeneration/messaging.jpg',
       imageAlt: 'Messaging & Cadences',
       features: [
         'Persona-based sequencing across email, phone, and social',
@@ -127,7 +127,7 @@ export const leadGenerationServicesData: ServiceData = {
       title: 'Qualification & Handoff',
       content:
         'We book meetings directly on your calendar or hand off qualified responses with context so your team can focus on closing.',
-      image: '/images/qualification-handoff.jpg',
+      image: '/leadGeneration/handoff.jpg',
       imageAlt: 'Qualification & Handoff',
       features: [
         'Meeting booking with calendar alignment',

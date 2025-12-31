@@ -106,7 +106,7 @@ export const digitalMarketingServicesData: ServiceData = {
       title: 'LinkedIn Marketing',
       content:
         'Turn LinkedIn into a consistent lead-generation engine. We act as your done-for-you outbound team, reaching out to 50 targeted prospects daily—so you focus on closing while we handle prospecting, connections, and conversation starters.',
-      image: '/images/linkedin-marketing.jpg',
+      image: '/digital/LinkedIn.jpg',
       imageAlt: 'LinkedIn Marketing',
       features: [
         'Profile Optimization – Rewrite to clearly show who you help, the problem you solve, and the CTA.',
@@ -121,7 +121,7 @@ export const digitalMarketingServicesData: ServiceData = {
       title: 'Facebook Advertising',
       content:
         'Maximize your Facebook presence and generate quality leads with a systematic, data-driven strategy. We build precise audiences, launch high-impact ads, and nurture every lead to increase conversions.',
-      image: '/images/facebook-advertising.jpg',
+      image: '/digital/facebook.jpg',
       imageAlt: 'Facebook Advertising',
       features: [
         'Targeted Audience Building: Advanced Facebook targeting to reach ideal prospects by interest, location, and intent.',
@@ -135,7 +135,7 @@ export const digitalMarketingServicesData: ServiceData = {
       title: 'Search Engine Optimization',
       content:
         "Modern SEO demands a holistic, strategic, and tactical approach across where your audience searches—Google, Yahoo, Bing, app stores, and more. We build durable search presence, avoid gimmicks, and scale rankings cost-effectively over time with hands-on, senior SEO expertise.",
-      image: '/images/search-engine-optimization.jpg',
+      image: '/digital/searchengineoptimization.jpg',
       imageAlt: 'Search Engine Optimization',
       features: [
         'Holistic, modern SEO: strategic thinking + tactical execution for durable growth.',
@@ -150,7 +150,7 @@ export const digitalMarketingServicesData: ServiceData = {
       title: 'Social Media Optimization',
       content:
         'SMO is now core to performance marketing. We build and optimize social presence to reach decision-makers, drive qualified traffic, and convert clicks into revenue—keeping your brand visible, relevant, and trusted across networks.',
-      image: '/images/social-media-optimization.jpg',
+      image: '/digital/socialmedia.jpg',
       imageAlt: 'Social Media Optimization',
       features: [
         'Audience-first SMO: target decision-makers across major networks (LinkedIn, X/Twitter, Facebook, etc.).',

@@ -65,7 +65,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
         </div>
       ) : (
         // Fallback hero section if no slides
-        <section className="relative py-16 md:py-24 lg:py-32 bg-gradient-to-br from-white via-gray-50 to-white overflow-hidden">
+        <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-white via-gray-50 to-white overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
             <DotGrid
               dotSize={12}
@@ -83,19 +83,19 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
             />
           </div>
           <div className="absolute inset-0 opacity-5 pointer-events-none z-0">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#CA1411] rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-[#CA1411] rounded-full blur-3xl" />
           </div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 pt-20 md:pt-24 lg:pt-28">
-            <div className="max-w-4xl mx-auto text-center">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10 pt-16 sm:pt-20 md:pt-24 lg:pt-28">
+            <div className="max-w-full sm:max-w-3xl md:max-w-4xl mx-auto text-center">
               {serviceData.subtitle && (
-                <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-4 sm:mb-6 leading-relaxed px-2">
                   {serviceData.subtitle}
                 </p>
               )}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-6 sm:mb-8 leading-tight px-2">
                 {serviceData.title}
               </h1>
-              <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-3">
                 {serviceData.description}
               </p>
             </div>
@@ -114,7 +114,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
 
       {/* 3. About Section */}
       {serviceData.aboutSection && (
-        <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+        <section className="py-10 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
             <DotGrid
               dotSize={12}
@@ -131,12 +131,12 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
               className="w-full h-full"
             />
           </div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight text-center">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
+            <div className="max-w-full sm:max-w-3xl md:max-w-4xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8 leading-tight text-center px-2">
                 {serviceData.aboutSection.title}
               </h2>
-              <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-center whitespace-pre-line">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed text-center whitespace-pre-line px-3">
                 {serviceData.aboutSection.content}
               </p>
             </div>
@@ -186,28 +186,28 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
               className="w-full h-full"
             />
           </div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
             {/* Section Header */}
-            <div className="text-center mb-12 md:mb-16">
-              <div className="inline-block mb-4">
-                <span className="text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+              <div className="inline-block mb-3 sm:mb-4">
+                <span className="text-xs sm:text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
                   Why Choose Us
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight px-2">
                 Bringing the Best{' '}
                 <span className="text-[#CA1411] relative">
                   Technology and Services
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
                 </span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
                 Navigant Technologies, with its pioneering spirit of innovation and distinctive customer value proposition, provides solutions that allow enterprises to be resilient, maintain business continuity, and grow in a flexible, scalable, and secure manner.
               </p>
             </div>
 
             {/* Highlights Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 lg:gap-7">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7">
               {serviceData.highlights.map((highlight, index) => (
                 <div
                   key={highlight.id}
@@ -217,7 +217,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
                   }}
                 >
                   <div
-                    className="relative rounded-2xl p-8 bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 ease-out h-full"
+                    className="relative rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 ease-out h-full"
                     style={{
                       background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85))',
                       backdropFilter: 'blur(20px) saturate(180%)',
@@ -225,28 +225,28 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
                     }}
                   >
                     {/* Icon and Title - Side by Side */}
-                    <div className="flex items-start gap-4 mb-4">
+                    <div className="flex items-start gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3 md:mb-4">
                     {/* Icon */}
                       <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 ease-out bg-gradient-to-br from-[#CA1411] to-[#CA1411] shadow-lg shadow-[#CA1411]/20">
-                        <span className="text-3xl">{highlight.icon || '✨'}</span>
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 ease-out bg-gradient-to-br from-[#CA1411] to-[#CA1411] shadow-lg shadow-[#CA1411]/20">
+                        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">{highlight.icon || '✨'}</span>
                       </div>
                     </div>
 
                     {/* Title */}
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#CA1411] transition-colors duration-300 flex-1 pt-1">
+                      <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900 group-hover:text-[#CA1411] transition-colors duration-300 flex-1 pt-0.5 sm:pt-1">
                       {highlight.title}
                     </h3>
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-base leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                       {highlight.description}
                     </p>
 
                     {/* Hover effect */}
                     <div
-                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       style={{
                         background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.05) 0%, transparent 100%)',
                       }}
@@ -286,27 +286,27 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
             />
           </div>
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
             {/* Section Header */}
-            <div className="text-center mb-12 md:mb-16">
-              <div className="inline-block mb-4">
-                <span className="text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+              <div className="inline-block mb-3 sm:mb-4">
+                <span className="text-xs sm:text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
                   Additional Services
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight px-2">
                 More <span className="text-[#CA1411] relative">
                   Solutions
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
                 </span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
                 Explore our comprehensive range of additional BPO services designed to support your business needs.
               </p>
             </div>
 
             {/* Additional Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
               {serviceData.additionalServices.map((service, index) => (
                 <div
                   key={service.id}
@@ -361,25 +361,25 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
               </div>
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
+              <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-4xl relative z-10">
                 <div className="text-center">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight px-2">
                     {serviceData.cta.title}
                   </h2>
-                  <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 md:mb-10 leading-relaxed px-3">
                     {serviceData.cta.description}
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-3">
                     <a
                       href={serviceData.cta.primaryButton.href}
-                      className="inline-block px-8 py-4 bg-white text-[#CA1411] font-semibold rounded-lg transition-all duration-300 text-center shadow-lg hover:shadow-xl hover:-translate-y-0.5 hover:bg-gray-50 text-base md:text-lg"
+                      className="inline-block w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-white text-[#CA1411] font-semibold rounded-lg transition-all duration-300 text-center shadow-lg hover:shadow-xl hover:-translate-y-0.5 hover:bg-gray-50 text-sm sm:text-base md:text-lg"
                     >
                       {serviceData.cta.primaryButton.text}
                     </a>
                     {serviceData.cta.secondaryButton && (
                       <a
                         href={serviceData.cta.secondaryButton.href}
-                        className="inline-block px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#CA1411] font-semibold rounded-lg transition-all duration-300 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 text-base md:text-lg"
+                        className="inline-block w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 border-2 border-white text-white hover:bg-white hover:text-[#CA1411] font-semibold rounded-lg transition-all duration-300 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base md:text-lg"
                       >
                         {serviceData.cta.secondaryButton.text}
                       </a>

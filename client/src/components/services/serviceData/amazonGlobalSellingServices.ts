@@ -111,7 +111,7 @@ export const amazonGlobalSellingServicesData: ServiceData = {
       title: 'Account Setup & Management',
       content:
         'We handle complete Amazon seller account setup, registration, and ongoing management across multiple marketplaces. Our team ensures compliance with Amazon policies, manages account health metrics, and resolves any account-related issues to keep your business running smoothly.',
-      image: '/images/account-setup-management.jpg',
+      image: '/amazon/accountsetup.jpg',
       imageAlt: 'Account Setup & Management',
       features: [
         'Amazon seller account registration and verification',
@@ -126,7 +126,7 @@ export const amazonGlobalSellingServicesData: ServiceData = {
       title: 'Product Listing & Optimization',
       content:
         'Create compelling, SEO-optimized product listings that rank higher in Amazon search results and convert visitors into customers. We craft keyword-rich titles, bullet points, descriptions, and A+ content that showcase your products effectively.',
-      image: '/images/product-listing-optimization.jpg',
+      image: '/amazon/productlisting.jpg',
       imageAlt: 'Product Listing & Optimization',
       features: [
         'Keyword research and SEO optimization',
@@ -141,7 +141,7 @@ export const amazonGlobalSellingServicesData: ServiceData = {
       title: 'Inventory & Order Management',
       content:
         'Maintain optimal inventory levels across marketplaces with real-time tracking and automated replenishment. We manage order processing, coordinate with fulfillment centers, and ensure timely delivery to customers.',
-      image: '/images/inventory-order-management.jpg',
+      image: '/amazon/inventory.jpg',
       imageAlt: 'Inventory & Order Management',
       features: [
         'Real-time inventory tracking and management',
@@ -156,7 +156,7 @@ export const amazonGlobalSellingServicesData: ServiceData = {
       title: 'Customer Service & Support',
       content:
         'Provide exceptional customer service that builds trust and drives positive reviews. Our team handles customer inquiries, manages reviews and ratings, resolves issues, and maintains your seller reputation.',
-      image: '/images/customer-service-support.jpg',
+      image: '/amazon/customerservice.jpg',
       imageAlt: 'Customer Service & Support',
       features: [
         '24/7 customer inquiry handling',
@@ -171,6 +171,8 @@ export const amazonGlobalSellingServicesData: ServiceData = {
       title: 'Advertising & PPC Management',
       content:
         'Maximize your visibility and sales with strategic Amazon advertising campaigns. We manage Sponsored Products, Sponsored Brands, and Display Ads to drive traffic and improve conversion rates.',
+      image: '/amazon/advertising.jpg',
+      imageAlt: 'Advertising & PPC Management',
       features: [
         'Amazon PPC campaign setup and optimization',
         'Sponsored Products and Sponsored Brands management',

@@ -28,57 +28,57 @@ const IndustrySolutions: React.FC<IndustrySolutionsProps> = ({ industries }) => 
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <div className="inline-block mb-3 sm:mb-4">
+            <span className="text-xs sm:text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
               Our Industry
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-tight px-2">
             Find Solutions Customized for{' '}
             <span className="text-[#CA1411] relative">
               Your Industry
               <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
             Navigant BPO Services are the best in these fields
           </p>
         </div>
 
         {/* Industries Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 lg:gap-7">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7">
           {industries.map((industry, index) => {
             const iconPath = industry.iconPath || defaultIconPath;
             
             return (
               <div
                 key={industry.id}
-                className="relative group rounded-2xl p-6 md:p-8 bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 ease-out h-full flex flex-col"
+                className="relative group rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 ease-out h-full flex flex-col"
                 style={{
                   animationDelay: `${index * 0.1}s`,
                 }}
               >
                 {/* Gradient overlay on hover */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-lg sm:rounded-xl md:rounded-2xl"
                   style={{
                     background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.05) 0%, rgba(202, 20, 17, 0.02) 50%, transparent 100%)',
                   }}
                 />
 
                 {/* Icon and Title - Side by Side */}
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3 md:mb-4">
                   {/* Icon */}
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out bg-gradient-to-br from-[#CA1411] to-[#CA1411] shadow-lg shadow-[#CA1411]/20">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out bg-gradient-to-br from-[#CA1411] to-[#CA1411] shadow-lg shadow-[#CA1411]/20">
                       {industry.icon ? (
-                        <span className="text-3xl">{industry.icon}</span>
+                        <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">{industry.icon}</span>
                       ) : (
                         <svg
-                          className="w-8 h-8 text-white"
+                          className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth={2.5}
@@ -93,13 +93,13 @@ const IndustrySolutions: React.FC<IndustrySolutionsProps> = ({ industries }) => 
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#CA1411] transition-colors duration-300 leading-tight flex-1 pt-1">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900 group-hover:text-[#CA1411] transition-colors duration-300 leading-tight flex-1 pt-0.5 sm:pt-1">
                     {industry.name}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 text-base leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                   {industry.description}
                 </p>
               </div>

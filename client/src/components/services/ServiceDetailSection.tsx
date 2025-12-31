@@ -45,7 +45,7 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
 
   return (
     <section
-      className={`py-10 md:py-14 lg:py-16 relative overflow-hidden ${
+      className={`py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 relative overflow-hidden ${
         isAlternate ? 'bg-gradient-to-br from-gray-50 to-white' : 'bg-white'
       }`}
       style={{
@@ -68,16 +68,16 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
           className="w-full h-full"
         />
       </div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center ${
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 lg:gap-8 xl:gap-10 items-center ${
           isAlternate ? 'lg:grid-flow-dense' : ''
         }`}>
           {/* Content */}
           <div className={isAlternate ? 'lg:col-start-2' : ''}>
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-5 md:space-y-6">
               {/* Title with accent */}
               <div className="relative">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#CA1411] mb-6 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#CA1411] mb-4 sm:mb-5 md:mb-6 leading-tight px-1">
                   {section.title}
                   <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
                 </h2>
@@ -85,21 +85,21 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
 
               {/* Content */}
               <div className="prose prose-lg max-w-none">
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed whitespace-pre-line">
+                <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed whitespace-pre-line px-1">
                   {section.content}
                 </p>
               </div>
 
               {/* Features List */}
               {section.features && section.features.length > 0 && (
-                <div className="mt-8">
-                  <ul className="space-y-3">
+                <div className="mt-6 sm:mt-7 md:mt-8">
+                  <ul className="space-y-2.5 sm:space-y-3">
                     {section.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
+                      <li key={idx} className="flex items-start gap-2.5 sm:gap-3">
                         <div className="flex-shrink-0 mt-1.5">
                           <div className="w-2 h-2 rounded-full bg-[#CA1411]" />
                         </div>
-                        <span className="text-gray-700 text-base md:text-lg">{feature}</span>
+                        <span className="text-gray-700 text-sm sm:text-base md:text-lg">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -115,7 +115,7 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
           >
             {section.image ? (
               <div 
-                className="relative rounded-2xl overflow-hidden shadow-xl group"
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xl group"
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
@@ -123,7 +123,7 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
                 }}
               >
                 {/* Image with zoom effect */}
-                <div className="relative overflow-hidden rounded-2xl">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
                   <img
                     src={section.image}
                     alt={section.imageAlt || section.title}
@@ -140,7 +140,7 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
               </div>
             ) : (
               <div
-                className="relative rounded-2xl overflow-hidden h-64 md:h-80 lg:h-96 flex items-center justify-center"
+                className="relative rounded-xl sm:rounded-2xl overflow-hidden h-48 sm:h-56 md:h-64 lg:h-80 xl:h-96 flex items-center justify-center"
                 style={{
                   background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.1) 0%, rgba(202, 20, 17, 0.05) 100%)',
                 }}

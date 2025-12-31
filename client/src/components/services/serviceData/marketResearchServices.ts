@@ -99,7 +99,7 @@ export const marketResearchServicesData: ServiceData = {
       title: 'Research Outsourcing',
       content:
         'Questionnaire design, programming, tabulation, delivery, secondary research, and reporting handled by expert research teams across methods and formats.',
-      image: '/images/research-outsourcing.jpg',
+      image: '/marketresearch/researchoutsourcing.jpg',
       imageAlt: 'Research Outsourcing',
       features: [
         'Questionnaire Design – Programming simple to complex multi-lingual questionnaires using leading platforms and languages.',
@@ -114,7 +114,7 @@ export const marketResearchServicesData: ServiceData = {
       title: 'Global Data Management',
       content:
         'End-to-end research execution: localized questionnaires, programming/hosting, sample sourcing, online and CATI fieldwork, and analysis/reporting—all handled by Navigant.',
-      image: '/images/global-data-management.jpg',
+      image: '/marketresearch/globaldatamanagement.jpg',
       imageAlt: 'Global Data Management',
       features: [
         'Conducting Research – Full-cycle delivery: localize, program/host, source sample, run online + CATI, and deliver analysis and reports.',
@@ -128,7 +128,7 @@ export const marketResearchServicesData: ServiceData = {
       title: 'Analytics',
       content:
         'Advanced analytics on survey and behavioral data—combining statistical models, data mining, and campaign performance analysis to uncover actionable insights.',
-      image: '/images/analytics.jpg',
+      image: '/marketresearch/analytics.jpg',
       imageAlt: 'Analytics',
       features: [
         'Survey Analysis – Deep-dive on survey data using techniques like multiple/logistic regression, factor and cluster analysis, segmentation, and conjoint.',
@@ -141,7 +141,7 @@ export const marketResearchServicesData: ServiceData = {
       title: 'Insight Reporting & Visualization',
       content:
         'Translate data into clear narratives, presentations, and dashboards that decision-makers can act on immediately.',
-      image: '/images/insight-reporting-visualization.jpg',
+      image: '/marketresearch/insightreporting.jpg',
       imageAlt: 'Insight Reporting & Visualization',
       features: [
         'Executive summaries and key insight decks',
