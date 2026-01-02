@@ -15,20 +15,42 @@ interface Service {
 
 const ServicesPage: React.FC = () => {
   // Services data matching the dropdown services
+  // Priority services appear first: BPO, Lead Generation, Ecommerce Management, End to End Sales
   const services: Service[] = [
-    {
-      id: '1',
-      name: 'Digital Workers',
-      slug: 'digital-workers',
-      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
-      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
-    },
     {
       id: '2',
       name: 'BPO Services',
       slug: 'bpo-services',
       description: 'Comprehensive Business Process Outsourcing services to help you focus on core business activities.',
       shortDescription: 'End-to-end BPO solutions designed to optimize your business processes and reduce costs.',
+    },
+    {
+      id: '12',
+      name: 'Lead Generation',
+      slug: 'lead-generation',
+      description: 'Professional lead generation services to identify, qualify, and convert prospects into customers.',
+      shortDescription: 'Data-driven lead generation strategies to grow your sales pipeline.',
+    },
+    {
+      id: '11',
+      name: 'Ecommerce Management',
+      slug: 'ecommerce-management',
+      description: 'Complete ecommerce management services including order processing, inventory management, and customer support.',
+      shortDescription: 'End-to-end ecommerce solutions to streamline your online business operations.',
+    },
+    {
+      id: '13',
+      name: 'End to End Sales',
+      slug: 'end-to-end-sales',
+      description: 'Comprehensive end-to-end sales services from lead qualification to closing deals and customer retention.',
+      shortDescription: 'Complete sales solutions to drive revenue growth and customer satisfaction.',
+    },
+    {
+      id: '1',
+      name: 'Digital Workers',
+      slug: 'digital-workers',
+      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
+      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
     },
     {
       id: '3',
@@ -85,27 +107,6 @@ const ServicesPage: React.FC = () => {
       slug: 'digital-marketing',
       description: 'Digital marketing services including SEO, social media marketing, and content creation.',
       shortDescription: 'Strategic digital marketing solutions to grow your online presence and reach.',
-    },
-    {
-      id: '11',
-      name: 'Ecommerce Management',
-      slug: 'ecommerce-management',
-      description: 'Complete ecommerce management services including order processing, inventory management, and customer support.',
-      shortDescription: 'End-to-end ecommerce solutions to streamline your online business operations.',
-    },
-    {
-      id: '12',
-      name: 'Lead Generation',
-      slug: 'lead-generation',
-      description: 'Professional lead generation services to identify, qualify, and convert prospects into customers.',
-      shortDescription: 'Data-driven lead generation strategies to grow your sales pipeline.',
-    },
-    {
-      id: '13',
-      name: 'End to End Sales',
-      slug: 'end-to-end-sales',
-      description: 'Comprehensive end-to-end sales services from lead qualification to closing deals and customer retention.',
-      shortDescription: 'Complete sales solutions to drive revenue growth and customer satisfaction.',
     },
   ];
 

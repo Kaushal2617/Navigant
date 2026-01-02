@@ -1,4 +1,4 @@
-import type { HeroSlide } from './HeroBanner';
+import type { HeroSlide } from '../services/serviceTypes';
 
 // BPO Services hero slides data
 export const heroSlides: HeroSlide[] = [

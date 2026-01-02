@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * Utility function to add artificial delay for demo purposes
  * Remove this in production or set to 0
@@ -21,7 +23,4 @@ export const lazyWithDelay = <T extends React.ComponentType<any>>(
     return importFn();
   });
 };
-
-// Note: Import React if using lazyWithDelay
-// import React from 'react';
 

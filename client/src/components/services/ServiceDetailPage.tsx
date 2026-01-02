@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react';
 import type { ServiceData } from './serviceTypes';
 import ServiceHero from './ServiceHero';
-import type { HeroSlide as HeroSlideType } from '../hero/HeroBanner';
+import type { HeroSlide as HeroSlideType } from './serviceTypes';
 import ServiceCard from '../commons/ServiceCard';
 import BrandShowcase from './BrandShowcase';
 import { lazyWithDelay } from '../../utils/lazyWithDelay';

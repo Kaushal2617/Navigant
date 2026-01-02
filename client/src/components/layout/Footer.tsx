@@ -210,9 +210,8 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-500 text-xs mb-1 uppercase tracking-wide">Address</p>
-                  <p className="text-gray-900 text-sm">
-                    Navigant Technologies<br />
-                    India
+                  <p className="text-gray-900 text-sm whitespace-pre-line">
+                    Navigant Technologies{'\n'}A- 24/5, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044
                   </p>
                 </div>
               </div>

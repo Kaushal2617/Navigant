@@ -152,7 +152,7 @@ const ContactPage: React.FC = () => {
         </svg>
       ),
       title: 'Address',
-      content: '123, Navigant Towers, Sector 18, Gurugram, Haryana, India - 122008',
+      content: 'Navigant Technologies\nA- 24/5, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044',
       link: '#',
       description: 'Visit our office',
     },
@@ -163,7 +163,7 @@ const ContactPage: React.FC = () => {
         </svg>
       ),
       title: 'Business Hours',
-      content: 'Mon - Fri: 9:00 AM - 6:00 PM',
+      content: '24×7',
       link: '#',
       description: 'We are here to help',
     },
@@ -420,7 +420,7 @@ const ContactPage: React.FC = () => {
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-[#CA1411] transition-colors duration-300">
                   {info.title}
                 </h3>
-                <p className="text-gray-600 mb-1 font-medium">{info.content}</p>
+                <p className="text-gray-600 mb-1 font-medium whitespace-pre-line">{info.content}</p>
                 <p className="text-sm text-gray-500">{info.description}</p>
               </a>
             ))}

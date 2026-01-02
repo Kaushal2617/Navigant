@@ -5,7 +5,7 @@ import CaseStudiesSection from '../components/commons/CaseStudiesSection';
 const CaseStudiesPage: React.FC = () => {
   return (
     <AppLayout>
-      <CaseStudiesSection />
+      <CaseStudiesSection showViewAllButton={false} enableHorizontalScroll={false} />
     </AppLayout>
   );
 };

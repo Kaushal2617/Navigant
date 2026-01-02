@@ -1,5 +1,5 @@
 import React from 'react';
-import Shimmer, { ShimmerText, ShimmerImage } from './Shimmer';
+import Shimmer, { ShimmerText } from './Shimmer';
 
 /**
  * Page Loader with Shimmer - For route-based lazy loading

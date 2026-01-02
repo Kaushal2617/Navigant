@@ -10,6 +10,8 @@ export interface TestimonialWithRating {
   content: string;
   avatar?: string;
   rating: number; // Rating from 1 to 5
+  role?: string;
+  company?: string;
 }
 
 // Testimonials data with ratings

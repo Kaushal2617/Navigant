@@ -4,10 +4,9 @@ import Footer from './Footer';
 
 interface AppLayoutProps {
   children: React.ReactNode;
-  maxWidth?: boolean; // Option to constrain content width
 }
 
-const AppLayout: React.FC<AppLayoutProps> = ({ children, maxWidth = false }) => {
+const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
       <Navigation />

@@ -40,6 +40,7 @@ export interface HeroSlide {
   subtitle?: string;
   image: string;
   imageAlt?: string;
+  location?: string;
   primaryButton?: {
     text: string;
     href?: string;

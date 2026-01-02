@@ -6,12 +6,16 @@ interface CaseStudiesSectionProps {
   caseStudies?: CaseStudy[];
   title?: string;
   subtitle?: string;
+  showViewAllButton?: boolean; // Control whether to show the "View All" button
+  enableHorizontalScroll?: boolean; // Control whether to enable horizontal scroll on mobile
 }
 
 const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
   caseStudies = caseStudiesData,
   title = caseStudiesSectionConfig.title,
   subtitle = caseStudiesSectionConfig.subtitle,
+  showViewAllButton = true, // Default to true for home page
+  enableHorizontalScroll = true, // Default to true for home page
 }) => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
@@ -37,7 +41,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
-            Case Studies & Customer Stories{' '}
+            {title || 'Case Studies & Customer Stories'}{' '}
             <span className="text-[#CA1411]">| NAVIGANT</span>
           </h2>
           {subtitle && (
@@ -47,11 +51,12 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
           )}
         </div>
 
-        {/* Case Studies Horizontal Scroll Container for Mini Devices */}
+        {/* Case Studies Container */}
         <div className="relative">
-          {/* Horizontal Scroll Container - Mini Devices */}
-          <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 md:hidden">
-            <div className="flex gap-4 sm:gap-5 min-w-max">
+          {/* Horizontal Scroll Container - Mini Devices - Only if enabled */}
+          {enableHorizontalScroll && (
+            <div className="overflow-x-auto scrollbar-hide pb-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 md:hidden">
+              <div className="flex gap-4 sm:gap-5 min-w-max">
               {caseStudies.map((caseStudy, index) => (
                 <div
                   key={caseStudy.id}
@@ -169,11 +174,12 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                   </div>
                 </div>
               ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Grid Layout - Desktop */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8 lg:gap-10">
+          {/* Grid Layout - Mobile (when horizontal scroll is disabled) and Desktop */}
+          <div className={`${enableHorizontalScroll ? 'hidden md:grid' : 'grid'} grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8 lg:gap-10`}>
             {caseStudies.map((caseStudy, index) => (
               <div
                 key={caseStudy.id}
@@ -293,30 +299,59 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
             ))}
           </div>
 
-          {/* View All Button - Only for Mini Devices */}
-          <div className="text-center mt-6 sm:mt-8 md:hidden">
-            <a
-              href="/case-studies"
-              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 relative z-10 text-sm sm:text-base"
-              style={{ color: '#ffffff' }}
-            >
-              <span style={{ color: '#ffffff' }}>View All Case Studies</span>
-              <svg
-                className="w-4 h-4 sm:w-5 sm:h-5 transform transition-transform duration-300 hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+          {/* View All Button - Mobile - Only show if showViewAllButton is true */}
+          {showViewAllButton && (
+            <div className="text-center mt-6 sm:mt-8 md:hidden">
+              <a
+                href="/explore/case-studies"
+                className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 relative z-10 text-sm sm:text-base"
                 style={{ color: '#ffffff' }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </a>
-          </div>
+                <span style={{ color: '#ffffff' }}>View All Case Studies</span>
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5 transform transition-transform duration-300 hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  style={{ color: '#ffffff' }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          )}
+
+          {/* View All Button - Desktop - Only show if showViewAllButton is true */}
+          {showViewAllButton && (
+            <div className="hidden md:flex justify-center mt-10 md:mt-12 lg:mt-16">
+              <a
+                href="/explore/case-studies"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 relative z-10"
+                style={{ color: '#ffffff' }}
+              >
+                <span style={{ color: '#ffffff' }}>View All Case Studies</span>
+                <svg
+                  className="w-5 h-5 transform transition-transform duration-300 hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  style={{ color: '#ffffff' }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>
