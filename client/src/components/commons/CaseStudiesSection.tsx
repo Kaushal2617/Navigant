@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { caseStudiesData, caseStudiesSectionConfig, type CaseStudy } from './caseStudiesData';
 import DotGrid from './DotGrid';
+import CaseStudyModal from './CaseStudyModal';
 
 interface CaseStudiesSectionProps {
   caseStudies?: CaseStudy[];
@@ -17,6 +18,20 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
   showViewAllButton = true, // Default to true for home page
   enableHorizontalScroll = true, // Default to true for home page
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+
+  const handleReadMore = (caseStudy: CaseStudy, e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedCaseStudy(caseStudy);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedCaseStudy(null), 300);
+  };
+
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
       {/* DotGrid Background */}
@@ -138,8 +153,8 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                       </p>
 
                       {/* Read More Button */}
-                      <a
-                        href={caseStudy.readMoreLink || '#'}
+                      <button
+                        onClick={(e) => handleReadMore(caseStudy, e)}
                         className="inline-flex items-center gap-1.5 sm:gap-2 text-[#CA1411] font-semibold hover:text-[#B0120F] transition-colors duration-300 group/btn text-xs sm:text-sm"
                       >
                         <span>Read More</span>
@@ -156,7 +171,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                             d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                           />
                         </svg>
-                      </a>
+                      </button>
                     </div>
 
                     {/* Decorative corner accent */}
@@ -261,8 +276,8 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                     </p>
 
                     {/* Read More Button */}
-                    <a
-                      href={caseStudy.readMoreLink || '#'}
+                    <button
+                      onClick={(e) => handleReadMore(caseStudy, e)}
                       className="inline-flex items-center gap-2 text-[#CA1411] font-semibold hover:text-[#B0120F] transition-colors duration-300 group/btn"
                     >
                       <span>Read More</span>
@@ -279,7 +294,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                           d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                         />
                       </svg>
-                    </a>
+                    </button>
                   </div>
 
                   {/* Decorative corner accent */}
@@ -354,6 +369,13 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
           )}
         </div>
       </div>
+
+      {/* Case Study Modal */}
+      <CaseStudyModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        caseStudy={selectedCaseStudy}
+      />
     </section>
   );
 };

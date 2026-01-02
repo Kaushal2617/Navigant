@@ -13,7 +13,7 @@ export interface NavConfig {
 }
 
 export const navConfig: NavConfig = {
-  logo: 'https://www.navigant.in/assets/images/footer-logo.png',
+  logo: '/logo.png',
   mainNavItems: [
     {
       label: 'Home',
