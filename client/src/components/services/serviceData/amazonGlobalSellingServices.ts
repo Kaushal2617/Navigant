@@ -34,7 +34,7 @@ export const amazonGlobalSellingServicesData: ServiceData = {
   ],
 
   aboutSection: {
-    title: 'Navigant Amazon Global Selling Services',
+    title: 'Amazon Global Selling Services in Partnership with Navigant: Trusted Gold Partner',
     content:
       'Amazon Global Selling opens doors to millions of customers across the world. However, managing multiple marketplaces, product listings, inventory, and customer service can be overwhelming. Navigant offers end-to-end Amazon seller support services to help you navigate the complexities of global e-commerce, optimize your listings for better visibility, manage inventory efficiently, and provide exceptional customer service—all while you focus on growing your business.',
   },

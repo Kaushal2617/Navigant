@@ -285,7 +285,7 @@ const AboutPage: React.FC = () => {
               >
                 <div className="aspect-square relative overflow-hidden">
                   <img
-                    src="/team/ankur2.jpg"
+                    src="/team-assets/ankur2.jpg"
                     alt="Ankur Bhatia - Founder and CEO"
                     className="w-full h-full object-cover"
                     onError={(e) => {
