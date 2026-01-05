@@ -364,15 +364,26 @@ h1 {
 }
 
 .animate-scroll-left {
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 10s linear infinite;
   display: flex;
   will-change: transform;
 }
 
 .animate-scroll-right {
-  animation: scroll-right 40s linear infinite;
+  animation: scroll-right 10s linear infinite;
   display: flex;
   will-change: transform;
+}
+
+/* Faster animation on desktop and larger screens */
+@media (min-width: 768px) {
+  .animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+  }
+
+  .animate-scroll-right {
+    animation: scroll-right 40s linear infinite;
+  }
 }
 
 /* Pause animation on hover */

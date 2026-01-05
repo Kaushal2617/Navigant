@@ -103,7 +103,7 @@ export const bpoServicesData: ServiceData = {
     {
       id: 'years-experience',
       title: 'Years of Experience',
-      description: 'Over 20+ years of experience in delivering and delighting enterprises with pioneering BPO products and solutions.',
+      description: 'Over 23+ years of experience in delivering and delighting enterprises with pioneering BPO products and solutions.',
       icon: '📅',
     },
     {

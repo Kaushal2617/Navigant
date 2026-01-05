@@ -29,24 +29,9 @@ const clientLogos: ClientLogo[] = [
       alt: 'Meesho Logo',
     },
     {
-      name: 'Motherson',
-      logo: '/logos/Motherson.png',
-      alt: 'Motherson Logo',
-    },
-    {
       name: 'Siemens',
       logo: '/logos/Siemens.png',
       alt: 'Siemens Logo',
-    },
-    {
-      name: 'HP Hewlett Packard',
-      logo: '/logos/HPhewlettpackard.png',
-      alt: 'HP Hewlett Packard Logo',
-    },
-    {
-      name: 'Times Job',
-      logo: '/logos/TimesJobs.png',
-      alt: 'Times Job Logo',
     },
     {
       name: 'Progress',
@@ -89,19 +74,9 @@ const clientLogos: ClientLogo[] = [
       alt: 'Snapdeal Logo',
     },
     {
-      name: 'Oracle',
-      logo: '/logos/Oracle.png',
-      alt: 'Oracle Logo',
-    },
-    {
       name: 'ICRA',
       logo: '/logos/ICRA.png',
       alt: 'ICRA Logo',
-    },
-    {
-      name: 'IShare',
-      logo: '/logos/Ishare.png',
-      alt: 'IShare Logo',
     },
     {
       name: 'NIIT',
