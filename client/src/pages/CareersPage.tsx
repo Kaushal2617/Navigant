@@ -7,6 +7,7 @@ import {
   submitJobApplicationLegacy,
   type JobApplication
 } from '../services/careersApi';
+import JobDetailsModal from '../components/commons/JobDetailsModal';
 
 const CareersPage: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -24,6 +25,8 @@ const CareersPage: React.FC = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [modalJob, setModalJob] = useState<Job | null>(null);
 
   // Fallback job data (used if API fails)
   const fallbackJobs: Job[] = [
@@ -35,19 +38,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '3-5 years',
       description: 'We are looking for an experienced BPO Executive to manage client relationships and ensure exceptional service delivery.',
-      requirements: [
-        'Bachelor\'s degree in Business Administration or related field',
-        '3-5 years of experience in BPO operations',
-        'Excellent communication and interpersonal skills',
-        'Strong problem-solving abilities',
-        'Proficiency in CRM software',
-      ],
-      responsibilities: [
-        'Manage client accounts and maintain relationships',
-        'Oversee daily operations and ensure service quality',
-        'Coordinate with cross-functional teams',
-        'Analyze performance metrics and implement improvements',
-      ],
+      requirements: `<ul>
+        <li>Bachelor's degree in Business Administration or related field</li>
+        <li>3-5 years of experience in BPO operations</li>
+        <li>Excellent communication and interpersonal skills</li>
+        <li>Strong problem-solving abilities</li>
+        <li>Proficiency in CRM software</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Manage client accounts and maintain relationships</li>
+        <li>Oversee daily operations and ensure service quality</li>
+        <li>Coordinate with cross-functional teams</li>
+        <li>Analyze performance metrics and implement improvements</li>
+      </ul>`,
     },
     {
       id: 'job-2',
@@ -57,19 +60,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '1-3 years',
       description: 'Join our customer support team to provide exceptional service and support to our clients.',
-      requirements: [
-        'High school diploma or equivalent',
-        '1-3 years of customer service experience',
-        'Excellent verbal and written communication skills',
-        'Ability to work in a fast-paced environment',
-        'Basic computer skills',
-      ],
-      responsibilities: [
-        'Handle customer inquiries via phone, email, and chat',
-        'Resolve customer issues promptly and professionally',
-        'Maintain accurate records of customer interactions',
-        'Escalate complex issues to appropriate departments',
-      ],
+      requirements: `<ul>
+        <li>High school diploma or equivalent</li>
+        <li>1-3 years of customer service experience</li>
+        <li>Excellent verbal and written communication skills</li>
+        <li>Ability to work in a fast-paced environment</li>
+        <li>Basic computer skills</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Handle customer inquiries via phone, email, and chat</li>
+        <li>Resolve customer issues promptly and professionally</li>
+        <li>Maintain accurate records of customer interactions</li>
+        <li>Escalate complex issues to appropriate departments</li>
+      </ul>`,
     },
     {
       id: 'job-3',
@@ -79,19 +82,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '5+ years',
       description: 'Lead our digital marketing initiatives and drive brand awareness through innovative campaigns.',
-      requirements: [
-        'Bachelor\'s degree in Marketing or related field',
-        '5+ years of digital marketing experience',
-        'Proficiency in SEO, SEM, and social media marketing',
-        'Strong analytical skills',
-        'Experience with marketing automation tools',
-      ],
-      responsibilities: [
-        'Develop and execute digital marketing strategies',
-        'Manage social media accounts and content creation',
-        'Analyze campaign performance and optimize ROI',
-        'Collaborate with cross-functional teams',
-      ],
+      requirements: `<ul>
+        <li>Bachelor's degree in Marketing or related field</li>
+        <li>5+ years of digital marketing experience</li>
+        <li>Proficiency in SEO, SEM, and social media marketing</li>
+        <li>Strong analytical skills</li>
+        <li>Experience with marketing automation tools</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Develop and execute digital marketing strategies</li>
+        <li>Manage social media accounts and content creation</li>
+        <li>Analyze campaign performance and optimize ROI</li>
+        <li>Collaborate with cross-functional teams</li>
+      </ul>`,
     },
     {
       id: 'job-4',
@@ -101,19 +104,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '2-4 years',
       description: 'Provide technical support and maintain IT infrastructure for our organization.',
-      requirements: [
-        'Bachelor\'s degree in Computer Science or IT',
-        '2-4 years of IT support experience',
-        'Knowledge of networking, hardware, and software',
-        'Strong troubleshooting skills',
-        'Certifications in relevant technologies preferred',
-      ],
-      responsibilities: [
-        'Provide technical support to employees',
-        'Maintain and troubleshoot IT systems',
-        'Install and configure software and hardware',
-        'Document technical procedures and solutions',
-      ],
+      requirements: `<ul>
+        <li>Bachelor's degree in Computer Science or IT</li>
+        <li>2-4 years of IT support experience</li>
+        <li>Knowledge of networking, hardware, and software</li>
+        <li>Strong troubleshooting skills</li>
+        <li>Certifications in relevant technologies preferred</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Provide technical support to employees</li>
+        <li>Maintain and troubleshoot IT systems</li>
+        <li>Install and configure software and hardware</li>
+        <li>Document technical procedures and solutions</li>
+      </ul>`,
     },
     {
       id: 'job-5',
@@ -123,19 +126,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '2-3 years',
       description: 'Help us find and attract top talent to join our growing team.',
-      requirements: [
-        'Bachelor\'s degree in HR or related field',
-        '2-3 years of recruitment experience',
-        'Strong sourcing and screening skills',
-        'Excellent communication skills',
-        'Knowledge of recruitment tools and platforms',
-      ],
-      responsibilities: [
-        'Source and attract qualified candidates',
-        'Screen resumes and conduct initial interviews',
-        'Coordinate with hiring managers',
-        'Manage candidate pipeline and applicant tracking',
-      ],
+      requirements: `<ul>
+        <li>Bachelor's degree in HR or related field</li>
+        <li>2-3 years of recruitment experience</li>
+        <li>Strong sourcing and screening skills</li>
+        <li>Excellent communication skills</li>
+        <li>Knowledge of recruitment tools and platforms</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Source and attract qualified candidates</li>
+        <li>Screen resumes and conduct initial interviews</li>
+        <li>Coordinate with hiring managers</li>
+        <li>Manage candidate pipeline and applicant tracking</li>
+      </ul>`,
     },
     {
       id: 'job-6',
@@ -145,19 +148,19 @@ const CareersPage: React.FC = () => {
       type: 'Full-time',
       experience: '2-5 years',
       description: 'Drive business growth by acquiring new clients and expanding existing relationships.',
-      requirements: [
-        'Bachelor\'s degree in Business or related field',
-        '2-5 years of sales experience',
-        'Proven track record of meeting sales targets',
-        'Excellent negotiation and presentation skills',
-        'Strong relationship-building abilities',
-      ],
-      responsibilities: [
-        'Identify and pursue new business opportunities',
-        'Build and maintain client relationships',
-        'Prepare and deliver sales presentations',
-        'Achieve monthly and quarterly sales targets',
-      ],
+      requirements: `<ul>
+        <li>Bachelor's degree in Business or related field</li>
+        <li>2-5 years of sales experience</li>
+        <li>Proven track record of meeting sales targets</li>
+        <li>Excellent negotiation and presentation skills</li>
+        <li>Strong relationship-building abilities</li>
+      </ul>`,
+      responsibilities: `<ul>
+        <li>Identify and pursue new business opportunities</li>
+        <li>Build and maintain client relationships</li>
+        <li>Prepare and deliver sales presentations</li>
+        <li>Achieve monthly and quarterly sales targets</li>
+      </ul>`,
     },
   ];
 
@@ -186,7 +189,15 @@ const CareersPage: React.FC = () => {
     fetchJobs();
   }, []); // Empty dependency array - only run on mount
 
-  const handleJobClick = (job: Job) => {
+  // Handle "View Details" click
+  const handleViewDetails = (job: Job) => {
+    setModalJob(job);
+    setDetailsOpen(true);
+  };
+
+  // Handle "Apply Now" click (from card or modal)
+  const handleApplyClick = (job: Job) => {
+    setDetailsOpen(false);
     setSelectedJob(job);
     setApplicationData({
       ...applicationData,
@@ -479,34 +490,38 @@ const CareersPage: React.FC = () => {
               {jobs.map((job) => (
                 <div
                   key={job.id}
-                  className="group relative rounded-2xl p-6 md:p-8 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer"
+                  className="group relative rounded-2xl p-6 bg-white border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col"
                   style={{
                     background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9))',
                     backdropFilter: 'blur(20px) saturate(180%)',
                     WebkitBackdropFilter: 'blur(20px) saturate(180%)',
                   }}
-                  onClick={() => handleJobClick(job)}
                 >
                   {/* Job Type Badge */}
-                  <div className="mb-4">
+                  <div className="flex justify-between items-start mb-4">
                     <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#CA1411]/10 text-[#CA1411]">
                       {job.type}
                     </span>
+                    {job.salaryRange && (
+                      <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">
+                        {job.salaryRange}
+                      </span>
+                    )}
                   </div>
 
                   {/* Job Title */}
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#CA1411] transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#CA1411] transition-colors duration-300 line-clamp-2">
                     {job.title}
                   </h3>
 
-                  {/* Job Details */}
-                  <div className="space-y-2 mb-4">
+                  {/* Job Locations & Dept */}
+                  <div className="space-y-1 mb-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                       <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span>{job.location}</span>
+                      <span className="line-clamp-1">{job.location}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                       <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -514,27 +529,34 @@ const CareersPage: React.FC = () => {
                       </svg>
                       <span>{job.department}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <svg className="w-4 h-4 text-[#CA1411]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span>{job.experience} experience</span>
-                    </div>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
-                    {job.description}
-                  </p>
+                  {/* Short Description (Truncated) */}
+                  <div
+                    className="text-gray-600 text-sm leading-relaxed mb-6 flex-1 line-clamp-3 overflow-hidden text-ellipsis"
+                    dangerouslySetInnerHTML={{ __html: job.description }}
+                  />
 
-                  {/* Apply Button */}
-                  <button className="mt-auto w-full px-6 py-3 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                    Apply Now
-                  </button>
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 mt-auto pt-4 border-t border-gray-100">
+                    <button
+                      onClick={() => handleViewDetails(job)}
+                      className="flex-1 px-4 py-2.5 border border-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 text-sm"
+                    >
+                      View Details
+                    </button>
+                    <button
+                      onClick={() => handleApplyClick(job)}
+                      className="flex-1 px-4 py-2.5 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-sm"
+                    >
+                      Apply Now
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           )}
+
         </div>
       </section>
 
@@ -756,6 +778,12 @@ const CareersPage: React.FC = () => {
           </div>
         </div>
       </section>
+      <JobDetailsModal
+        open={detailsOpen}
+        onClose={() => setDetailsOpen(false)}
+        job={modalJob}
+        onApply={handleApplyClick}
+      />
     </AppLayout>
   );
 };

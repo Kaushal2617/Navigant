@@ -1,0 +1,48 @@
+package com.navigant.service.impl;
+
+import java.util.List;
+
+import com.navigant.dto.CaseStudyRequest;
+import com.navigant.dto.CaseStudyResponse;
+import com.navigant.dto.CaseStudyUpdateRequest;
+import com.navigant.service.CaseStudyService;
+
+public class CaseStudyServiceImpl implements CaseStudyService {
+
+	@Override
+	public CaseStudyResponse create(CaseStudyRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CaseStudyResponse> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CaseStudyResponse getById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CaseStudyResponse update(String id, CaseStudyUpdateRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<CaseStudyResponse> getPublished() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

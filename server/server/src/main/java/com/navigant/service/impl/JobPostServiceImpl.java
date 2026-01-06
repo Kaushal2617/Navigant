@@ -44,6 +44,7 @@ public class JobPostServiceImpl implements JobPostService {
 				dto.getResponsibilities(),
 				dto.getSalaryRange(),
 				dto.getApplicationLink(),
+				dto.getStatus(),
 				dto.getCreatedBy(),
 				dto.getExpiresAt());
 

@@ -1,0 +1,5 @@
+package com.navigant;
+
+public class CaseStudyNotFoundException {
+
+}

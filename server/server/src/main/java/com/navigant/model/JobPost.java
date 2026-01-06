@@ -86,10 +86,11 @@ public final class JobPost {
 	// --- Factory method for creation ---
 	public static JobPost createNew(String title, String description, String location, String jobType,
 			String requirements, String responsibilities, String salaryRange, String applicationLink,
-			String createdBy, Instant expiresAt) {
+			String status, String createdBy, Instant expiresAt) {
 		Instant now = Instant.now();
+		String initialStatus = (status != null && !status.isEmpty()) ? status : "DRAFT";
 		return new JobPost(null, title, description, location, jobType, requirements,
-				responsibilities, salaryRange, applicationLink, "DRAFT", createdBy, now, expiresAt, now);
+				responsibilities, salaryRange, applicationLink, initialStatus, createdBy, now, expiresAt, now);
 	}
 
 	// --- Copy-with methods for functional updates ---

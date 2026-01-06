@@ -41,8 +41,9 @@ export interface Job {
   type: 'Full-time' | 'Part-time' | 'Contract' | 'Remote';
   experience: string;            // UI field - can be extracted from requirements
   description: string;
-  requirements: string[];        // Parsed from JobPost.requirements
-  responsibilities: string[];    // Parsed from JobPost.responsibilities
+  requirements: string;          // HTML string
+  responsibilities: string;      // HTML string
+  salaryRange?: string;          // Added salary range
   isActive?: boolean;
   createdAt?: string;
   updatedAt?: string;
@@ -104,12 +105,6 @@ export interface JobApplication {
  * Convert server JobPost to UI-friendly Job format
  */
 export const convertJobPostToJob = (jobPost: JobPost): Job => {
-  // Parse requirements and responsibilities from multiline string to array
-  const parseToArray = (text?: string): string[] => {
-    if (!text) return [];
-    return text.split('\n').filter(line => line.trim().length > 0);
-  };
-
   return {
     id: jobPost.id,
     title: jobPost.title,
@@ -118,8 +113,9 @@ export const convertJobPostToJob = (jobPost: JobPost): Job => {
     type: jobPost.jobType as Job['type'],
     experience: 'Not specified', // Can be extracted from requirements if formatted
     description: jobPost.description,
-    requirements: parseToArray(jobPost.requirements),
-    responsibilities: parseToArray(jobPost.responsibilities),
+    requirements: jobPost.requirements || '', // HTML string
+    responsibilities: jobPost.responsibilities || '', // HTML string
+    salaryRange: jobPost.salaryRange,
     isActive: jobPost.status === 'ACTIVE',
     createdAt: jobPost.createdAt,
     updatedAt: jobPost.updatedAt,

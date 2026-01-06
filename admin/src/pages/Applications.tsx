@@ -3,9 +3,9 @@ import {
     Box, Typography, Snackbar, Alert, Stack, Button, Link
 } from '@mui/material';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import { useTheme, alpha } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import AppSelect from '../components/AppSelect';
-import AppTable, { StatusChip, type TableColumn } from '../components/AppTable';
+import AppTable, { type TableColumn } from '../components/AppTable';
 import client from '../api/client';
 import type { JobApplicationResponse } from '../api/types';
 

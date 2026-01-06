@@ -1,0 +1,16 @@
+package com.navigant.dto;
+
+public  CaseStudyRequest {
+
+	String title;
+	
+	String description;
+	
+	String fullContent;
+	String image;
+	
+	String category;
+	
+	String alt;
+	Integer order;
+}

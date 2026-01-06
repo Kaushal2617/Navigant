@@ -1,0 +1,7 @@
+package com.navigant.repository;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface CaseStudyRepository extends MongoRepository<T, ID> {
+
+}

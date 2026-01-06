@@ -98,7 +98,11 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-mail</artifactId>
-		    <version>4.0.1</version>
+		</dependency>
+		<!-- Explicitly adding Jakarta Mail Implementation -->
+		<dependency>
+		    <groupId>org.eclipse.angus</groupId>
+		    <artifactId>angus-mail</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
 		<dependency>

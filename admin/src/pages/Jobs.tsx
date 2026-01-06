@@ -22,6 +22,8 @@ export default function Jobs() {
     const [currentJob, setCurrentJob] = useState<Partial<JobPostDTO>>({});
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
 
+    const currencies = ['₹', '$', '€', '£', 'AED'];
+
     const fetchJobs = async () => {
         setLoading(true);
         try {
@@ -47,6 +49,8 @@ export default function Jobs() {
                 formattedJob.expiresAt = job.expiresAt.slice(0, 16);
             }
             setCurrentJob(formattedJob);
+
+            setCurrentJob(formattedJob);
         } else {
             setIsEdit(false);
             setCurrentJob({ status: 'DRAFT', jobType: 'FULL_TIME' });
@@ -62,6 +66,7 @@ export default function Jobs() {
     const handleSubmit = async () => {
         try {
             const payload = { ...currentJob };
+
             if (payload.expiresAt && !payload.expiresAt.endsWith('Z')) {
                 payload.expiresAt = new Date(payload.expiresAt).toISOString();
             }
@@ -129,6 +134,26 @@ export default function Jobs() {
             label: 'Status',
             minWidth: 100,
             render: (row) => <StatusChip label={row.status || 'DRAFT'} />,
+        },
+        {
+            id: 'createdAt',
+            label: 'Posted',
+            minWidth: 120,
+            render: (row) => (
+                <Typography variant="body2" color="text.secondary">
+                    {row.createdAt ? new Date(row.createdAt).toLocaleDateString() : '-'}
+                </Typography>
+            ),
+        },
+        {
+            id: 'expiresAt',
+            label: 'Expires',
+            minWidth: 120,
+            render: (row) => (
+                <Typography variant="body2" color={row.expiresAt && new Date(row.expiresAt) < new Date() ? 'error.main' : 'text.secondary'}>
+                    {row.expiresAt ? new Date(row.expiresAt).toLocaleDateString() : '-'}
+                </Typography>
+            ),
         },
         {
             id: 'actions',
@@ -297,22 +322,25 @@ export default function Jobs() {
                                     onChange={(value: string) => setCurrentJob({ ...currentJob, description: value })}
                                     style={{ height: '200px', marginBottom: '50px' }}
                                 />
-                                <TextField
-                                    label="Requirements (One per line)"
-                                    fullWidth
-                                    multiline
-                                    rows={3}
+
+                                <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+                                    Requirements (Rich Text)
+                                </Typography>
+                                <ReactQuill
+                                    theme="snow"
                                     value={currentJob.requirements || ''}
-                                    onChange={(e) => setCurrentJob({ ...currentJob, requirements: e.target.value })}
-                                    helperText="List key requirements for the role"
+                                    onChange={(value: string) => setCurrentJob({ ...currentJob, requirements: value })}
+                                    style={{ height: '150px', marginBottom: '50px' }}
                                 />
-                                <TextField
-                                    label="Responsibilities"
-                                    fullWidth
-                                    multiline
-                                    rows={3}
+
+                                <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+                                    Responsibilities (Rich Text)
+                                </Typography>
+                                <ReactQuill
+                                    theme="snow"
                                     value={currentJob.responsibilities || ''}
-                                    onChange={(e) => setCurrentJob({ ...currentJob, responsibilities: e.target.value })}
+                                    onChange={(value: string) => setCurrentJob({ ...currentJob, responsibilities: value })}
+                                    style={{ height: '150px', marginBottom: '50px' }}
                                 />
                             </Stack>
                         </Box>
@@ -339,13 +367,53 @@ export default function Jobs() {
                             backgroundColor: alpha(theme.palette.background.default, 0.8),
                             border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
                         }}>
+                            <Box sx={{ width: '100%' }}>
+                                <Stack direction="row" spacing={1} mb={0.5}>
+                                    {currencies.map((currency) => (
+                                        <Box
+                                            key={currency}
+                                            component="span"
+                                            onClick={() => {
+                                                const currentVal = currentJob.salaryRange || '';
+                                                setCurrentJob({ ...currentJob, salaryRange: currentVal + currency });
+                                            }}
+                                            sx={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                minWidth: 28,
+                                                height: 28,
+                                                px: 1,
+                                                borderRadius: 1.5,
+                                                backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                                                color: theme.palette.primary.main,
+                                                border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+                                                cursor: 'pointer',
+                                                fontWeight: 600,
+                                                fontSize: '0.8rem',
+                                                transition: 'all 0.2s',
+                                                '&:hover': {
+                                                    backgroundColor: theme.palette.primary.main,
+                                                    color: '#fff',
+                                                    transform: 'translateY(-1px)',
+                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                                },
+                                                userSelect: 'none'
+                                            }}
+                                        >
+                                            {currency}
+                                        </Box>
+                                    ))}
+                                </Stack>
+                            </Box>
                             <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} mb={2}>
                                 <TextField
                                     label="Salary Range"
                                     fullWidth
                                     value={currentJob.salaryRange || ''}
-                                    placeholder="e.g. $80k - $120k"
+                                    placeholder="e.g. ₹5L - 7L"
                                     onChange={(e) => setCurrentJob({ ...currentJob, salaryRange: e.target.value })}
+                                    helperText="Click currency symbols to append them"
                                 />
                                 <TextField
                                     label="Application Link (External)"
