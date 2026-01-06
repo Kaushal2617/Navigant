@@ -1,0 +1,98 @@
+package com.navigant.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.navigant.dto.LoginRequest;
+import com.navigant.dto.LoginResponse;
+import com.navigant.security.AdminUserDetails;
+import com.navigant.security.JwtUtils;
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
+/**
+ * Authentication controller.
+ * Handles login and other auth-related endpoints.
+ */
+@RestController
+@RequestMapping("/api/v1/auth")
+public class AuthController {
+
+	private final AuthenticationManager authenticationManager;
+	
+	private final JwtUtils jwtUtils;
+
+	public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+		this.authenticationManager = authenticationManager;
+		this.jwtUtils = jwtUtils;
+	}
+	
+	/**
+     * Login endpoint.
+     * Authenticates user and returns JWT token.
+     * 
+     * POST /api/v1/auth/login
+     * 
+     * @param loginRequest Contains email and password
+     * @return LoginResponse with JWT token and user info
+     */
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse loginResponse){
+		
+		// Authenticate user with Spring Security
+        // This will call CustomUserDetailsService.loadUserByUsername()
+        // and check password using PasswordEncoder
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(
+						loginRequest.getEmail(), 
+						loginRequest.getPassword()));
+		
+		// Set authentication in security context (user is now logged in)
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		 // Get authenticated user details
+		AdminUserDetails userDetails = (AdminUserDetails)authentication.getPrincipal();
+		
+		// Generate JWT token
+		String jwt = jwtUtils.generateToken(
+				userDetails.getUsername(), 
+				userDetails.getAdmin().getRole().getValue());
+		
+		// Create and return response with token and user info
+		LoginResponse response = new LoginResponse(
+				jwt, 
+				userDetails.getAdmin().getId(), 
+				userDetails.getAdmin().getEmail(), 
+				userDetails.getAdmin().getRole().getValue());
+		
+		return ResponseEntity.ok(response);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,129 @@
+package com.navigant.service.impl;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.navigant.dto.LeadCreateRequest;
+import com.navigant.dto.LeadResponse;
+import com.navigant.exception.LeadNotFoundException;
+import com.navigant.model.Admin;
+import com.navigant.model.Lead;
+import com.navigant.repository.AdminRepository;
+import com.navigant.repository.LeadRepository;
+import com.navigant.service.EmailService;
+import com.navigant.service.LeadService;
+import com.navigant.service.SettingService;
+
+@Service
+public class LeadServiceImpl implements LeadService {
+
+	private final LeadRepository leadRepository;
+	private final AdminRepository adminRepository;
+
+	@Autowired
+	private EmailService emailService;
+
+	@Autowired
+	private SettingService settingService;
+
+	public LeadServiceImpl(LeadRepository leadRepository, AdminRepository adminRepository) {
+		this.leadRepository = leadRepository;
+		this.adminRepository = adminRepository;
+	}
+
+	@Override
+	public LeadResponse createLead(LeadCreateRequest request) {
+		Lead lead = new Lead(
+				request.getFullName(),
+				request.getEmail(),
+				request.getPhone(),
+				request.getServiceType(),
+				request.getNumberOfSeats(),
+				request.getRemarks());
+
+		Lead saved = leadRepository.save(lead);
+
+		// --- Send Notification (Dynamic) ---
+		if (settingService.isNotificationEnabled(SettingService.KEY_LEAD_NOTIFICATIONS)) {
+			String targetEmail = settingService.getNotificationEmail(SettingService.KEY_LEAD_NOTIFICATIONS);
+
+			if (targetEmail != null && !targetEmail.isEmpty()) {
+
+				String subject = "New Lead: " + request.getServiceType();
+				String body = String.format("""
+						You have received a new lead!
+
+						         Name: %s
+						         Email: %s
+						         Phone: %s
+						         Service: %s
+						         Seats: %d
+						         Remarks: %s
+
+						         Please login to the admin panel to view details.
+						""",
+						request.getFullName(),
+						request.getEmail(),
+						request.getPhone(),
+						request.getServiceType(),
+						request.getNumberOfSeats(),
+						request.getRemarks());
+				emailService.sendEmail(targetEmail, subject, body);
+			}
+
+		}
+
+		return new LeadResponse(saved);
+	}
+
+	@Override
+	public List<LeadResponse> getAllLeads() {
+		return leadRepository.findAll().stream()
+				.map(lead -> {
+					LeadResponse response = new LeadResponse(lead);
+					// Populate reviewedByName if reviewedBy exists
+					if (lead.getReviewedBy() != null && !lead.getReviewedBy().isEmpty()) {
+						adminRepository.findById(lead.getReviewedBy())
+								.ifPresent(admin -> response.setReviewedByName(admin.getName()));
+					}
+					return response;
+				})
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public LeadResponse getLeadById(String id) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+		return new LeadResponse(lead);
+	}
+
+	@Override
+	public LeadResponse updateStatus(String id, String status, String adminId) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+
+		lead.setStatus(status);
+		lead.setUpdatedAt(LocalDateTime.now());
+		lead.setReviewedBy(adminId);
+		Lead updated = leadRepository.save(lead);
+		return new LeadResponse(updated);
+	}
+
+	@Override
+	public LeadResponse updateAdminComments(String id, String comments) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+
+		lead.setAdminComments(comments);
+		lead.setUpdatedAt(LocalDateTime.now());
+		Lead updated = leadRepository.save(lead);
+		return new LeadResponse(updated);
+	}
+
+}

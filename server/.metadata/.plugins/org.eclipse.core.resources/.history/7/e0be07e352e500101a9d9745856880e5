@@ -1,0 +1,36 @@
+package com.navigant.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.navigant.dto.ReviewCreateRequest;
+import com.navigant.dto.ReviewResponse;
+import com.navigant.security.AdminUserDetails;
+import com.navigant.service.ReviewService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/api/v1")
+public class ReviewController {
+
+	private final ReviewService reviewService;
+
+	public ReviewController(ReviewService reviewService) {
+		this.reviewService = reviewService;
+	}
+	
+	@PostMapping("/admin/reviews")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ReviewResponse createReviewLink(@Valid @RequestBody ReviewCreateRequest request,
+		@RequestHeader(value = "X-Base-Url", defaultValue = "http://localhost:3000") String baseUrl,
+		@AuthenticationPrincipal AdminUserDetails admin) {
+		return reviewService.createReviewLink(request, baseUrl);
+	}
+}

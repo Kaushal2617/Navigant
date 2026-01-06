@@ -1,0 +1,126 @@
+package com.navigant.dto;
+
+import java.time.LocalDateTime;
+
+import com.navigant.model.Lead;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public class LeadDTO {
+
+	private String id;
+	
+	@NotBlank(message = "Full Name is required")
+	private String fullName;
+	
+	@NotBlank(message = "Email is required")
+	@Email(message = "Invalid email format")
+	private String email;
+	
+	@NotBlank(message = "Phone number is required")
+	private String phone;
+	
+	@NotBlank(message = "Service type is required")
+	private String serviceType;
+	
+	@NotNull(message = "Number of seats is required")
+	private Integer numberOfSeats;
+	
+	private String remarks;
+	
+	private String status;
+	
+	private LocalDateTime createdAt;
+	
+	// Constructors
+	public LeadDTO() {}
+	
+	public LeadDTO(Lead lead) {
+		this.id = lead.getId();
+		this.fullName = lead.getFullName();
+		this.email = lead.getEmail();
+		this.phone = lead.getPhone();
+		this.serviceType = lead.getServiceType();
+		this.numberOfSeats = lead.getNumberOfSeats();
+		this.remarks = lead.getRemarks();
+		this.status = lead.getStatus();
+		this.createdAt = lead.getCreatedAt();
+	}
+
+	 // Getters and Setters
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public Integer getNumberOfSeats() {
+		return numberOfSeats;
+	}
+
+	public void setNumberOfSeats(Integer numberOfSeats) {
+		this.numberOfSeats = numberOfSeats;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	
+}

@@ -1,0 +1,1 @@
+import{j as e}from"./index-CHm0Ci5l.js";import{A as o}from"./DotGrid-CTa4RVL2.js";import{C as s}from"./CaseStudiesSection-SedDwjOf.js";const i=()=>e.jsx(o,{children:e.jsx(s,{showViewAllButton:!1,enableHorizontalScroll:!1})});export{i as default};

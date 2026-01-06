@@ -1,0 +1,30 @@
+spring:
+  mongodb:
+    uri: mongodb+srv://admin:JgSlt5taqTquMdTZ@cluster0.rcnl4ct.mongodb.net/navigant?retryWrites=true&w=majority&appName=Cluster0
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  security:
+    user:
+      name: admin
+      password: password
+
+
+logging:
+  level:
+    com.navigant: DEBUG
+    org.springframework.data.mongodb.core: DEBUG 
+
+# Custom App config
+app:
+ env: development
+ cors:
+  allowed-origins: http://localhost:3000,http://localhost:3001 
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mongodb:
+      enabled: false

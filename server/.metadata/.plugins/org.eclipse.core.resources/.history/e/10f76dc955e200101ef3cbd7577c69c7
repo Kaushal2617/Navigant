@@ -1,0 +1,25 @@
+package com.navigant.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class LoginResponse {
+	
+	// Authenticated user's ID
+	private String id;
+	
+	// Authenticated user's email
+	private String email;
+	
+	// Authenticated user's role
+	private String role;
+	
+	// Constructor without type parameter (defaults to "Bearer")
+	public LoginResponse( String id, String email, String role) {
+		this.id = id;
+		this.email = email;
+		this.role = role;
+	}
+}

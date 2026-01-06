@@ -1,0 +1,7 @@
+spring.application.name=server
+
+# MongoDB Atlas connection
+spring.mongodb.uri = mongodb+srv://ashishrathoreetw_db_user:PB7c3k542AJ10HKN@cluster0.rcnl4ct.mongodb.net/navigant
+
+#Port
+server.port=8080

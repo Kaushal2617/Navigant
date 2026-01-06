@@ -1,0 +1,36 @@
+package com.navigant.service;
+
+import java.util.List;
+
+import com.navigant.dto.PublicReviewResponse;
+import com.navigant.dto.ReviewCreateRequest;
+import com.navigant.dto.ReviewResponse;
+import com.navigant.dto.ReviewStatusUpdateRequest;
+import com.navigant.dto.ReviewSubmitRequest;
+
+public interface ReviewService {
+
+	// Admin: Create a new review link
+	ReviewResponse createReviewLink(ReviewCreateRequest request, String baseUrl);
+	
+	// Admin: Get all reviews
+	List<ReviewResponse> getAllReviews();
+	
+	// Admin: Get single review
+	ReviewResponse getReviewById(String id);
+	
+	// Admin: Update review status (approve/reject)
+	ReviewResponse updateStatus(String id, ReviewStatusUpdateRequest request);
+	
+	// Admin: Delete review
+	void deleteReview(String id);
+	
+	// Public: Get review form data by token (to prefill client info)
+	ReviewResponse getReviewByToken(String token);
+	
+	// Public: Submit review (client fills the form)
+	ReviewResponse submitReview(String token, ReviewSubmitRequest request);
+	
+	// Public: Get all approved reviews (for display)
+	List<PublicReviewResponse> getApprovedReviews();
+}

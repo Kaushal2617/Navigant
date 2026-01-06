@@ -1,0 +1,155 @@
+package com.navigant.exception;
+
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.navigant.CaseStudyNotFoundException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+/**
+ * Global exception handler for admin-related errors.
+ * Produces RFC 7807 Problem Details (JSON) for clients.
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(AdminNotFoundException.class)
+	ProblemDetail handleAdminNotFound(AdminNotFoundException ex) {
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+		problem.setTitle("Admin Not Found");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(JobNotFoundException.class)
+	ProblemDetail handleJobNotFound(JobNotFoundException ex) {
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+		problem.setTitle("Job Not Found");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	ProblemDetail handleIllegalArgument(IllegalArgumentException ex) {
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+		problem.setTitle("Validation Failed");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	ProblemDetail handleValidationErrors(MethodArgumentNotValidException ex) {
+
+		// Collect all error messages
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach(error -> {
+			String fieldName = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(fieldName, errorMessage);
+		});
+
+		// Get first error for detail message
+		String firstError = errors.isEmpty() ? "Validation failed" : errors.values().iterator().next();
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, firstError);
+
+		problem.setTitle("Validation error");
+		problem.setProperty("errors", errors); // All errors still here
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(JobApplicationNotFoundException.class)
+	ProblemDetail handleJobApplicationNotFoundError(JobApplicationNotFoundException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		problem.setTitle("Job Application Not Found");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(LeadNotFoundException.class)
+	ProblemDetail handleLeadNotFound(LeadNotFoundException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		problem.setTitle("Lead Not Found");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	ProblemDetail handleAccessDenied(AccessDeniedException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN,
+				"You do not have permission to perform this action.");
+		problem.setTitle("Access Denied");
+		problem.setProperty("timestamp", Instant.now());
+		return problem;
+	}
+
+	@ExceptionHandler(org.springframework.security.authentication.BadCredentialsException.class)
+	ProblemDetail handleBadCredentials(org.springframework.security.authentication.BadCredentialsException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED,
+				"Invalid email or password.");
+		problem.setTitle("Authentication Failed");
+		problem.setProperty("timestamp", Instant.now());
+		return problem;
+	}
+
+	/**
+	 * Catch-all handler for unexpected exceptions.
+	 * Logs full error internally but returns generic message to clients.
+	 */
+	@ExceptionHandler(Exception.class)
+	ProblemDetail handleGenericException(Exception ex) {
+		// Log full stack trace for debugging (use proper logger in production)
+		ex.printStackTrace();
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				"An unexpected error occurred. Please try again later.");
+		problem.setTitle("Internal Server Error");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+	}
+
+	@ExceptionHandler(ReviewNotFoundException.class)
+	ProblemDetail handleReviewNotFound(ReviewNotFoundException ex) {
+
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		problem.setTitle("Review Not Found");
+		problem.setProperty("timestamp", Instant.now());
+
+		return problem;
+
+	}
+	
+	@ExceptionHandler(CaseStudyNotFoundException.class)
+	ProblemDetail handleCaseStudyNotFoundException(CaseStudyNotFoundException ex) {
+		
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+		problem.setTitle("Case Study Not Found");
+		problem.setProperty("timestamp", Instant.now());
+		
+		return problem;
+	}
+}

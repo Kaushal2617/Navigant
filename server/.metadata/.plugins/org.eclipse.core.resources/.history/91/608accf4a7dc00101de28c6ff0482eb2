@@ -1,0 +1,98 @@
+package com.navigant.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.navigant.security.CustomUserDetailsService;
+import com.navigant.security.JwtAuthenticationFilter;
+
+/**
+ * Security configuration for JWT-based authentication.
+ */
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+	
+	private final CustomUserDetailsService userDetailsService;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final PasswordEncoder passwordEncoder;
+	
+	public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter,
+			PasswordEncoder passwordEncoder) {
+		this.userDetailsService = userDetailsService;
+		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	/**
+     * Configure HTTP security.
+     * - Disable CSRF (not needed for stateless JWT)
+     * - Configure which endpoints require authentication
+     * - Add JWT filter to process tokens
+     * - Disable sessions (stateless)
+     */
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+        
+        	// Disable CSRF for stateless API
+            .csrf(csrf -> csrf.disable())
+            
+            // Configure authorization rules
+            .authorizeHttpRequests(auth -> auth
+            		
+            // Public endpoints (no authentication required)
+                .requestMatchers(
+                		"/api/v1/auth/**",							// Login endpoint
+                		"/api/v1/jobs",								// GET jobs (public can view)
+                		"/api/v1/jobs/**",							// GET job by ID (public can view)
+                		"/public/**",								// Any public endpoints
+                		"/actuator/health"							// Health check
+                		).permitAll()
+                
+             // All other endpoints require authentication
+                .anyRequest().authenticated()
+            )
+            
+         // Stateless session management (no server-side sessions)
+            .sessionManagement(session -> 
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            
+         // Add our JWT filter before Spring Security's authentication filter
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+    
+    /**
+     * Authentication provider that uses our UserDetailsService and PasswordEncoder.
+     */
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+    	DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    	authProvider.setUserDetailsService(userDetailsService);
+    	authProvider.setPasswordEncoder(passwordEncoder);
+    	return authProvider;
+    }
+    
+    /**
+     * Expose AuthenticationManager bean.
+     * Required for authenticating users in AuthController.
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+    	return authConfig.getAuthenticationManager();
+    }
+
+}

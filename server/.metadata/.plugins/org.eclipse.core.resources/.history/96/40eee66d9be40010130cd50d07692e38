@@ -1,0 +1,5 @@
+package com.navigant.model;
+
+public final class Review {
+
+}

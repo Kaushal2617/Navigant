@@ -7,7 +7,7 @@
 
 // API Base URL - Update this with your actual API endpoint
 // In Vite, use import.meta.env instead of process.env
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
 
 // API Response Types
 export interface ApiResponse<T> {

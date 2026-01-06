@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.service{JobPostService.java[JobPostService" modifiers="513" timestamp="1767596933262"/>
+    <typeInfo handle="=server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.service{EmailService.java[EmailService" modifiers="513" timestamp="1767596933262"/>
+    <typeInfo handle="=server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.service{SettingService.java[SettingService" modifiers="513" timestamp="1767596933262"/>
+    <typeInfo handle="=server/\/usr\/lib\/jvm\/java-17-openjdk-amd64\/lib\/jrt-fs.jar`java.base=/javadoc_location=/https:\/\/docs.oracle.com\/en\/java\/javase\/17\/docs\/api\/=/=/maven.pomderived=/true=/&lt;java.lang(RuntimeException.class[RuntimeException" modifiers="33" timestamp="1761225860000"/>
+    <typeInfo handle="=server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.service{ReviewService.java[ReviewService" modifiers="513" timestamp="1767596933262"/>
+    <typeInfo handle="=server/\/home\/asheesh-rathore\/.m2\/repository\/org\/springframework\/data\/spring-data-mongodb\/4.2.0\/spring-data-mongodb-4.2.0.jar=/maven.pomderived=/true=/=/maven.groupId=/org.springframework.data=/=/maven.artifactId=/spring-data-mongodb=/=/maven.version=/4.2.0=/=/maven.scope=/compile=/=/maven.pomderived=/true=/&lt;org.springframework.data.mongodb.repository(MongoRepository.class[MongoRepository" modifiers="1537" timestamp="1700229281000"/>
+    <typeInfo handle="=server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.service{CaseStudyService.java[CaseStudyService" modifiers="513" timestamp="1767609082192"/>
+</typeInfoHistroy>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.navigant.dto.LeadDTO&apos; to &apos;LeadCreateRequest&apos;&#x0A;- Original project: &apos;server&apos;&#x0A;- Original element: &apos;com.navigant.dto.LeadDTO&apos;&#x0A;- Renamed element: &apos;com.navigant.dto.LeadCreateRequest&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;LeadDTO&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.navigant.dto{LeadDTO.java[LeadDTO" matchStrategy="1" name="LeadCreateRequest" qualified="false" references="true" similarDeclarations="false" stamp="1766390387698" textual="false" version="1.0"/>
+</session>

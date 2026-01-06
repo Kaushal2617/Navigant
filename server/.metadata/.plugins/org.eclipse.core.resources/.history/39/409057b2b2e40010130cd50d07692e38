@@ -1,0 +1,5 @@
+package com.navigant.exception;
+
+public class ReviewNotFoundException extends RuntimeException {
+
+}

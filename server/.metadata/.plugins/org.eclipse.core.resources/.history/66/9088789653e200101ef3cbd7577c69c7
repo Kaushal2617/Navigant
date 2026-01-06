@@ -1,0 +1,49 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:JgSlt5taqTquMdTZ@cluster0.rcnl4ct.mongodb.net/navigant?retryWrites=true&w=majority&appName=Cluster0&tls=true&tlsAllowInvalidCertificates=true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: verifymykyc@gmail.com
+    password: irwwcmltmjjvmdtn
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+# Cloudinary - Hardcoded for Dev Convenience
+cloudinary:
+  cloud-name: deh81b97w
+  api-key: 993984294615455
+  api-secret: aM7LuNKVU59edEyYxhq-os_wwt0
+
+logging:
+  level:
+    com.navigant: DEBUG
+    org.springframework.data.mongodb.core: DEBUG 
+
+# Custom App config
+app:
+  env: development
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:3001 
+  # JWT - Hardcoded for Dev
+  jwt:
+    secret: dev-secret-key-must-be-very-long-for-security-at-least-64-bytes-for-hs512
+    expiration: 86400000
+
+  notifications:
+    leads-email: "ashishrathoreetw@gmail.com"
+    hr-email: "ashishrathoreetw@gmail.com"
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mongodb:
+      enabled: true

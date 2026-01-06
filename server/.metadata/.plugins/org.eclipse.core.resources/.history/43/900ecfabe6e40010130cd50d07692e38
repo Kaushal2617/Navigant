@@ -1,0 +1,62 @@
+package com.navigant.service.impl;
+
+import java.util.List;
+
+import com.navigant.dto.PublicReviewResponse;
+import com.navigant.dto.ReviewCreateRequest;
+import com.navigant.dto.ReviewResponse;
+import com.navigant.dto.ReviewStatusUpdateRequest;
+import com.navigant.dto.ReviewSubmitRequest;
+import com.navigant.service.ReviewService;
+
+public class ReviewServiceImpl implements ReviewService {
+
+	@Override
+	public ReviewResponse createReviewLink(ReviewCreateRequest request, String baseUrl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ReviewResponse> getAllReviews() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReviewResponse getReviewById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReviewResponse updateStatus(String id, ReviewStatusUpdateRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteReview(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public ReviewResponse getReviewByToken(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReviewResponse submitReview(String token, ReviewSubmitRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PublicReviewResponse> getApprovedReviews() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

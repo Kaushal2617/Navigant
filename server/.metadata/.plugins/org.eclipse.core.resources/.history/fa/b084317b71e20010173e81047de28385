@@ -1,0 +1,136 @@
+package com.navigant.service.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.navigant.dto.LeadCreateRequest;
+import com.navigant.dto.LeadResponse;
+import com.navigant.exception.LeadNotFoundException;
+import com.navigant.model.Lead;
+import com.navigant.repository.AdminRepository;
+import com.navigant.repository.LeadRepository;
+import com.navigant.service.EmailService;
+import com.navigant.service.LeadService;
+import com.navigant.service.SettingService;
+
+/**
+ * Implementation of LeadService using immutable Lead entity.
+ */
+@Service
+public class LeadServiceImpl implements LeadService {
+
+	private final LeadRepository leadRepository;
+	private final AdminRepository adminRepository;
+	private final EmailService emailService;
+	private final SettingService settingService;
+
+	public LeadServiceImpl(LeadRepository leadRepository,
+			AdminRepository adminRepository,
+			EmailService emailService,
+			SettingService settingService) {
+		this.leadRepository = leadRepository;
+		this.adminRepository = adminRepository;
+		this.emailService = emailService;
+		this.settingService = settingService;
+	}
+
+	@Override
+	public LeadResponse createLead(LeadCreateRequest request) {
+		// Use factory method instead of constructor with setters
+		Lead lead = Lead.createNew(
+				request.getFullName(),
+				request.getEmail(),
+				request.getPhone(),
+				request.getServiceType(),
+				request.getNumberOfSeats(),
+				request.getRemarks());
+
+		Lead saved = leadRepository.save(lead);
+
+		// --- Send Notification (Dynamic) ---
+		if (settingService.isNotificationEnabled(SettingService.KEY_LEAD_NOTIFICATIONS)) {
+			String targetEmail = settingService.getNotificationEmail(SettingService.KEY_LEAD_NOTIFICATIONS);
+
+			if (targetEmail != null && !targetEmail.isEmpty()) {
+				String subject = "New Lead: " + request.getServiceType();
+				String body = String.format("""
+						You have received a new lead!
+
+						         Name: %s
+						         Email: %s
+						         Phone: %s
+						         Service: %s
+						         Seats: %d
+						         Remarks: %s
+
+						         Please login to the admin panel to view details.
+						""",
+						request.getFullName(),
+						request.getEmail(),
+						request.getPhone(),
+						request.getServiceType(),
+						request.getNumberOfSeats(),
+						request.getRemarks());
+				emailService.sendEmail(targetEmail, subject, body);
+			}
+		}
+
+		return toResponse(saved, null);
+	}
+
+	@Override
+	public List<LeadResponse> getAllLeads() {
+		return leadRepository.findAll().stream()
+				.map(lead -> {
+					String reviewerName = null;
+					if (lead.getReviewedBy() != null && !lead.getReviewedBy().isEmpty()) {
+						reviewerName = adminRepository.findById(lead.getReviewedBy())
+								.map(admin -> admin.getName())
+								.orElse(null);
+					}
+					return toResponse(lead, reviewerName);
+				})
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public LeadResponse getLeadById(String id) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+		return toResponse(lead, null);
+	}
+
+	@Override
+	public LeadResponse updateStatus(String id, String status, String adminId) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+
+		// Use immutable copy-with method instead of setters
+		Lead updated = lead.withStatus(status, adminId);
+		Lead saved = leadRepository.save(updated);
+		return toResponse(saved, null);
+	}
+
+	@Override
+	public LeadResponse updateAdminComments(String id, String comments) {
+		Lead lead = leadRepository.findById(id)
+				.orElseThrow(() -> new LeadNotFoundException("Lead not found with id: " + id));
+
+		// Use immutable copy-with method instead of setters
+		Lead updated = lead.withAdminComments(comments);
+		Lead saved = leadRepository.save(updated);
+		return toResponse(saved, null);
+	}
+
+	// --- Private helper: Lead → LeadResponse ---
+	private LeadResponse toResponse(Lead lead, String reviewerName) {
+		LeadResponse response = new LeadResponse(lead);
+		if (reviewerName != null) {
+			response.setReviewedByName(reviewerName);
+		}
+		return response;
+	}
+
+}

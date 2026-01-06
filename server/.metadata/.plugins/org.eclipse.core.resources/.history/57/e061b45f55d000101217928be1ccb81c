@@ -1,0 +1,22 @@
+spring:
+  mongodb:
+    uri: mongodb+srv://admin:JgSlt5taqTquMdTZ@cluster0.rcnl4ct.mongodb.net/navigant?retryWrites=true&w=majority&appName=Cluster0
+
+
+logging:
+  level:
+    com.navigant: DEBUG
+    org.springframework.data.mongodb.core: DEBUG 
+
+# Custom App config
+app:
+ env: development
+ cors:
+  allowed-origins: http://localhost:3000,http://localhost:3001 
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+   mongo:enabled: false

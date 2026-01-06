@@ -1,0 +1,122 @@
+package com.navigant.service.impl;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.navigant.dto.PublicReviewResponse;
+import com.navigant.dto.ReviewCreateRequest;
+import com.navigant.dto.ReviewResponse;
+import com.navigant.dto.ReviewStatusUpdateRequest;
+import com.navigant.dto.ReviewSubmitRequest;
+import com.navigant.exception.ReviewNotFoundException;
+import com.navigant.model.Admin;
+import com.navigant.model.Review;
+import com.navigant.repository.AdminRepository;
+import com.navigant.repository.ReviewRepository;
+import com.navigant.service.ReviewService;
+
+@Service
+public class ReviewServiceImpl implements ReviewService {
+	
+	private final ReviewRepository reviewRepository;
+	private final AdminRepository adminRepository;
+	
+	public ReviewServiceImpl(ReviewRepository reviewRepository, AdminRepository adminRepository) {
+
+		this.reviewRepository = reviewRepository;
+		this.adminRepository = adminRepository;
+	}
+
+	@Override
+	public ReviewResponse createReviewLink(ReviewCreateRequest request, String baseUrl) {
+		
+		// Generate unique token
+		String token = UUID.randomUUID().toString();
+		Review review = Review.createNew(token, request.getClientName(), request.getClientEmail(), request.getClientCompany());
+		Review saved = reviewRepository.save(review);
+		ReviewResponse response = new ReviewResponse(saved);
+		
+		// Generate review link
+		String reviewLink = baseUrl + "/review/" + token;
+		response.setReviewLink(reviewLink);
+		
+		return response;
+	}
+
+	@Override
+	public List<ReviewResponse> getAllReviews() {
+		List<Review> reviews = reviewRepository.findAll();
+		
+		// Step 1: Collect IDs
+		Set<String> adminIds = reviews.stream()
+				.map(Review::getReviewedBy)
+				.filter(Objects::nonNull)
+				.filter(id -> !id.isEmpty())
+				.collect(Collectors.toSet());
+		
+		// Step 2: Batch Fetch Admins
+		Map<String, String> adminNames = adminRepository.findAllById(adminIds)
+				.stream()
+				.collect(Collectors.toMap(Admin::getId, Admin::getName));
+		
+		// Step 3: Map to DTOs and set names
+		return reviews.stream()
+				.map(review -> {
+					ReviewResponse response = new ReviewResponse(review);
+					if(review.getReviewedBy() != null) {
+						response.setReviewedByName(adminNames.get(review.getReviewedBy()));
+					}
+					return response;
+				})
+				.collect(Collectors.toList());
+				
+	}
+
+	@Override
+	public ReviewResponse getReviewById(String id) {
+		Review review = reviewRepository.findById(id)
+				.orElseThrow(() -> new ReviewNotFoundException("Review not found with id: "+id));
+		return new ReviewResponse(review);
+	}
+
+	@Override
+	public ReviewResponse updateStatus(String id, ReviewStatusUpdateRequest request, String adminId) {
+		Review review = reviewRepository.findById(id)
+				.orElseThrow(() -> new ReviewNotFoundException("Review not found with id: "+id));
+		
+		 // Functional Update: Create NEW object with updated status
+		Review updated = review.withStatus(request.getStatus(), adminId, request.getAdminNotes());
+		return null;
+	}
+
+	@Override
+	public void deleteReview(String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public ReviewResponse getReviewByToken(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReviewResponse submitReview(String token, ReviewSubmitRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PublicReviewResponse> getApprovedReviews() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
