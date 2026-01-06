@@ -2,6 +2,7 @@ import './App.css'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ShimmerPageLoader from './components/commons/ShimmerPageLoader'
+import ScrollToTop from './components/commons/ScrollToTop'
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -12,10 +13,14 @@ const TeamPage = lazy(() => import('./pages/TeamPage'))
 const CareersPage = lazy(() => import('./pages/CareersPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
+const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'))
+const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage'))
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Suspense fallback={<ShimmerPageLoader />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -26,6 +31,9 @@ function App() {
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/explore/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+          <Route path="/cookie-policy" element={<CookiePolicyPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>

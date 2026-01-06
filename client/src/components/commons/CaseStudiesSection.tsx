@@ -57,7 +57,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
             {title || 'Case Studies & Customer Stories'}{' '}
-            <span className="text-[#CA1411]">| NAVIGANT</span>
+            <span className="text-[#CA1411]">NAVIGANT</span>
           </h2>
           {subtitle && (
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">

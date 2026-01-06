@@ -31,7 +31,7 @@ const ServicesSection: React.FC = () => {
   }, []);
 
   // Services data matching the dropdown services
-  // Priority services appear first: BPO, Lead Generation, Ecommerce Management, End to End Sales
+  // Priority services appear first: BPO Services, Amazon Global Selling, IT Services, HR Services
   const services: Service[] = [
     {
       id: '2',
@@ -39,6 +39,34 @@ const ServicesSection: React.FC = () => {
       slug: 'bpo-services',
       description: 'Comprehensive Business Process Outsourcing services to help you focus on core business activities.',
       shortDescription: 'End-to-end BPO solutions designed to optimize your business processes and reduce costs.',
+    },
+    {
+      id: '8',
+      name: 'Amazon Global Selling',
+      slug: 'amazon-global-selling',
+      description: 'Comprehensive Amazon marketplace management and seller support services to expand your business globally.',
+      shortDescription: 'Expert Amazon Global Selling services to establish and scale your presence on Amazon marketplaces worldwide.',
+    },
+    {
+      id: '9',
+      name: 'IT Services',
+      slug: 'it-services',
+      description: 'Comprehensive IT services including infrastructure management, cloud solutions, and technical support.',
+      shortDescription: 'End-to-end IT solutions to drive your business forward with cutting-edge technology.',
+    },
+    {
+      id: '6',
+      name: 'HR Services',
+      slug: 'hr-services',
+      description: 'Human Resources outsourcing services including recruitment, payroll, and employee management.',
+      shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
+    },
+    {
+      id: '1',
+      name: 'Digital Workers',
+      slug: 'digital-workers',
+      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
+      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
     },
     {
       id: '11',
@@ -62,13 +90,6 @@ const ServicesSection: React.FC = () => {
       shortDescription: 'Complete sales solutions to drive revenue growth and customer satisfaction.',
     },
     {
-      id: '1',
-      name: 'Digital Workers',
-      slug: 'digital-workers',
-      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
-      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
-    },
-    {
       id: '3',
       name: 'Healthcare Services',
       slug: 'healthcare-services',
@@ -90,13 +111,6 @@ const ServicesSection: React.FC = () => {
       shortDescription: 'Data-driven market insights and research services to guide your strategic decisions.',
     },
     {
-      id: '6',
-      name: 'HR Services',
-      slug: 'hr-services',
-      description: 'Human Resources outsourcing services including recruitment, payroll, and employee management.',
-      shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
-    },
-    {
       id: '7',
       name: 'Finance & Accounting',
       slug: 'finance-accounting',
@@ -104,14 +118,7 @@ const ServicesSection: React.FC = () => {
       shortDescription: 'Expert financial management and accounting services for your business growth.',
     },
     {
-      id: '8',
-      name: 'IT Services',
-      slug: 'it-services',
-      description: 'Comprehensive IT services including infrastructure management, cloud solutions, and technical support.',
-      shortDescription: 'End-to-end IT solutions to drive your business forward with cutting-edge technology.',
-    },
-    {
-      id: '9',
+      id: '10',
       name: 'Digital Marketing',
       slug: 'digital-marketing',
       description: 'Digital marketing services including SEO, social media marketing, and content creation.',

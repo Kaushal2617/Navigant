@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { navConfig } from '../navbar/navconfig';
 
 const Footer: React.FC = () => {
@@ -231,24 +232,24 @@ const Footer: React.FC = () => {
 
             {/* Legal Links */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-              <a
-                href="/privacy-policy"
+              <Link
+                to="/privacy-policy"
                 className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="/terms-of-service"
+              </Link>
+              <Link
+                to="/terms-of-service"
                 className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300"
               >
                 Terms of Service
-              </a>
-              <a
-                href="/cookie-policy"
+              </Link>
+              <Link
+                to="/cookie-policy"
                 className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300"
               >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

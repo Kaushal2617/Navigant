@@ -171,7 +171,7 @@ The healthcare provider has expanded the partnership to include additional facil
 
 // Section configuration
 export const caseStudiesSectionConfig = {
-  title: 'Case Studies & Customer Stories | NAVIGANT',
+  title: 'Case Studies & Customer Stories',
   subtitle: 'Our professionals have an in-depth knowledge of business outsourcing. Read the outstanding case studies prepared by our professionals at Navigant.',
 };
 
