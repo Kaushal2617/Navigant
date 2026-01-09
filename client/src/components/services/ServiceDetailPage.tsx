@@ -114,7 +114,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
 
       {/* 3. About Section */}
       {serviceData.aboutSection && (
-        <section className="py-10 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+        <section className="py-6 sm:py-8 md:py-10 lg:py-12 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
             <DotGrid
               dotSize={12}
@@ -133,8 +133,25 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
           </div>
           <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
             <div className="max-w-full sm:max-w-3xl md:max-w-4xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8 leading-tight text-center px-2">
-                {serviceData.aboutSection.title}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 leading-tight text-center px-2">
+                {(() => {
+                  const words = serviceData.aboutSection.title.split(' ');
+                  // If title has 2 or fewer words, make last word red
+                  // If title has more words, make last 2 words red
+                  const redWordsCount = words.length <= 2 ? 1 : 2;
+                  const blackWords = words.slice(0, -redWordsCount).join(' ');
+                  const redWords = words.slice(-redWordsCount).join(' ');
+                  
+                  return (
+                    <>
+                      {blackWords && <span className="text-gray-900">{blackWords} </span>}
+                      <span className="text-[#CA1411] relative">
+                        {redWords}
+                        <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+                      </span>
+                    </>
+                  );
+                })()}
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed text-center whitespace-pre-line px-3">
                 {serviceData.aboutSection.content}
@@ -169,7 +186,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
 
       {/* 6. Why Choose Us Section (Tata Tele Business pattern) */}
       {serviceData.highlights && serviceData.highlights.length > 0 && (
-        <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+        <section className="py-6 md:py-8 lg:py-10 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
             <DotGrid
               dotSize={12}
@@ -268,7 +285,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
 
       {/* 8. Additional Services Grid (Original BPO page pattern) */}
       {serviceData.additionalServices && serviceData.additionalServices.length > 0 && (
-        <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+        <section className="py-6 md:py-8 lg:py-10 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
             <DotGrid
               dotSize={12}
@@ -356,7 +373,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ serviceData }) =>
               />
             </Suspense>
           ) : (
-            <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-[#CA1411] to-[#CA1411] relative overflow-hidden">
+            <section className="py-10 md:py-12 lg:py-14 bg-gradient-to-br from-[#CA1411] to-[#CA1411] relative overflow-hidden">
               <div className="absolute inset-0 opacity-10 pointer-events-none">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />

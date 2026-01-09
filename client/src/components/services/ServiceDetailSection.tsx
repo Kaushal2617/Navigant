@@ -45,7 +45,7 @@ const ServiceDetailSection: React.FC<ServiceDetailSectionProps> = ({
 
   return (
     <section
-      className={`py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 relative overflow-hidden ${
+      className={`py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12 relative overflow-hidden ${
         isAlternate ? 'bg-gradient-to-br from-gray-50 to-white' : 'bg-white'
       }`}
       style={{

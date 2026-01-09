@@ -12,24 +12,10 @@ export const endToEndSalesServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Full-Cycle Ownership',
-      subtitle: 'We handle pipeline creation, demos, and closing so your team scales faster.',
-      image: 'https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=1200&q=80',
-      imageAlt: 'Sales team collaborating',
-    },
-    {
-      id: 2,
-      title: 'Predictable Pipeline',
-      subtitle: 'Structured cadences, qualification, and forecasting for reliable revenue.',
-      image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1200&q=80',
-      imageAlt: 'Pipeline dashboard',
-    },
-    {
-      id: 3,
-      title: 'Performance Transparency',
-      subtitle: 'Weekly reporting on meetings, SQLs, win rates, and cycle time.',
-      image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=1200&q=80',
-      imageAlt: 'Performance analytics',
+      title: 'End-to-End Sales Services',
+      subtitle: 'Turnkey sales engine: prospecting, qualification, demos, proposals, and deal closure with clear revenue metrics and tight collaboration with your team.',
+      image: '/servicebanner/endtoendsales.jpg',
+      imageAlt: 'End-to-End Sales Services',
     },
   ],
 

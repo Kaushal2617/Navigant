@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { caseStudiesData, caseStudiesSectionConfig, type CaseStudy } from './caseStudiesData';
 import DotGrid from './DotGrid';
-import CaseStudyModal from './CaseStudyModal';
+import ContactForm from './ContactForm';
 
 interface CaseStudiesSectionProps {
   caseStudies?: CaseStudy[];
@@ -9,6 +10,7 @@ interface CaseStudiesSectionProps {
   subtitle?: string;
   showViewAllButton?: boolean; // Control whether to show the "View All" button
   enableHorizontalScroll?: boolean; // Control whether to enable horizontal scroll on mobile
+  isFullPage?: boolean; // Control whether this is used as a full page (needs extra top padding for navbar)
 }
 
 const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
@@ -17,9 +19,11 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
   subtitle = caseStudiesSectionConfig.subtitle,
   showViewAllButton = true, // Default to true for home page
   enableHorizontalScroll = true, // Default to true for home page
+  isFullPage = false, // Default to false for home page sections
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+  const navigate = useNavigate();
 
   const handleReadMore = (caseStudy: CaseStudy, e: React.MouseEvent) => {
     e.preventDefault();
@@ -29,11 +33,62 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedCaseStudy(null), 300);
+    if (selectedCaseStudy) {
+      // Navigate to case study detail page after closing
+      setTimeout(() => {
+        navigate(`/case-studies/${selectedCaseStudy.id}`);
+        setSelectedCaseStudy(null);
+      }, 300);
+    }
   };
 
+  const handleCloseModalWithoutRedirect = () => {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setSelectedCaseStudy(null);
+    }, 300);
+  };
+
+  const handleFormSubmit = () => {
+    // After form submission, navigate to case study detail page
+    if (selectedCaseStudy) {
+      setIsModalOpen(false);
+      setTimeout(() => {
+        navigate(`/case-studies/${selectedCaseStudy.id}`);
+        setSelectedCaseStudy(null);
+      }, 300);
+    }
+  };
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
+
+  // Handle escape key to close modal (without redirect)
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        handleCloseModalWithoutRedirect();
+      }
+    };
+    if (isModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isModalOpen]);
+
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+    <section className={`${isFullPage ? 'pt-24 md:pt-28 lg:pt-32 pb-10 md:pb-8 lg:pb-10' : 'py-10 md:py-8 lg:py-10'} bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden`}>
       {/* DotGrid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <DotGrid
@@ -57,7 +112,10 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
             {title || 'Case Studies & Customer Stories'}{' '}
-            <span className="text-[#CA1411]">NAVIGANT</span>
+            <span className="text-[#CA1411] relative">
+              NAVIGANT
+              <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+            </span>
           </h2>
           {subtitle && (
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
@@ -116,31 +174,6 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                           </span>
                         </div>
                       )}
-
-                      {/* Hover Icon Overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <div
-                          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center backdrop-blur-md"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.9), rgba(202, 20, 17, 0.7))',
-                            border: '1px solid rgba(255, 255, 255, 0.3)',
-                          }}
-                        >
-                          <svg
-                            className="w-6 h-6 sm:w-8 sm:h-8 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                            />
-                          </svg>
-                        </div>
-                      </div>
                     </div>
 
                     {/* Content */}
@@ -239,31 +272,6 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                         </span>
                       </div>
                     )}
-
-                    {/* Hover Icon Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div
-                        className="w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-md"
-                        style={{
-                          background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.9), rgba(202, 20, 17, 0.7))',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
-                        }}
-                      >
-                        <svg
-                          className="w-8 h-8 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                          />
-                        </svg>
-                      </div>
-                    </div>
                   </div>
 
                   {/* Content */}
@@ -370,12 +378,59 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
         </div>
       </div>
 
-      {/* Case Study Modal */}
-      <CaseStudyModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        caseStudy={selectedCaseStudy}
-      />
+      {/* Contact Form Modal */}
+      {isModalOpen && selectedCaseStudy && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="relative bg-gradient-to-br from-[#CA1411] to-[#B0120F] rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Modal Header - Fixed */}
+            <div className="flex-shrink-0 border-b border-white/20 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-white">
+                  Get Access to Case Study
+                </h3>
+                <p className="text-sm text-white/90 mt-1">
+                  Fill out the form below to access: <span className="font-semibold text-white">{selectedCaseStudy.title}</span>
+                </p>
+              </div>
+              <button
+                onClick={handleCloseModalWithoutRedirect}
+                className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all duration-300 hover:rotate-90 text-white"
+                aria-label="Close modal"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content - Contact Form - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-6 bg-white">
+              <ContactForm
+                title=""
+                subtitle=""
+                showBackground={false}
+                buttonText="Submit & Continue"
+                showSuccessMessage={true}
+                onSuccess={handleFormSubmit}
+                className="!pt-0 !pb-0"
+              />
+            </div>
+
+            {/* Optional Skip Button - Fixed */}
+            <div className="flex-shrink-0 bg-white/10 backdrop-blur-sm px-6 py-4 border-t border-white/20 flex justify-between items-center rounded-b-2xl">
+              <p className="text-sm text-white/90">
+                Form is optional. You can skip and continue directly.
+              </p>
+              <button
+                onClick={handleCloseModal}
+                className="px-6 py-2.5 bg-white text-[#CA1411] hover:bg-gray-100 font-semibold rounded-lg transition-all duration-300"
+              >
+                Skip & Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

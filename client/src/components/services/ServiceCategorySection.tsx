@@ -9,7 +9,7 @@ interface ServiceCategorySectionProps {
 
 const ServiceCategorySection: React.FC<ServiceCategorySectionProps> = ({ categories }) => {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-white relative overflow-hidden">
+    <section className="py-6 md:py-8 lg:py-6 bg-white relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
         <DotGrid
           dotSize={12}

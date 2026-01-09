@@ -68,7 +68,7 @@ const TeamMembersSection: React.FC<TeamMembersSectionProps> = ({
 
   const displayedMembers = teamMembers.slice(0, initialCount);
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+    <section className="py-8 md:py-6 lg:py-8 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
       {/* DotGrid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <DotGrid
@@ -90,8 +90,11 @@ const TeamMembersSection: React.FC<TeamMembersSectionProps> = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
-            {title}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#CA1411] mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0 relative">
+            <span className="relative">
+              {title}
+              <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+            </span>
           </h2>
           {subtitle && (
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">

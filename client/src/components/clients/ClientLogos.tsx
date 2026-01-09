@@ -11,7 +11,7 @@ interface ClientLogosProps {
   className?: string;
 }
 
-// Your full list of 19 logos
+// Your full list of 18 logos
 const clientLogos: ClientLogo[] = [
     {
       name: 'Amazon',
@@ -34,19 +34,9 @@ const clientLogos: ClientLogo[] = [
       alt: 'Siemens Logo',
     },
     {
-      name: 'Progress',
-      logo: '/logos/Progress.png',
-      alt: 'Progress Logo',
-    },
-    {
       name: 'Dassault Systemes',
       logo: '/logos/Dassaultsystemes.png',
       alt: 'Dassault Systemes Logo',
-    },
-    {
-      name: 'Matchpoint GPS',
-      logo: '/logos/Matchpoint.png',
-      alt: 'Matchpoint GPS Logo',
     },
     {
       name: 'Shopee',
@@ -83,6 +73,36 @@ const clientLogos: ClientLogo[] = [
       logo: '/logos/NIIT.png',
       alt: 'NIIT Logo',
     },
+    {
+      name: 'Stratasys',
+      logo: '/logos/stratasys.png',
+      alt: 'Stratasys Logo',
+    },
+    {
+      name: 'GEM',
+      logo: '/logos/gem.png',
+      alt: 'GEM Logo',
+    },
+    {
+      name: 'Intellect Design',
+      logo: '/logos/intellectdesign.png',
+      alt: 'Intellect Design Logo',
+    },
+    {
+      name: 'Shine',
+      logo: '/logos/shine.png',
+      alt: 'Shine Logo',
+    },
+    {
+      name: 'Redington',
+      logo: '/logos/redington.png',
+      alt: 'Redington Logo',
+    },
+    {
+      name: 'DHBVN',
+      logo: '/logos/dhbvn.png',
+      alt: 'DHBVN Logo',
+    },
   ];
 
 const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
@@ -102,7 +122,7 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
     .flatMap(() => lowerRowLogos);
 
   return (
-    <section className={`py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white to-gray-50 w-full relative overflow-hidden ${className}`}>
+    <section className={`pt-6 md:pt-8 lg:pt-8 pb-2 md:pb-3 lg:pb-2 bg-white w-full relative overflow-hidden ${className}`}>
       {/* DotGrid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <DotGrid
@@ -123,108 +143,124 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
       
       <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Heading */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-[1.2] sm:leading-tight">
+        <div className="text-center mb-0 max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-0 leading-[1.2] sm:leading-tight">
             The World's Most Innovative Companies Use{' '}
-            <span className="text-[#CA1411]">Navigant Technologies</span>
+            <span className="text-[#CA1411]">Navigant </span>
+            <span className="text-[#CA1411] relative">
+              Technologies
+              <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+            </span>
           </h2>
         </div>
 
         {/* Two continuous infinite scrolling rows */}
-        <div className="space-y-6 md:space-y-8">
+        <div className="space-y-0 -mt-2 sm:-mt-3 md:-mt-4">
           {/* Upper Row: Scroll Right to Left - First half of logos */}
           <div className="overflow-hidden relative">
             <div className="flex animate-scroll-left">
               {/* First set of logos */}
-              {duplicatedUpperLogos.map((client, index) => (
-                <div
-                  key={`upper-1-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                  style={{ minWidth: '140px' }}
-                >
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                    <img
-                      src={client.logo}
-                      alt={client.alt || `${client.name} Logo`}
-                      className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
-                        target.src = fallback;
-                      }}
-                    />
+              {duplicatedUpperLogos.map((client, index) => {
+                const isIGL = client.name === 'Indraprastha Gas Limited';
+                return (
+                  <div
+                    key={`upper-1-${index}`}
+                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
+                    style={{ minWidth: '140px' }}
+                  >
+                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                      <img
+                        src={client.logo}
+                        alt={client.alt || `${client.name} Logo`}
+                        className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
+                          target.src = fallback;
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               {/* Duplicate set for seamless loop */}
-              {duplicatedUpperLogos.map((client, index) => (
-                <div
-                  key={`upper-2-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                  style={{ minWidth: '140px' }}
-                >
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                    <img
-                      src={client.logo}
-                      alt={client.alt || `${client.name} Logo`}
-                      className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
-                        target.src = fallback;
-                      }}
-                    />
+              {duplicatedUpperLogos.map((client, index) => {
+                const isIGL = client.name === 'Indraprastha Gas Limited';
+                return (
+                  <div
+                    key={`upper-2-${index}`}
+                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
+                    style={{ minWidth: '140px' }}
+                  >
+                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                      <img
+                        src={client.logo}
+                        alt={client.alt || `${client.name} Logo`}
+                        className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
+                          target.src = fallback;
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* Lower Row: Scroll Left to Right - Second half of logos */}
-          <div className="overflow-hidden relative">
+          <div className="overflow-hidden relative -mt-8 md:-mt-12 lg:-mt-16">
             <div className="flex animate-scroll-right">
               {/* First set of logos */}
-              {duplicatedLowerLogos.map((client, index) => (
-                <div
-                  key={`lower-1-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                  style={{ minWidth: '140px' }}
-                >
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                    <img
-                      src={client.logo}
-                      alt={client.alt || `${client.name} Logo`}
-                      className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
-                        target.src = fallback;
-                      }}
-                    />
+              {duplicatedLowerLogos.map((client, index) => {
+                const isIGL = client.name === 'Indraprastha Gas Limited';
+                return (
+                  <div
+                    key={`lower-1-${index}`}
+                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
+                    style={{ minWidth: '140px' }}
+                  >
+                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                      <img
+                        src={client.logo}
+                        alt={client.alt || `${client.name} Logo`}
+                        className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
+                          target.src = fallback;
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
               {/* Duplicate set for seamless loop */}
-              {duplicatedLowerLogos.map((client, index) => (
-                <div
-                  key={`lower-2-${index}`}
-                  className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                  style={{ minWidth: '140px' }}
-                >
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                    <img
-                      src={client.logo}
-                      alt={client.alt || `${client.name} Logo`}
-                      className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
-                        target.src = fallback;
-                      }}
-                    />
+              {duplicatedLowerLogos.map((client, index) => {
+                const isIGL = client.name === 'Indraprastha Gas Limited';
+                return (
+                  <div
+                    key={`lower-2-${index}`}
+                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
+                    style={{ minWidth: '140px' }}
+                  >
+                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                      <img
+                        src={client.logo}
+                        alt={client.alt || `${client.name} Logo`}
+                        className="max-h-full max-w-full object-contain opacity-100 hover:opacity-90 transition-opacity"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          const fallback = `https://via.placeholder.com/160x80/E5E7EB/6B7280?text=${encodeURIComponent(client.name)}`;
+                          target.src = fallback;
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

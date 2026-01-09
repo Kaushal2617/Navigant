@@ -13,6 +13,7 @@ const TeamPage = lazy(() => import('./pages/TeamPage'))
 const CareersPage = lazy(() => import('./pages/CareersPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'))
+const CaseStudyDetailPage = lazy(() => import('./pages/CaseStudyDetailPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'))
 const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage'))
@@ -31,6 +32,7 @@ function App() {
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/explore/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           <Route path="/cookie-policy" element={<CookiePolicyPage />} />

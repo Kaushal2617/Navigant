@@ -12,24 +12,10 @@ export const itServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Trusted Outsourcing Partner Since 2003',
-      subtitle: '650+ professionals, 200+ clients, and 22+ years of managed services delivery.',
-      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80',
-      imageAlt: 'IT operations dashboard',
-    },
-    {
-      id: 2,
-      title: 'Secure & Compliant by Design',
-      subtitle: 'ISO-certified controls, GCC-aligned compliance, and continuous monitoring.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
-      imageAlt: 'Security operations center',
-    },
-    {
-      id: 3,
-      title: 'Build–Operate–Transfer for GCC',
-      subtitle: 'BOT model with governance, ramp-up, and knowledge transfer readiness.',
-      image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1200&q=80',
-      imageAlt: 'Team collaboration',
+      title: 'IT Services',
+      subtitle: 'ISO-certified managed IT, cloud, cybersecurity, apps, data, and service desk operations with 24x7 coverage, governance, and compliance baked in.',
+      image: '/servicebanner/IT.jpg',
+      imageAlt: 'IT Services',
     },
   ],
 

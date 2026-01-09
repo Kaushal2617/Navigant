@@ -15,7 +15,7 @@ interface Service {
 
 const ServicesPage: React.FC = () => {
   // Services data matching the dropdown services
-  // Priority services appear first: BPO Services, Amazon Global Selling, IT Services, HR Services
+  // Priority services appear first: BPO Services, Amazon Global Selling, IT Services, RPO & Staffing Services
   const services: Service[] = [
     {
       id: '2',
@@ -40,7 +40,7 @@ const ServicesPage: React.FC = () => {
     },
     {
       id: '6',
-      name: 'HR Services',
+      name: 'RPO & Staffing Services',
       slug: 'hr-services',
       description: 'Human Resources outsourcing services including recruitment, payroll, and employee management.',
       shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
@@ -152,7 +152,7 @@ const ServicesPage: React.FC = () => {
 
           {/* Services Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
-            {services.map((service, index) => (
+            {services.filter(service => service.slug !== 'tata-tele-services').map((service, index) => (
               <div
                 key={service.id}
                 className="service-card-wrapper"

@@ -25,25 +25,50 @@ export const navConfig: NavConfig = {
       hasDropdown: true,
       dropdownItems: [
         {
-          label: 'Lead Generation',
-          path: '/services/lead-generation',
+          label: 'BPO Services',
+          path: '/services/bpo-services',
+        },
+        {
+          label: 'Amazon Global Selling',
+          path: '/services/amazon-global-selling',
         },
         {
           label: 'End to End Sales',
           path: '/services/end-to-end-sales',
         },
         {
+          label: 'Lead Generation',
+          path: '/services/lead-generation',
+        },
+        {
           label: 'Ecommerce Management',
           path: '/services/ecommerce-management',
+        },
+        {
+          label: 'Digital Marketing',
+          path: '/services/digital-marketing',
+        },
+        {
+          label: 'RPO & Staffing Services',
+          path: '/services/hr-services',
+        },
+        {
+          label: 'Healthcare Services',
+          path: '/services/healthcare-services',
+        },
+        {
+          label: 'Market Research',
+          path: '/services/market-research',
+        },
+        {
+          label: 'Finance & Accounting',
+          path: '/services/finance-accounting',
         },
         {
           label: 'IT Services',
           path: '/services/it-services',
         },
-        {
-          label: 'HR Services',
-          path: '/services/hr-services',
-        },
+       
         {
           label: 'Tata Tele Services',
           path: '/services/tata-tele-services',

@@ -49,7 +49,7 @@ const PrivacyPolicyPage: React.FC = () => {
   return (
     <AppLayout>
       {/* Hero Section */}
-      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 bg-gradient-to-br from-white via-gray-50/50 to-white overflow-hidden">
+      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-8 md:pb-10 bg-gradient-to-br from-white via-gray-50/50 to-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <DotGrid
             dotSize={12}
@@ -91,7 +91,7 @@ const PrivacyPolicyPage: React.FC = () => {
       </section>
 
       {/* Content Section */}
-      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+      <section className="py-6 md:py-8 lg:py-10 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
         {/* DotGrid Background */}
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <DotGrid
@@ -109,7 +109,7 @@ const PrivacyPolicyPage: React.FC = () => {
           />
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
-          <div className="space-y-8 md:space-y-12">
+          <div className="space-y-4 md:space-y-6">
             {sections.map((section, index) => (
               <div
                 key={index}
@@ -176,7 +176,7 @@ const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           {/* Contact Section */}
-          <div className="mt-12 md:mt-16 p-6 sm:p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#CA1411] to-[#B0120F] text-white shadow-xl">
+          <div className="mt-6 md:mt-8 p-6 sm:p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#CA1411] to-[#B0120F] text-white shadow-xl">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

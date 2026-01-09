@@ -5,19 +5,20 @@ import Dropdown from '../commons/Dropdown';
 import type { DropdownItem } from '../commons/Dropdown';
 
 // Mock services data - temporary until API is ready
+// Ordered as: BPO, Amazon Global Selling, End to End Sales, Lead Generation, Ecommerce Management, RPO & Staffing Services, Others, Tata Tele Services (last)
 const MOCK_SERVICES: NavItem[] = [
   { label: 'BPO Services', path: '/services/bpo-services' },
-  { label: 'Tata Tele Services', path: '/services/tata-tele-services' },
-  { label: 'Healthcare Services', path: '/services/healthcare-services' },
-  { label: 'Market Research', path: '/services/market-research' },
-  { label: 'HR Services', path: '/services/hr-services' },
-  { label: 'Finance & Accounting', path: '/services/finance-accounting' },
   { label: 'Amazon Global Selling', path: '/services/amazon-global-selling' },
-  { label: 'IT Services', path: '/services/it-services' },
-  { label: 'Digital Marketing', path: '/services/digital-marketing' },
+  { label: 'End to End Sales', path: '/services/end-to-end-sales' },
   { label: 'Ecommerce Management', path: '/services/ecommerce-management' },
   { label: 'Lead Generation', path: '/services/lead-generation' },
-  { label: 'End to End Sales', path: '/services/end-to-end-sales' },
+  { label: 'Digital Marketing', path: '/services/digital-marketing' },
+  { label: 'RPO & Staffing Services', path: '/services/hr-services' },
+  { label: 'Healthcare Services', path: '/services/healthcare-services' },
+  { label: 'Market Research', path: '/services/market-research' },
+  { label: 'Finance & Accounting', path: '/services/finance-accounting' },
+  { label: 'IT Services', path: '/services/it-services' },
+  { label: 'Tata Tele Services', path: '/services/tata-tele-services' },
 ];
 
 // Configuration: Set to false to use API instead of mock data
@@ -106,21 +107,21 @@ const Navigation: React.FC = () => {
             bg-white 
             dark:bg-gray-900 
             border-b border-gray-200 dark:border-gray-700/50
-            px-6 py-4 
+            px-6 py-1 
             shadow-sm"
 
       onMouseLeave={handleMouseLeave}
     >
       <div className="w-full mx-auto">
         {/* Desktop and Mobile Header */}
-        <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 sm:py-4 w-full">
+        <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2 sm:py-3 w-full">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className="no-underline transition-all duration-300 hover:opacity-80 flex items-center">
               <img 
                 src={navConfig.logo} 
                 alt="Navigant Technologies Logo" 
-                className="h-8 sm:h-10 md:h-12 w-auto object-contain"
+                className="h-6 sm:h-8 md:h-10 w-auto object-contain"
                 onError={(e) => {
                   // Fallback to text if image fails to load
                   const target = e.target as HTMLImageElement;
@@ -149,19 +150,37 @@ const Navigation: React.FC = () => {
               }));
 
               if (item.hasDropdown) {
+                // For "Explore", make it non-clickable (dropdown only)
+                const isExplore = item.label === 'Explore';
                 return (
                   <li key={item.label} className="relative">
                     <Dropdown
                       trigger={
-                        <a 
-                          href={item.path} 
-                          className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
-                        >
-                          {item.label}
-                          <span className={`text-xs transition-transform duration-300 ${activeDropdown === item.label ? 'rotate-180' : ''}`}>
-                            ▼
-                          </span>
-                        </a>
+                        isExplore ? (
+                          <button 
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleDropdownToggle(item.label);
+                            }}
+                            className="no-underline text-[#CA1411] font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-[#CA1411] text-sm xl:text-base cursor-pointer bg-transparent border-none"
+                          >
+                            {item.label}
+                            <span className={`text-xs transition-transform duration-300 ${activeDropdown === item.label ? 'rotate-180' : ''}`}>
+                              ▼
+                            </span>
+                          </button>
+                        ) : (
+                          <a 
+                            href={item.path} 
+                            className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
+                          >
+                            {item.label}
+                            <span className={`text-xs transition-transform duration-300 ${activeDropdown === item.label ? 'rotate-180' : ''}`}>
+                              ▼
+                            </span>
+                          </a>
+                        )
                       }
                       items={dropdownItems}
                       isOpen={activeDropdown === item.label}
@@ -232,6 +251,8 @@ const Navigation: React.FC = () => {
                 }));
 
                 if (item.hasDropdown) {
+                  // For "Explore", make it non-clickable (dropdown only)
+                  const isExplore = item.label === 'Explore';
                   return (
                     <li
                       key={item.label}
@@ -239,12 +260,25 @@ const Navigation: React.FC = () => {
                     >
                       <Dropdown
                         trigger={
-                          <a 
-                            href={item.path} 
-                            className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-black text-base sm:text-lg w-full"
-                          >
-                            {item.label}
-                          </a>
+                          isExplore ? (
+                            <button 
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleDropdownToggle(item.label, true);
+                              }}
+                              className="no-underline text-[#CA1411] font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-[#CA1411] text-base sm:text-lg w-full cursor-pointer bg-transparent border-none text-left"
+                            >
+                              {item.label}
+                            </button>
+                          ) : (
+                            <a 
+                              href={item.path} 
+                              className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-black text-base sm:text-lg w-full"
+                            >
+                              {item.label}
+                            </a>
+                          )
                         }
                         items={dropdownItems}
                         isOpen={activeDropdown === item.label}

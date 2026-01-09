@@ -12,31 +12,10 @@ export const digitalMarketingServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Performance-Driven Growth',
-      subtitle: 'Campaigns engineered to hit revenue and pipeline goals, not just clicks.',
-      image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?w=1200&q=80',
-      imageAlt: 'Performance marketing dashboard',
-    },
-    {
-      id: 2,
-      title: 'SEO & Content That Ranks',
-      subtitle: 'Technical SEO plus authoritative content to win high-intent traffic.',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80',
-      imageAlt: 'SEO and content planning',
-    },
-    {
-      id: 3,
-      title: 'Paid Media That Converts',
-      subtitle: 'Optimized PPC and paid social to capture demand efficiently.',
-      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80',
-      imageAlt: 'Paid media management',
-    },
-    {
-      id: 4,
-      title: 'Automation & Analytics',
-      subtitle: 'Lifecycle automation and analytics to personalize, measure, and scale.',
-      image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80',
-      imageAlt: 'Marketing automation and analytics',
+      title: 'Digital Marketing Services',
+      subtitle: 'Data-driven digital marketing across SEO, paid media, social, content, and marketing automation—aligned to revenue goals and optimized continuously for ROI.',
+      image: '/servicebanner/digitalmarketing.jpg',
+      imageAlt: 'Digital Marketing Services',
     },
   ],
 

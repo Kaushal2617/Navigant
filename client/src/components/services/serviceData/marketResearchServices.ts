@@ -12,24 +12,10 @@ export const marketResearchServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Understand Your Customers Better',
-      subtitle: 'Qualitative and quantitative research that uncovers motivations, pain points, and opportunities.',
-      image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=80',
-      imageAlt: 'Team analyzing charts and data',
-    },
-    {
-      id: 2,
-      title: 'Data-Driven Go-To-Market',
-      subtitle: 'Test concepts, pricing, and messaging before you scale, backed by statistically sound results.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
-      imageAlt: 'Market research and strategy planning',
-    },
-    {
-      id: 3,
-      title: 'Research Operations at Scale',
-      subtitle: 'Leverage Navigant’s trained teams to run multi-country, multi-language studies reliably.',
-      image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&q=80',
-      imageAlt: 'Global research operations',
+      title: 'Market Research Services',
+      subtitle: 'End-to-end market research services—from survey design and data collection to analytics and insight reporting—so you can make confident, evidence-based decisions.',
+      image: '/servicebanner/marketresearch.jpg',
+      imageAlt: 'Market Research Services',
     },
   ],
 

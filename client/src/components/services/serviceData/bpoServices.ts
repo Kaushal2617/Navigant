@@ -226,22 +226,8 @@ export const bpoServicesData: ServiceData = {
   // Legacy features (for backward compatibility)
   features: [],
 
-  // Testimonials
-  testimonials: [
-    {
-      id: 'testimonial-1',
-      name: 'Frank Goodman',
-      role: 'COO',
-      content: 'Navigant Technologies runs our customer service, technical support and field support services including installation of GPS devices and provides us with an excellent service.',
-    },
-    {
-      id: 'testimonial-2',
-      name: 'Deepak',
-      role: 'Client',
-      company: 'Gurugram',
-      content: 'Navigant Technologies converts our Web leads into sales. Also manages our back office support. Navigant has a track record for meeting the targets accurately and never missed the targets. We are very happy with their Call Center / BPO services. Excellent Job done Navigant Team !',
-    },
-  ],
+  // Testimonials - Removed client reviews section
+  testimonials: [],
 
   // CTA Section
   cta: {

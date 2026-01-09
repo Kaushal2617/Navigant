@@ -12,24 +12,10 @@ export const healthcareServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Patient-Centric Contact Centers',
-      subtitle: 'Omnichannel scheduling, triage, and care coordination built for speed and empathy.',
-      image: 'https://images.unsplash.com/photo-1582719478183-78ee1082645e?w=1200&q=80',
-      imageAlt: 'Patient support',
-    },
-    {
-      id: 2,
-      title: 'Revenue Cycle, Accelerated',
-      subtitle: 'Eligibility, coding, billing, and AR follow-ups handled by certified healthcare specialists.',
-      image: 'https://images.unsplash.com/photo-1582719478183-bb71df7fe85b?w=1200&q=80',
-      imageAlt: 'Medical billing',
-    },
-    {
-      id: 3,
-      title: 'Data Security & Compliance First',
-      subtitle: 'HIPAA-ready workflows with secure infrastructure, audit trails, and least-privilege access.',
-      image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1200&q=80',
-      imageAlt: 'Healthcare compliance',
+      title: 'Healthcare Services',
+      subtitle: 'Specialized healthcare process outsourcing that improves patient experience, accelerates revenue cycles, and keeps compliance airtight across every interaction.',
+      image: '/servicebanner/healthcare.jpg',
+      imageAlt: 'Healthcare Services',
     },
   ],
 
