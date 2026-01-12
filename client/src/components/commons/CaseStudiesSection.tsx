@@ -14,13 +14,19 @@ interface CaseStudiesSectionProps {
 }
 
 const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
-  caseStudies = caseStudiesData,
+  caseStudies: propCaseStudies,
   title = caseStudiesSectionConfig.title,
   subtitle = caseStudiesSectionConfig.subtitle,
   showViewAllButton = true, // Default to true for home page
   enableHorizontalScroll = true, // Default to true for home page
   isFullPage = false, // Default to false for home page sections
 }) => {
+  const [fetchedCaseStudies, setFetchedCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Determine which case studies to display: props or fetched
+  const caseStudies = propCaseStudies || fetchedCaseStudies;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
   const navigate = useNavigate();
@@ -182,7 +188,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                         {caseStudy.title}
                       </h3>
                       <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-3">
-                        {caseStudy.description}
+                          {caseStudy.description.replace(/<[^>]+>/g, '')}
                       </p>
 
                       {/* Read More Button */}
@@ -280,7 +286,7 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
                       {caseStudy.title}
                     </h3>
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-5 md:mb-6 line-clamp-3">
-                      {caseStudy.description}
+                      {caseStudy.description.replace(/<[^>]+>/g, '')}
                     </p>
 
                     {/* Read More Button */}

@@ -1,4 +1,12 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Hide empty paragraphs from rich text content to prevent extra spacing */
+.prose p:empty,
+.prose p:has(br:only-child) {
+  display: none;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

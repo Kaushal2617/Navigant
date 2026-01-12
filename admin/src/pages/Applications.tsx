@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import {
-    Box, Typography, Snackbar, Alert, Stack, Button, Link
+    Box, Typography, Snackbar, Alert, Stack, Button, IconButton, Tooltip
 } from '@mui/material';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import { useTheme } from '@mui/material/styles';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { useTheme, alpha } from '@mui/material/styles';
 import AppSelect from '../components/AppSelect';
-import AppTable, { type TableColumn } from '../components/AppTable';
+import AppModal from '../components/AppModal';
+import AppTable, { StatusChip, type TableColumn } from '../components/AppTable';
 import client from '../api/client';
 import type { JobApplicationResponse } from '../api/types';
 
@@ -14,6 +18,8 @@ export default function Applications() {
     const [applications, setApplications] = useState<JobApplicationResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
+    const [viewModalOpen, setViewModalOpen] = useState(false);
+    const [selectedApplication, setSelectedApplication] = useState<JobApplicationResponse | null>(null);
 
     const fetchApplications = async () => {
         setLoading(true);
@@ -64,6 +70,36 @@ export default function Applications() {
         }
     };
 
+    const handleDelete = async (id: string) => {
+        if (!window.confirm('Are you sure you want to delete this application? This action cannot be undone.')) {
+            return;
+        }
+        try {
+            await client.delete(`/admin/applications/${id}`);
+            setApplications(apps => apps.filter(app => app.id !== id));
+            setSnackbar({ open: true, message: 'Application deleted successfully', severity: 'success' });
+            if (selectedApplication?.id === id) {
+                setViewModalOpen(false);
+                setSelectedApplication(null);
+            }
+        } catch (error: any) {
+            console.error("Failed to delete application", error);
+            const msg = error.response?.data?.detail || 'Failed to delete application';
+            setSnackbar({ open: true, message: msg, severity: 'error' });
+        }
+    };
+
+    const handleView = (application: JobApplicationResponse) => {
+        setSelectedApplication(application);
+        setViewModalOpen(true);
+    };
+
+    const handleDownloadResume = () => {
+        if (selectedApplication?.resumeUrl) {
+            window.open(selectedApplication.resumeUrl, '_blank');
+        }
+    };
+
     // Table columns definition
     const columns: TableColumn<JobApplicationResponse>[] = [
         {
@@ -78,13 +114,24 @@ export default function Applications() {
             ),
         },
         {
-            id: 'jobPostId',
-            label: 'Job ID',
+            id: 'applicantPhone',
+            label: 'Phone',
             minWidth: 120,
             render: (row) => (
-                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
-                    {row.jobPostId?.slice(0, 8)}...
-                </Typography>
+                <Typography variant="body2">{row.applicantPhone || '-'}</Typography>
+            ),
+        },
+        {
+            id: 'jobTitle',
+            label: 'Job Post',
+            minWidth: 180,
+            render: (row) => (
+                <Box>
+                    <Typography variant="body2" fontWeight={600}>{row.jobTitle || 'Unknown Job'}</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                        ID: {row.jobPostId}
+                    </Typography>
+                </Box>
             ),
         },
         {
@@ -118,30 +165,58 @@ export default function Applications() {
             ),
         },
         {
-            id: 'resumeUrl',
-            label: 'Resume',
+            id: 'actions',
+            label: 'Actions',
             align: 'center',
-            minWidth: 80,
+            minWidth: 120,
             render: (row) => (
-                row.resumeUrl ? (
-                    <Link
-                        href={row.resumeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                            textDecoration: 'none',
-                            fontWeight: 600,
-                            color: theme.palette.primary.main,
-                            '&:hover': { textDecoration: 'underline' },
-                        }}
-                    >
-                        View
-                    </Link>
-                ) : (
-                    <Typography variant="body2" color="text.disabled">
-                        No Resume
-                    </Typography>
-                )
+                <Stack direction="row" justifyContent="center" spacing={1}>
+                    <Tooltip title="View Details" arrow>
+                        <IconButton
+                            size="small"
+                            onClick={() => handleView(row)}
+                            sx={{
+                                color: theme.palette.primary.main,
+                                backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                                '&:hover': { backgroundColor: alpha(theme.palette.primary.main, 0.2) }
+                            }}
+                        >
+                            <VisibilityRoundedIcon fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+
+                    <Tooltip title={row.resumeUrl ? "Download Resume" : "No Resume"} arrow>
+                        <span>
+                            <IconButton
+                                size="small"
+                                onClick={() => row.resumeUrl && window.open(row.resumeUrl, '_blank')}
+                                disabled={!row.resumeUrl}
+                                sx={{
+                                    color: theme.palette.secondary.main,
+                                    backgroundColor: alpha(theme.palette.secondary.main, 0.1),
+                                    '&:hover': { backgroundColor: alpha(theme.palette.secondary.main, 0.2) },
+                                    '&.Mui-disabled': { backgroundColor: 'transparent' }
+                                }}
+                            >
+                                <CloudDownloadRoundedIcon fontSize="small" />
+                            </IconButton>
+                        </span>
+                    </Tooltip>
+
+                    <Tooltip title="Delete Application" arrow>
+                        <IconButton
+                            size="small"
+                            onClick={() => handleDelete(row.id)}
+                            sx={{
+                                color: theme.palette.error.main,
+                                backgroundColor: alpha(theme.palette.error.main, 0.1),
+                                '&:hover': { backgroundColor: alpha(theme.palette.error.main, 0.2) }
+                            }}
+                        >
+                            <DeleteRoundedIcon fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Stack>
             ),
         },
     ];
@@ -189,6 +264,141 @@ export default function Applications() {
                 emptyTitle="No applications yet"
                 emptySubtitle="Applications will appear here when candidates apply for jobs"
             />
+
+            {/* View Details Modal */}
+            <AppModal
+                open={viewModalOpen}
+                onClose={() => setViewModalOpen(false)}
+                title="Application Details"
+                maxWidth="sm"
+                onSubmit={() => setViewModalOpen(false)} // Just close on primary action for now, or use secondary action
+                submitLabel="Close"
+            >
+                {selectedApplication && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                        {/* Status Badge */}
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <StatusChip label={selectedApplication.status || 'NEW'} />
+                        </Box>
+
+                        {/* Applicant Information */}
+                        <Box>
+                            <Typography
+                                variant="subtitle2"
+                                sx={{
+                                    fontWeight: 700,
+                                    mb: 1.5,
+                                    color: theme.palette.primary.main,
+                                    letterSpacing: '0.05em',
+                                    textTransform: 'uppercase',
+                                    fontSize: '0.7rem',
+                                }}
+                            >
+                                Applicant Information
+                            </Typography>
+                            <Box sx={{
+                                p: 2.5,
+                                borderRadius: 3,
+                                backgroundColor: '#F8FAFC',
+                                border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+                            }}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 1.5, alignItems: 'center' }}>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>Name</Typography>
+                                    <Typography variant="body1" fontWeight={600}>{selectedApplication.applicantName}</Typography>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>Email</Typography>
+                                    <Typography variant="body1" sx={{ wordBreak: 'break-all' }}>{selectedApplication.applicantEmail}</Typography>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>Phone</Typography>
+                                    <Typography variant="body1">{selectedApplication.applicantPhone}</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+
+                        {/* Job Details */}
+                        <Box>
+                            <Typography
+                                variant="subtitle2"
+                                sx={{
+                                    fontWeight: 700,
+                                    mb: 1.5,
+                                    color: theme.palette.primary.main,
+                                    letterSpacing: '0.05em',
+                                    textTransform: 'uppercase',
+                                    fontSize: '0.7rem',
+                                }}
+                            >
+                                Application Details
+                            </Typography>
+                            <Box sx={{
+                                p: 2.5,
+                                borderRadius: 3,
+                                backgroundColor: '#F8FAFC',
+                                border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+                            }}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 1.5, alignItems: 'center' }}>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>Job Post</Typography>
+                                    <Box>
+                                        <Typography variant="body1" fontWeight={600}>{selectedApplication.jobTitle || 'Unknown Job'}</Typography>
+                                        <Typography variant="caption" sx={{ fontFamily: 'monospace', color: 'text.secondary' }}>
+                                            ID: {selectedApplication.jobPostId}
+                                        </Typography>
+                                    </Box>
+                                    <Typography variant="body2" color="text.secondary" fontWeight={500}>Applied On</Typography>
+                                    <Typography variant="body1">{new Date(selectedApplication.appliedAt).toLocaleString()}</Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+
+                        {/* Cover Letter */}
+                        {selectedApplication.coverLetter && (
+                            <Box>
+                                <Typography
+                                    variant="subtitle2"
+                                    sx={{
+                                        fontWeight: 700,
+                                        mb: 1.5,
+                                        color: '#D97706',
+                                        letterSpacing: '0.05em',
+                                        textTransform: 'uppercase',
+                                        fontSize: '0.7rem',
+                                    }}
+                                >
+                                    Cover Letter
+                                </Typography>
+                                <Box sx={{
+                                    p: 2.5,
+                                    borderRadius: 3,
+                                    backgroundColor: alpha('#F59E0B', 0.08),
+                                    border: `1px solid ${alpha('#F59E0B', 0.2)}`,
+                                }}>
+                                    <Typography variant="body2" style={{ whiteSpace: 'pre-wrap' }}>
+                                        {selectedApplication.coverLetter}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        )}
+
+                        {/* Resume Download */}
+                        {selectedApplication.resumeUrl && (
+                            <Box sx={{ pt: 1 }}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth
+                                    onClick={handleDownloadResume}
+                                    startIcon={<DescriptionRoundedIcon />}
+                                    sx={{
+                                        py: 1.5,
+                                        borderRadius: 2,
+                                        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)',
+                                    }}
+                                >
+                                    Download Resume
+                                </Button>
+                            </Box>
+                        )}
+                    </Box>
+                )}
+            </AppModal>
 
             {/* Snackbar */}
             <Snackbar

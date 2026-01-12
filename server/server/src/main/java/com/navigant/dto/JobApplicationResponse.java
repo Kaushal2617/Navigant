@@ -24,7 +24,8 @@ public class JobApplicationResponse {
 	private Instant appliedAt;
 	private Instant updatedAt;
 	private String reviewedBy;
-	
+	private String jobTitle; // Added field for display
+
 	// Constructor from entity
 	public JobApplicationResponse(JobApplication application) {
 		super();
@@ -40,7 +41,5 @@ public class JobApplicationResponse {
 		this.updatedAt = application.getUpdatedAt();
 		this.reviewedBy = application.getReviewedBy();
 	}
-	
-	
-	
+
 }

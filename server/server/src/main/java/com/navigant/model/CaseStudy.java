@@ -12,40 +12,43 @@ public final class CaseStudy {
 
 	@Id
 	private final String id;
-	
+
 	@Field("title")
 	private final String title;
-	
+
 	@Field("description")
 	private final String description;
-	
+
 	@Field("fullContent")
 	private final String fullContent;
-	
+
 	@Field("image")
 	private final String image;
-	
+
 	@Field("category")
 	private final String category;
-	
+
 	@Field("alt")
 	private final String alt;
-	
+
 	@Field("status")
 	private final String status;
-	
+
 	@Field("order")
 	private final Integer order;
-	
+
+	@Field("publishDate")
+	private final Instant publishDate;
+
 	@Field("createdAt")
 	private final Instant createdAt;
-	
+
 	@Field("updatedAt")
 	private final Instant updatedAt;
 
 	@PersistenceCreator
 	public CaseStudy(String id, String title, String description, String fullContent, String image, String category,
-			String alt, String status, Integer order, Instant createdAt, Instant updatedAt) {
+			String alt, String status, Integer order, Instant publishDate, Instant createdAt, Instant updatedAt) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -55,24 +58,27 @@ public final class CaseStudy {
 		this.alt = alt;
 		this.status = status;
 		this.order = order;
+		this.publishDate = publishDate;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
-	
+
 	// Factory method for creation
-	public static CaseStudy createNew(String title, String description, String fullContent, String image, String category,
-			String alt, Integer order) {
+	public static CaseStudy createNew(String title, String description, String fullContent, String image,
+			String category,
+			String alt, Integer order, Instant publishDate) {
 		Instant now = Instant.now();
-		return new CaseStudy(null, title, description, fullContent, image, category, alt, "DRAFT", order, now, now);
+		return new CaseStudy(null, title, description, fullContent, image, category, alt, "DRAFT", order, publishDate,
+				now, now);
 	}
-	
+
 	// Copy-with method for updates
 	public CaseStudy withUpdate(String title, String description, String fullContent,
-            String image, String category, String alt, String status, Integer order) {
-		
+			String image, String category, String alt, String status, Integer order, Instant publishDate) {
+
 		return new CaseStudy(this.id, title, description, fullContent, image, category, alt,
-                status, order, this.createdAt, Instant.now());
-		
+				status, order, publishDate, this.createdAt, Instant.now());
+
 	}
 
 	// Getters (no setters - immutable)
@@ -112,6 +118,10 @@ public final class CaseStudy {
 		return order;
 	}
 
+	public Instant getPublishDate() {
+		return publishDate;
+	}
+
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
@@ -119,10 +129,9 @@ public final class CaseStudy {
 	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
-	
-	
+
 	public boolean isPublished() {
 		return "PUBLISHED".equals(this.status);
 	}
-	
+
 }

@@ -85,7 +85,7 @@ export default function Admins() {
             minWidth: 120,
             render: (row) => (
                 <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
-                    {row.id.slice(0, 12)}...
+                    {row.id}
                 </Typography>
             ),
         },
