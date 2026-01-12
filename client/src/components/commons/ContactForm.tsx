@@ -9,6 +9,7 @@ interface ContactFormProps {
   className?: string;
   buttonText?: string;
   showSuccessMessage?: boolean;
+  onSuccess?: () => void; // Callback when form is successfully submitted
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({
@@ -18,6 +19,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   className = '',
   buttonText = 'Submit Request',
   showSuccessMessage = true,
+  onSuccess,
 }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -42,7 +44,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     'Digital Workers',
     'Healthcare Services',
     'Market Research',
-    'HR Services',
+    'RPO & Staffing Services',
     'Finance & Accounting',
     'IT Services',
     'Digital Marketing',
@@ -134,6 +136,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
             numberOfSeats: '',
             remarks: '',
           });
+          // Call onSuccess callback if provided
+          if (onSuccess) {
+            setTimeout(() => {
+              onSuccess();
+            }, 1500); // Wait a bit to show success message
+          }
         } else {
           alert(response.error || 'Failed to submit. Please try again later.');
         }
@@ -147,7 +155,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <section className={`py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden ${className}`}>
+    <section className={`pt-6 md:pt-8 lg:pt-10 pb-12 md:pb-16 lg:pb-6 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden ${className}`}>
       {/* DotGrid Background */}
       {showBackground && (
         <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -172,8 +180,11 @@ const ContactForm: React.FC<ContactFormProps> = ({
         {(title || subtitle) && (
           <div className="text-center mb-10 md:mb-12">
             {title && (
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                {title}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#CA1411] mb-4 relative">
+                <span className="relative">
+                  {title}
+                  <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+                </span>
               </h2>
             )}
             {subtitle && (

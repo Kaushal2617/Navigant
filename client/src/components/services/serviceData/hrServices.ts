@@ -3,7 +3,7 @@ import type { ServiceData } from '../serviceTypes';
 export const hrServicesData: ServiceData = {
   id: 'hr-services',
   slug: 'hr-services',
-  name: 'HR Services',
+  name: 'RPO & Staffing Services',
   title: 'HR Outsourcing & Recruitment Services',
   subtitle: 'End-to-end HR, recruitment, and automation to scale teams faster with compliance.',
   description:

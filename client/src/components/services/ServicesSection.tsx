@@ -31,7 +31,7 @@ const ServicesSection: React.FC = () => {
   }, []);
 
   // Services data matching the dropdown services
-  // Priority services appear first: BPO Services, Amazon Global Selling, IT Services, HR Services
+  // Priority services appear first: BPO Services, Amazon Global Selling, IT Services, RPO & Staffing Services
   const services: Service[] = [
     {
       id: '2',
@@ -56,7 +56,7 @@ const ServicesSection: React.FC = () => {
     },
     {
       id: '6',
-      name: 'HR Services',
+      name: 'RPO & Staffing Services',
       slug: 'hr-services',
       description: 'Human Resources outsourcing services including recruitment, payroll, and employee management.',
       shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
@@ -127,7 +127,7 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-gradient-to-b from-white via-gray-50/50 to-white w-full relative overflow-hidden">
+    <section className="pt-1 sm:pt-2 md:pt-2 lg:pt-3 xl:pt-3 pb-12 sm:pb-8 md:pb-6 lg:pb-8 xl:pb-10 bg-gradient-to-b from-white via-gray-50/50 to-white w-full relative overflow-hidden">
       {/* DotGrid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <DotGrid
@@ -148,7 +148,7 @@ const ServicesSection: React.FC = () => {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
+        <div className="text-center mb-6 sm:mb-8 md:mb-16 lg:mb-10 xl:mb-12">
           <div className="inline-block mb-3 sm:mb-4">
             <span className="text-xs sm:text-sm md:text-base font-semibold text-[#CA1411] uppercase tracking-wider">
               What We Offer
@@ -167,8 +167,8 @@ const ServicesSection: React.FC = () => {
 
         {/* Services Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
-          {/* Show only 4 services on mobile, all on larger screens */}
-          {(isMobile ? services.slice(0, 4) : services).map((service, index) => (
+          {/* Show 4 services on mobile, 6 services on desktop */}
+          {(isMobile ? services.slice(0, 4) : services.slice(0, 6)).map((service, index) => (
             <div
               key={service.id}
               className="service-card-wrapper"
@@ -193,32 +193,30 @@ const ServicesSection: React.FC = () => {
           ))}
         </div>
 
-        {/* View All Button - Mobile Only */}
-        {isMobile && (
-          <div className="flex justify-center mt-8">
-            <a
-              href="/services"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#CA1411] hover:bg-[#B0120F] font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+        {/* View All Services Button - Mobile and Desktop */}
+        <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
+          <a
+            href="/services"
+            className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-sm sm:text-base"
+            style={{ color: '#ffffff' }}
+          >
+            <span style={{ color: '#ffffff' }}>View All Services</span>
+            <svg
+              className="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
               style={{ color: '#ffffff' }}
             >
-              <span style={{ color: '#ffffff' }}>View All</span>
-              <svg
-                className="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-                style={{ color: '#ffffff' }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </a>
-          </div>
-        )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

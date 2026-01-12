@@ -1,0 +1,64 @@
+package com.navigant.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.navigant.dto.CaseStudyRequest;
+import com.navigant.dto.CaseStudyResponse;
+import com.navigant.security.AdminUserDetails;
+import com.navigant.service.CaseStudyService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
+
+@RestController
+@RequestMapping("/api/v1")
+public class CaseStudyController {
+
+	private final CaseStudyService service;
+
+	public CaseStudyController(CaseStudyService service) {
+		this.service = service;
+	}
+	
+	// ===== ADMIN ENDPOINTS =====
+	@PostMapping("/admin/case-studies")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CaseStudyResponse create(@Valid @RequestBody CaseStudyRequest request, 
+			@AuthenticationPrincipal AdminUserDetails admin) {
+		return service.create(request);
+		
+	}
+	
+	@GetMapping("/admin/case-studies")
+	public List<CaseStudyResponse> getAll(@AuthenticationPrincipal AdminUserDetails admin) {
+		return service.getAll();
+	}
+	
+	@GetMapping("/admin/case-studies/{id}")
+	public CaseStudyResponse getById(@PathVariable String id, @AuthenticationPrincipal AdminUserDetails admin) {
+		return service.getById(id);
+	}
+	
+	// ===== PUBLIC ENDPOINTS =====
+	@GetMapping("/case-studies")
+	public String getMethodName(@RequestParam String param) {
+		return new String();
+	}
+	
+	public List<CaseStudyResponse> getPublished(){
+		return service.getPublished();
+	}
+}

@@ -21,6 +21,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded';
 
 const drawerWidth = 280;
 const collapsedDrawerWidth = 80;
@@ -87,6 +88,7 @@ export default function AdminLayout() {
         { text: 'Applications', icon: <DescriptionRoundedIcon />, path: '/applications' },
         { text: 'Leads', icon: <ContactsRoundedIcon />, path: '/leads' },
         { text: 'Reviews', icon: <RateReviewRoundedIcon />, path: '/reviews' },
+        { text: 'Case Studies', icon: <ArticleRoundedIcon />, path: '/case-studies' },
         { text: 'Admins', icon: <SupervisorAccountRoundedIcon />, path: '/admins' },
         { text: 'Activity Logs', icon: <HistoryRoundedIcon />, path: '/logs' },
         { text: 'Settings', icon: <SettingsRoundedIcon />, path: '/settings' },

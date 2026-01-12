@@ -1,5 +1,0 @@
-package com.navigant.service;
-
-public interface ReviewService {
-
-}

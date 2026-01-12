@@ -1,1 +1,0 @@
-import{j as r}from"./index-DH02pS4h.js";import{C as m}from"./ContactForm-C9LM-acj.js";import"./DotGrid-DVleJx5I.js";import"./api-BcqTgZWN.js";const i=({title:t,subtitle:o})=>r.jsx(m,{title:t,subtitle:o,buttonText:"Let's Talk"});export{i as default};

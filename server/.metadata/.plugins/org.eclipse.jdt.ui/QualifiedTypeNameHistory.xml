@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.lang.StackWalker.Option"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.Email"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotNull"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.Min"/>
     <fullyQualifiedTypeName name="java.lang.InstantiationError"/>
     <fullyQualifiedTypeName name="com.navigant.dto.ReviewSubmitRequest"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.navigant.repository.ReviewRepository"/>
     <fullyQualifiedTypeName name="com.navigant.repository.AdminRepository"/>
     <fullyQualifiedTypeName name="java.util.UUID"/>
@@ -28,18 +26,8 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="com.navigant.dto.ReviewResponse"/>
-    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.navigant.dto.ReviewStatusUpdateRequest"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PatchMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
-    <fullyQualifiedTypeName name="com.navigant.security.AdminUserDetails"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseStatus"/>
     <fullyQualifiedTypeName name="com.navigant.exception.ReviewNotFoundException"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpMethod"/>
     <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.mapping.Document"/>
     <fullyQualifiedTypeName name="org.springframework.data.annotation.Id"/>
     <fullyQualifiedTypeName name="org.springframework.data.mongodb.core.mapping.Field"/>
@@ -49,15 +37,27 @@
     <fullyQualifiedTypeName name="jakarta.validation.constraints.Size"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="jakarta.validation.constraints.NotBlank"/>
-    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyRequest"/>
-    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyUpdateRequest"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.navigant.repository.CaseStudyRepository"/>
     <fullyQualifiedTypeName name="com.navigant.model.CaseStudy"/>
-    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyResponse"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="org.springframework.http.ProblemDetail"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
     <fullyQualifiedTypeName name="com.navigant.CaseStudyNotFoundException"/>
+    <fullyQualifiedTypeName name="com.navigant.service.CaseStudyService"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PatchMapping"/>
+    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyResponse"/>
+    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
+    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
+    <fullyQualifiedTypeName name="com.navigant.security.AdminUserDetails"/>
+    <fullyQualifiedTypeName name="com.navigant.dto.CaseStudyUpdateRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpMethod"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 </qualifiedTypeNameHistroy>

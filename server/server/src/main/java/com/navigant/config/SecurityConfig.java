@@ -76,6 +76,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/reviews/{token}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/case-studies/**").permitAll()
 
                         // 3. Public SUBMISSION-ONLY
                         .requestMatchers(HttpMethod.POST, "/api/v1/applications").permitAll()

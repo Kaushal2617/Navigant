@@ -1,7 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
+import type { Swiper as SwiperType } from 'swiper/types';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -46,26 +46,26 @@ const Carousel: React.FC<CarouselProps> = ({
       autoplay={
         autoplay
           ? {
-              delay: autoplayDelay,
-              disableOnInteraction: false,
-            }
+            delay: autoplayDelay,
+            disableOnInteraction: false,
+          }
           : false
       }
       navigation={showNavigation}
       pagination={
         showPagination
           ? {
-              clickable: true,
-              dynamicBullets: true,
-            }
+            clickable: true,
+            dynamicBullets: true,
+          }
           : false
       }
       effect={effect}
       fadeEffect={
         effect === 'fade'
           ? {
-              crossFade: true,
-            }
+            crossFade: true,
+          }
           : undefined
       }
       onSlideChange={onSlideChange}

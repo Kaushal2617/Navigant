@@ -5,20 +5,21 @@ import java.time.Instant;
 import com.navigant.model.CaseStudy;
 
 public record CaseStudyResponse(
-		
+
 		String id,
-	    String title,
-	    String description,
-	    String fullContent,
-	    String image,
-	    String category,
-	    String alt,
-	    String status,
-	    Integer order,
-	    Instant createdAt,
-	    Instant updatedAt
-	    
-		) {
+		String title,
+		String description,
+		String fullContent,
+		String image,
+		String category,
+		String alt,
+		String status,
+		Integer order,
+		Instant publishDate,
+		Instant createdAt,
+		Instant updatedAt
+
+) {
 
 	public static CaseStudyResponse fromEntity(CaseStudy entity) {
 		return new CaseStudyResponse(entity.getId(),
@@ -30,8 +31,8 @@ public record CaseStudyResponse(
 				entity.getAlt(),
 				entity.getStatus(),
 				entity.getOrder(),
+				entity.getPublishDate(),
 				entity.getCreatedAt(),
-				entity.getUpdatedAt()
-				);
+				entity.getUpdatedAt());
 	}
 }

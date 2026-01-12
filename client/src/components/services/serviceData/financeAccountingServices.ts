@@ -12,24 +12,10 @@ export const financeAccountingServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Accurate Bookkeeping & Accounting',
-      subtitle: 'Maintain precise financial records with our expert accounting services',
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80',
-      imageAlt: 'Financial accounting and bookkeeping',
-    },
-    {
-      id: 2,
-      title: 'Tax Preparation & Compliance',
-      subtitle: 'Stay compliant with tax regulations and maximize your deductions',
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80',
-      imageAlt: 'Tax preparation services',
-    },
-    {
-      id: 3,
-      title: 'Financial Analysis & Reporting',
-      subtitle: 'Get actionable insights from your financial data to make informed decisions',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
-      imageAlt: 'Financial analysis and reporting',
+      title: 'Finance & Accounting Services',
+      subtitle: 'Comprehensive finance and accounting outsourcing services including bookkeeping, tax preparation, financial analysis, and more to help you focus on core business activities.',
+      image: '/servicebanner/account.jpg',
+      imageAlt: 'Finance & Accounting Services',
     },
   ],
 

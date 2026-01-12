@@ -16,6 +16,7 @@ const Reviews = lazy(() => import('./pages/Reviews'));
 const Notifications = lazy(() => import('./pages/Notifications'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Logs = lazy(() => import('./pages/Logs'));
+const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 
 // Modern Loading Component with fade-in
 const PageLoader = () => (
@@ -480,6 +481,11 @@ function App() {
             <Route path="logs" element={
               <Suspense fallback={<PageLoader />}>
                 <Logs />
+              </Suspense>
+            } />
+            <Route path="case-studies" element={
+              <Suspense fallback={<PageLoader />}>
+                <CaseStudies />
               </Suspense>
             } />
           </Route>

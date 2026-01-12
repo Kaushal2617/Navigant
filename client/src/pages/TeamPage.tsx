@@ -6,7 +6,7 @@ import DotGrid from '../components/commons/DotGrid';
 const TeamPage: React.FC = () => {
   return (
     <AppLayout>
-      <section className="pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+      <section className="pt-24 md:pt-28 lg:pt-32 pb-8 md:pb-10 lg:pb-12 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
         {/* DotGrid Background */}
         <div className="absolute inset-0 pointer-events-none">
           <DotGrid
@@ -27,9 +27,25 @@ const TeamPage: React.FC = () => {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           {/* Section Header */}
-          <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
-              {teamMembersSectionConfig.title}
+          <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 leading-[1.1] sm:leading-tight px-4 sm:px-0">
+              {(() => {
+                const title = teamMembersSectionConfig.title;
+                // Split "Our Team Members!" into "Our Team" (black) and "Members!" (red)
+                const words = title.split(' ');
+                const blackWords = words.slice(0, -1).join(' '); // "Our Team"
+                const redWords = words.slice(-1).join(' '); // "Members!"
+                
+                return (
+                  <>
+                    <span className="text-gray-900">{blackWords} </span>
+                    <span className="text-[#CA1411] relative">
+                      {redWords}
+                      <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+                    </span>
+                  </>
+                );
+              })()}
             </h1>
             {teamMembersSectionConfig.subtitle && (
               <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">

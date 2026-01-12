@@ -17,11 +17,15 @@ public class LoginResponse {
 	// Authenticated user's name
 	private String name;
 
+	// JWT Access Token
+	private String token;
+
 	// Constructor without type parameter (defaults to "Bearer")
-	public LoginResponse(String id, String email, String role, String name) {
+	public LoginResponse(String id, String email, String role, String name, String token) {
 		this.id = id;
 		this.email = email;
 		this.role = role;
 		this.name = name;
+		this.token = token;
 	}
 }

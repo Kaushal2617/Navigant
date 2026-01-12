@@ -24,19 +24,24 @@ export const useAuthStore = create<AuthState>((set) => ({
             const response = await client.post<LoginResponse>('/auth/login', credentials);
             const { token, id, email, role, name } = response.data; // Ensure name is destructured if available
 
-            localStorage.setItem('token', token);
-            // Persist user details
-            const userObj = { id, email, role, name: name || email.split('@')[0] }; // Fallback name if missing
-            localStorage.setItem('user', JSON.stringify(userObj));
+            if (token) {
+                localStorage.setItem('token', token);
+                // Persist user details
+                const userObj = { id, email, role, name: name || email.split('@')[0] }; // Fallback name if missing
+                localStorage.setItem('user', JSON.stringify(userObj));
 
-            client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            set({
-                user: userObj,
-                token,
-                isAuthenticated: true,
-                isLoading: false
-            });
+                set({
+                    user: userObj,
+                    token,
+                    isAuthenticated: true,
+                    isLoading: false
+                });
+            } else {
+                console.error("Login successful but no token received");
+                throw new Error("No access token received from server");
+            }
         } catch (error) {
             set({ isLoading: false });
             throw error;

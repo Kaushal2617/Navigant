@@ -45,6 +45,7 @@ export interface JobApplicationResponse {
     resumeUrl?: string; // Assuming file path/url
     status: string;
     appliedAt: string;
+    jobTitle?: string; // Added from backend
 }
 
 export interface ApplicationStatusUpdateRequest {
@@ -124,3 +125,45 @@ export interface Page<T> {
     last: boolean;
     empty: boolean;
 }
+
+export interface CaseStudyResponse {
+    id: string;
+    title: string;
+    description: string;
+    fullContent?: string;
+    image?: string;
+    category: string;
+    alt?: string;
+    status: string;
+    order?: number;
+    publishDate?: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface CaseStudyRequest {
+    title: string;
+    description: string;
+    fullContent?: string;
+    image?: string;
+    category: string;
+    alt?: string;
+    order?: number;
+    publishDate?: string;
+}
+
+export interface CaseStudyUpdateRequest extends CaseStudyRequest {
+    status: string;
+}
+
+// Dashboard Analytics
+export interface DashboardStatsResponse {
+    totalJobs: number;
+    activeJobs: number;
+    totalApplications: number;
+    totalLeads: number;
+    pendingReviews: number;
+    applicationsOverTime: Array<{ date: string; count: number }>;
+    leadsByStatus: Record<string, number>;
+}
+

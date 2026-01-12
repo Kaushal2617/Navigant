@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#CA1411]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#CA1411]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-10">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Company Info */}
@@ -59,22 +59,10 @@ const Footer: React.FC = () => {
             <div className="mb-6">
               <div className="mb-4">
                 <img
-                  src="https://www.navigant.in/assets/images/footer-logo.png"
+                  src="/logo.png"
                   alt="Navigant Technologies"
                   className="h-10 md:h-12 w-auto"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    // Fallback to text if image fails to load
-                    target.style.display = 'none';
-                    const fallback = target.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = 'block';
-                  }}
                 />
-                <h3 className="text-2xl md:text-3xl font-bold hidden">
-                  <span className="text-gray-900">navi</span>
-                  <span className="text-[#CA1411]">g</span>
-                  <span className="text-gray-900">ant</span>
-                </h3>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 Your trusted partner for innovative business solutions. We deliver excellence in every service we provide.

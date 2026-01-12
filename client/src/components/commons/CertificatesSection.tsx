@@ -18,7 +18,7 @@ const CertificatesSection: React.FC<CertificatesSectionProps> = ({
   showDescription = certificatesSectionConfig.showDescription,
 }) => {
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+    <section className="py-4 md:py-6 lg:py-8 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
       {/* DotGrid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <DotGrid

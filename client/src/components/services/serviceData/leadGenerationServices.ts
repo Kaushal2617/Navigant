@@ -12,24 +12,10 @@ export const leadGenerationServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Sales-Ready Pipeline',
-      subtitle: 'Qualified meetings with ICP buyers, not just form fills.',
-      image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1200&q=80',
-      imageAlt: 'Sales pipeline dashboard',
-    },
-    {
-      id: 2,
-      title: 'Multi-Channel Outreach',
-      subtitle: 'Email, phone, and social cadences tuned for response and show rates.',
-      image: 'https://images.unsplash.com/photo-1525182008055-f88b95ff7980?w=1200&q=80',
-      imageAlt: 'Outbound outreach',
-    },
-    {
-      id: 3,
-      title: 'Data You Can Trust',
-      subtitle: 'Research, enrichment, and verification before any campaign goes live.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
-      imageAlt: 'Data quality checks',
+      title: 'Lead Generation Services',
+      subtitle: 'Revenue-focused lead generation programs that combine clean data, human research, and multi-channel outreach to book meetings with your ideal customers.',
+      image: '/servicebanner/leadgeneration.jpg',
+      imageAlt: 'Lead Generation Services',
     },
   ],
 

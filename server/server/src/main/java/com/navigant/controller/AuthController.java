@@ -98,7 +98,8 @@ public class AuthController {
 				userDetails.getAdmin().getId(),
 				userDetails.getAdmin().getEmail(),
 				userDetails.getAdmin().getRole().getValue(),
-				userDetails.getAdmin().getName()); // Use correct getter
+				userDetails.getAdmin().getName(),
+				jwt); // Pass generated token
 
 		return ResponseEntity.ok(response);
 

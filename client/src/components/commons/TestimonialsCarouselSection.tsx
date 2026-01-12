@@ -210,7 +210,7 @@ const TestimonialsCarouselSection: React.FC<TestimonialsCarouselSectionProps> = 
   );
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-gray-50/50 to-white pt-14 pb-20 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-white via-gray-50/50 to-white pt-10 pb-6 md:pb-8 overflow-hidden">
       {/* Background animation */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <DotGrid
@@ -231,7 +231,12 @@ const TestimonialsCarouselSection: React.FC<TestimonialsCarouselSectionProps> = 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-1">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">{title}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#CA1411] mb-4 relative">
+            <span className="relative">
+              {title}
+              <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
+            </span>
+          </h2>
           {subtitle && (
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">{subtitle}</p>
           )}

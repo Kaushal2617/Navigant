@@ -12,24 +12,10 @@ export const amazonGlobalSellingServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Global Marketplace Expansion',
-      subtitle: 'Launch and manage your products across multiple Amazon marketplaces worldwide',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80',
-      imageAlt: 'Amazon global selling',
-    },
-    {
-      id: 2,
-      title: 'Product Listing & Optimization',
-      subtitle: 'Create compelling product listings that rank higher and convert better',
-      image: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?w=1200&q=80',
-      imageAlt: 'Product listing optimization',
-    },
-    {
-      id: 3,
-      title: 'Order Management & Fulfillment',
-      subtitle: 'Streamline order processing, inventory management, and customer service',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
-      imageAlt: 'Order fulfillment',
+      title: 'Amazon Global Selling',
+      subtitle: 'Comprehensive Amazon Global Selling services to help businesses establish, manage, and scale their presence on Amazon marketplaces worldwide',
+      image: '/servicebanner/amazon.jpg',
+      imageAlt: 'Amazon Global Selling',
     },
   ],
 

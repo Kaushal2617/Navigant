@@ -24,6 +24,9 @@ public final class JobApplication {
 	@Field("jobPostId")
 	private final String jobPostId; // Which job applicant applied to
 
+	@Field("jobTitle")
+	private final String jobTitle; // Denormalized for performance/history
+
 	@Field("applicantName")
 	private final String applicantName;
 
@@ -58,11 +61,12 @@ public final class JobApplication {
 	 * Primary constructor (used by Spring Data MongoDB on load).
 	 * All fields final → full immutability.
 	 */
-	public JobApplication(String id, String jobPostId, String applicantName, String applicantEmail,
+	public JobApplication(String id, String jobPostId, String jobTitle, String applicantName, String applicantEmail,
 			String applicantPhone, String resumeUrl, String resumePublicId, String coverLetter,
 			String status, Instant appliedAt, Instant updatedAt, String reviewedBy) {
 		this.id = id;
 		this.jobPostId = jobPostId;
+		this.jobTitle = jobTitle;
 		this.applicantName = applicantName;
 		this.applicantEmail = applicantEmail;
 		this.applicantPhone = applicantPhone;
@@ -76,16 +80,17 @@ public final class JobApplication {
 	}
 
 	// --- Factory method for creation ---
-	public static JobApplication createNew(String jobPostId, String applicantName, String applicantEmail,
+	public static JobApplication createNew(String jobPostId, String jobTitle, String applicantName,
+			String applicantEmail,
 			String applicantPhone, String resumeUrl, String resumePublicId, String coverLetter) {
 		Instant now = Instant.now();
-		return new JobApplication(null, jobPostId, applicantName, applicantEmail, applicantPhone,
+		return new JobApplication(null, jobPostId, jobTitle, applicantName, applicantEmail, applicantPhone,
 				resumeUrl, resumePublicId, coverLetter, "NEW", now, now, null);
 	}
 
 	// --- Copy-with methods for functional updates ---
 	public JobApplication withStatus(String status, String reviewedBy) {
-		return new JobApplication(this.id, this.jobPostId, this.applicantName, this.applicantEmail,
+		return new JobApplication(this.id, this.jobPostId, this.jobTitle, this.applicantName, this.applicantEmail,
 				this.applicantPhone, this.resumeUrl, this.resumePublicId, this.coverLetter,
 				status, this.appliedAt, Instant.now(), reviewedBy);
 	}
@@ -97,6 +102,10 @@ public final class JobApplication {
 
 	public String getJobPostId() {
 		return jobPostId;
+	}
+
+	public String getJobTitle() {
+		return jobTitle;
 	}
 
 	public String getApplicantName() {

@@ -12,25 +12,10 @@ export const ecommerceManagementServicesData: ServiceData = {
   heroSlides: [
     {
       id: 1,
-      title: 'Empower Your Ecommerce Business',
-      subtitle:
-        'Account setup, optimization, and compliance handled by specialists so you can focus on growth.',
-      image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1200&q=80',
-      imageAlt: 'Ecommerce dashboard',
-    },
-    {
-      id: 2,
-      title: 'Inventory & Listing Excellence',
-      subtitle: 'Optimized catalogs, pricing, and availability to win the buy box and convert traffic.',
-      image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?w=1200&q=80',
-      imageAlt: 'Product listing optimization',
-    },
-    {
-      id: 3,
-      title: 'Performance Marketing That Converts',
-      subtitle: 'Targeted campaigns that lift sales, visibility, and return on ad spend.',
-      image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80',
-      imageAlt: 'Digital marketing performance',
+      title: 'Ecommerce Management Services',
+      subtitle: 'End-to-end ecommerce seller account management plus performance marketing to grow visibility, conversions, and ROI across marketplaces like Amazon and Flipkart.',
+      image: '/servicebanner/ecommerce.jpg',
+      imageAlt: 'Ecommerce Management Services',
     },
   ],
 

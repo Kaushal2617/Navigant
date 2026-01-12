@@ -49,7 +49,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <AppLayout>
-      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-16 md:pb-20 bg-gradient-to-br from-white via-gray-50/50 to-white overflow-hidden">
+      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-8 md:pb-10 bg-gradient-to-br from-white via-gray-50/50 to-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <DotGrid
             dotSize={12}
@@ -87,7 +87,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+      <section className="py-6 md:py-8 lg:py-10 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div
@@ -198,7 +198,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+      <section className="py-6 md:py-8 lg:py-10 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <DotGrid
             dotSize={12}
@@ -255,7 +255,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+      <section className="py-6 md:py-8 lg:py-10 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-block mb-4">
@@ -324,7 +324,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
+      <section className="py-6 md:py-8 lg:py-10 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <DotGrid
             dotSize={12}

@@ -60,15 +60,22 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		}
 
 		// 3. Validate and upload resume
+		// 2. Validate and upload resume
 		validateResume(resumePdf);
 		Map<String, Object> uploadResult = UploadResume(resumePdf, request.getApplicantEmail());
 
 		String resumeUrl = (String) uploadResult.get("secure_url");
 		String publicId = (String) uploadResult.get("public_id");
 
-		// 4. Create application
+		// 4. Validate job and get title
+		String jobTitle = jobPostRepository.findById(request.getJobPostId())
+				.map(job -> job.getTitle())
+				.orElseThrow(() -> new JobNotFoundException("Job not found with id: " + request.getJobPostId()));
+
+		// 5. Create application with title
 		JobApplication application = JobApplication.createNew(
 				request.getJobPostId(),
+				jobTitle,
 				request.getApplicantName(),
 				request.getApplicantEmail(),
 				request.getApplicantPhone(),
@@ -76,7 +83,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 				publicId,
 				request.getCoverLetter());
 
-		// 5. Save and return
+		// 6. Save and return
 		JobApplication saved = applicationRepository.save(application);
 
 		// --- Send Notification (Dynamic) ---
@@ -86,7 +93,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 			if (targetEmail != null && !targetEmail.isEmpty()) {
 				String subject = "New Job Application: " + request.getApplicantName();
 				String body = String.format("""
-						New application received for Job ID: %s
+						New application received for Job: %s (%s)
 
 						         Applicant: %s
 						         Email: %s
@@ -96,6 +103,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 						         Login to admin panel to review.
 						""",
+						jobTitle,
 						request.getJobPostId(),
 						request.getApplicantName(),
 						request.getApplicantEmail(),
@@ -106,29 +114,30 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 			}
 		}
 
-		return new JobApplicationResponse(saved);
+		JobApplicationResponse response = new JobApplicationResponse(saved);
+		response.setJobTitle(saved.getJobTitle());
+		return response;
 	}
 
 	@Override
 	public List<JobApplicationResponse> getAllApplications() {
-
-		return applicationRepository.findAll().stream()
-				.map(JobApplicationResponse::new)
-				.collect(Collectors.toList());
+		return mapToResponseWithTitles(applicationRepository.findAll());
 	}
 
 	@Override
 	public void exportApplicationsToCsv(java.io.Writer writer) {
 		try (org.apache.commons.csv.CSVPrinter printer = new org.apache.commons.csv.CSVPrinter(writer,
 				org.apache.commons.csv.CSVFormat.DEFAULT.builder()
-						.setHeader("ID", "Job ID", "Name", "Email", "Phone", "Status", "Resume URL", "Applied Date")
+						.setHeader("ID", "Job ID", "Job Title", "Name", "Email", "Phone", "Status", "Resume URL",
+								"Applied Date")
 						.build())) {
 
-			List<JobApplication> allApps = applicationRepository.findAll();
-			for (JobApplication app : allApps) {
+			List<JobApplicationResponse> allApps = getAllApplications(); // Reuse logic
+			for (JobApplicationResponse app : allApps) {
 				printer.printRecord(
 						app.getId(),
 						app.getJobPostId(),
+						app.getJobTitle(),
 						app.getApplicantName(),
 						app.getApplicantEmail(),
 						app.getApplicantPhone(),
@@ -143,18 +152,13 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 	@Override
 	public List<JobApplicationResponse> getApplicationByJob(String jobPostId) {
-
-		return applicationRepository.findByJobPostId(jobPostId).stream()
-				.map(JobApplicationResponse::new)
-				.collect(Collectors.toList());
+		// Optimization: If filtering by job, we know the title already (mostly)
+		return mapToResponseWithTitles(applicationRepository.findByJobPostId(jobPostId));
 	}
 
 	@Override
 	public List<JobApplicationResponse> getApplicationByStatus(String status) {
-
-		return applicationRepository.findByStatus(status).stream()
-				.map(JobApplicationResponse::new)
-				.collect(Collectors.toList());
+		return mapToResponseWithTitles(applicationRepository.findByStatus(status));
 	}
 
 	@Override
@@ -171,7 +175,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 		JobApplication saved = applicationRepository.save(updated);
 
-		return new JobApplicationResponse(saved);
+		return toResponseWithTitle(saved);
 	}
 
 	@Override
@@ -180,7 +184,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 		JobApplication application = applicationRepository.findById(id)
 				.orElseThrow(() -> new JobApplicationNotFoundException(
 						"Application not found with id: " + id));
-		return new JobApplicationResponse(application);
+
+		return toResponseWithTitle(application);
 	}
 
 	@Override
@@ -200,6 +205,47 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 	}
 
 	// Helper methods
+
+	private JobApplicationResponse toResponseWithTitle(JobApplication app) {
+		JobApplicationResponse res = new JobApplicationResponse(app);
+		if (app.getJobTitle() != null) {
+			res.setJobTitle(app.getJobTitle());
+		} else {
+			// Fallback for legacy data
+			jobPostRepository.findById(app.getJobPostId())
+					.ifPresent(job -> res.setJobTitle(job.getTitle()));
+		}
+		return res;
+	}
+
+	private List<JobApplicationResponse> mapToResponseWithTitles(List<JobApplication> applications) {
+		// Identify which apps are missing titles (legacy)
+		List<String> missingTitleJobIds = applications.stream()
+				.filter(app -> app.getJobTitle() == null)
+				.map(JobApplication::getJobPostId)
+				.distinct()
+				.collect(Collectors.toList());
+
+		Map<String, String> fetchedTitles;
+		if (!missingTitleJobIds.isEmpty()) {
+			fetchedTitles = jobPostRepository.findAllById(missingTitleJobIds).stream()
+					.collect(Collectors.toMap(job -> job.getId(), job -> job.getTitle()));
+		} else {
+			fetchedTitles = Map.of();
+		}
+
+		return applications.stream()
+				.map(app -> {
+					JobApplicationResponse res = new JobApplicationResponse(app);
+					if (app.getJobTitle() != null) {
+						res.setJobTitle(app.getJobTitle());
+					} else {
+						res.setJobTitle(fetchedTitles.getOrDefault(app.getJobPostId(), "Unknown Job"));
+					}
+					return res;
+				})
+				.collect(Collectors.toList());
+	}
 
 	private void validateResume(MultipartFile file) {
 		if (file == null || file.isEmpty()) {
