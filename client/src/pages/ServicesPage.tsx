@@ -46,13 +46,6 @@ const ServicesPage: React.FC = () => {
       shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
     },
     {
-      id: '1',
-      name: 'Digital Workers',
-      slug: 'digital-workers',
-      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
-      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
-    },
-    {
       id: '12',
       name: 'Lead Generation',
       slug: 'lead-generation',
@@ -81,13 +74,6 @@ const ServicesPage: React.FC = () => {
       shortDescription: 'Dedicated healthcare outsourcing services to support medical practices and facilities.',
     },
     {
-      id: '4',
-      name: 'Tata Tele Services',
-      slug: 'tata-tele-services',
-      description: 'Connectivity, collaboration, cloud, and security solutions from TTBS.',
-      shortDescription: 'ICT solutions for resilient, secure, and scalable operations.',
-    },
-    {
       id: '5',
       name: 'Market Research',
       slug: 'market-research',
@@ -107,6 +93,13 @@ const ServicesPage: React.FC = () => {
       slug: 'digital-marketing',
       description: 'Digital marketing services including SEO, social media marketing, and content creation.',
       shortDescription: 'Strategic digital marketing solutions to grow your online presence and reach.',
+    },
+    {
+      id: '4',
+      name: 'Tata Tele Services',
+      slug: 'tata-tele-services',
+      description: 'Connectivity, collaboration, cloud, and security solutions from TTBS.',
+      shortDescription: 'ICT solutions for resilient, secure, and scalable operations.',
     },
   ];
 
@@ -152,7 +145,7 @@ const ServicesPage: React.FC = () => {
 
           {/* Services Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
-            {services.filter(service => service.slug !== 'tata-tele-services').map((service, index) => (
+            {services.map((service, index) => (
               <div
                 key={service.id}
                 className="service-card-wrapper"

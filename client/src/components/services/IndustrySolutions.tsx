@@ -44,7 +44,7 @@ const IndustrySolutions: React.FC<IndustrySolutionsProps> = ({ industries }) => 
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
-            Navigant BPO Services are the best in these fields
+            Navigant provides these solutions for Tata Tele Services.
           </p>
         </div>
 

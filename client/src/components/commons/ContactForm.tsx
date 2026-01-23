@@ -154,17 +154,12 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  // HubSpot Embed Script Effect - Load immediately
-  React.useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js'; // Standard HubSpot Embed Script
-    script.async = true;
-    document.body.appendChild(script);
+  // Teams booking URL
+  const teamsBookingUrl = 'https://outlook.office.com/book/MeetingwithSonalArora@navigant.in/';
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  const handleScheduleMeeting = () => {
+    window.open(teamsBookingUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <section className={`pt-6 md:pt-8 lg:pt-10 pb-12 md:pb-16 lg:pb-6 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden ${className}`}>
@@ -397,25 +392,45 @@ const ContactForm: React.FC<ContactFormProps> = ({
               <div className="h-px bg-gray-200 flex-grow ml-4"></div>
             </h3>
 
-            <div className="flex-grow min-h-[500px] flex items-center justify-center bg-gray-50 rounded-xl relative overflow-hidden">
-              {/* HubSpot Meeting Embed */}
-              <div
-                className="meetings-iframe-container w-full h-full absolute inset-0"
-                data-src="https://meetings.hubspot.com/navigant-contact?embed=true"
-                style={{ minHeight: '100%' }}
-              >
-              </div>
-              {/* Initial Loading State / Placeholder */}
-              <div className="text-center p-8 z-0">
-                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#CA1411] mx-auto mb-4"></div>
-                <p className="text-gray-500 font-medium">Loading Calendar...</p>
-                <p className="text-xs text-gray-400 mt-2 max-w-[200px] mx-auto">Connecting to real-time availability...</p>
+            <div className="flex-grow min-h-[500px] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl relative overflow-hidden">
+              {/* Book a Meeting Card */}
+              <div className="text-center p-8 md:p-12 max-w-md mx-auto">
+                <div className="mb-6">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#CA1411] to-[#B0120F] flex items-center justify-center shadow-lg">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                    Book a Meeting
+                  </h4>
+                  <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                    Schedule a convenient time to discuss your requirements with our team
+                  </p>
+                </div>
+
+                <div className="mt-8">
+                  <button
+                    onClick={handleScheduleMeeting}
+                    className="w-full px-8 py-4 bg-[#CA1411] hover:bg-[#B0120F] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-base md:text-lg flex items-center justify-center gap-3 group"
+                  >
+                    <span>Schedule Now</span>
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Opens in a new window</span>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <p className="text-center text-xs text-gray-400 mt-4">
-              Powered by HubSpot Scheduler
-            </p>
           </div>
 
         </div>

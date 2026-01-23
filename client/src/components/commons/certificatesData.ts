@@ -28,7 +28,7 @@ export const certificatesData: Certificate[] = [
     image: '/Certificate1.jpg',
     alt: 'ISO 14001:2015 Environmental Management System Certification',
     issuer: 'Environmental Management System',
-    year: '2023',
+    year: '2015',
     description: 'Certified for Environmental Management',
   },
   {
@@ -37,7 +37,7 @@ export const certificatesData: Certificate[] = [
     image: '/Certificate2.jpg',
     alt: 'SOC 2 Type II Certification',
     issuer: 'Service Organization Control',
-    year: '2024',
+    year: '2013',
     description: 'SOC 2 Type II Certified for Security, Availability, and Confidentiality',
   },
   {
@@ -46,7 +46,7 @@ export const certificatesData: Certificate[] = [
     image: '/certificate3.jpg',
     alt: 'PCI DSS Compliance Certification',
     issuer: 'Payment Card Industry Data Security Standard',
-    year: '2024',
+    year: '2018',
     description: 'PCI DSS Level 1 Compliant',
   },
   {
@@ -55,7 +55,7 @@ export const certificatesData: Certificate[] = [
     image: '/AmazonCertificate.jpg',
     alt: 'Amazon Certificate',
     issuer: 'Amazon',
-    year: '2024',
+    year: '2025',
     description: 'Amazon Partnership Certificate',
   },
 ];

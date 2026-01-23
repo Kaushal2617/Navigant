@@ -165,10 +165,10 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
                 return (
                   <div
                     key={`upper-1-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                    style={{ minWidth: '140px' }}
+                    className="flex-shrink-0 flex items-center justify-center px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 group"
+                    style={{ minWidth: isIGL ? '140px' : '100px' }}
                   >
-                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                    <div className={`${isIGL ? 'w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64' : 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                       <img
                         src={client.logo}
                         alt={client.alt || `${client.name} Logo`}
@@ -189,10 +189,10 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
                 return (
                   <div
                     key={`upper-2-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                    style={{ minWidth: '140px' }}
+                    className="flex-shrink-0 flex items-center justify-center px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 group"
+                    style={{ minWidth: isIGL ? '140px' : '100px' }}
                   >
-                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                    <div className={`${isIGL ? 'w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64' : 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                       <img
                         src={client.logo}
                         alt={client.alt || `${client.name} Logo`}
@@ -219,10 +219,10 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
                 return (
                   <div
                     key={`lower-1-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                    style={{ minWidth: '140px' }}
+                    className="flex-shrink-0 flex items-center justify-center px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 group"
+                    style={{ minWidth: isIGL ? '140px' : '100px' }}
                   >
-                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                    <div className={`${isIGL ? 'w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64' : 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                       <img
                         src={client.logo}
                         alt={client.alt || `${client.name} Logo`}
@@ -243,10 +243,10 @@ const ClientLogos: React.FC<ClientLogosProps> = ({ className = '' }) => {
                 return (
                   <div
                     key={`lower-2-${index}`}
-                    className="flex-shrink-0 flex items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 group"
-                    style={{ minWidth: '140px' }}
+                    className="flex-shrink-0 flex items-center justify-center px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 group"
+                    style={{ minWidth: isIGL ? '140px' : '100px' }}
                   >
-                    <div className={`${isIGL ? 'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64' : 'w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                    <div className={`${isIGL ? 'w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64' : 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32'} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                       <img
                         src={client.logo}
                         alt={client.alt || `${client.name} Logo`}

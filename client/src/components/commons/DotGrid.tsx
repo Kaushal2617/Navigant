@@ -92,6 +92,12 @@ const DotGrid: React.FC<DotGridProps> = ({
     lastX: 0,
     lastY: 0
   });
+  
+  // Store props in refs to avoid ResizeObserver reconnection issues
+  const propsRef = useRef({ dotSize, gap });
+  useEffect(() => {
+    propsRef.current = { dotSize, gap };
+  }, [dotSize, gap]);
 
   const baseRgb = useMemo(() => hexToRgb(baseColor), [baseColor]);
   const activeRgb = useMemo(() => hexToRgb(activeColor), [activeColor]);
@@ -108,60 +114,126 @@ const DotGrid: React.FC<DotGridProps> = ({
     const canvas = canvasRef.current;
     if (!wrap || !canvas) return;
 
-    const { width, height } = wrap.getBoundingClientRect();
+    // Use ref values to avoid dependency issues
+    const { dotSize: currentDotSize, gap: currentGap } = propsRef.current;
+
+    const rect = wrap.getBoundingClientRect();
+    let width = rect.width;
+    let height = rect.height;
+
+    // Better dimension detection with multiple retry attempts
     if (width === 0 || height === 0) {
-      // Retry after a short delay if dimensions aren't ready
-      setTimeout(() => buildGrid(), 100);
-      return;
+      // Try to get dimensions from computed styles as fallback
+      const computedStyle = window.getComputedStyle(wrap);
+      const computedWidth = parseFloat(computedStyle.width);
+      const computedHeight = parseFloat(computedStyle.height);
+      
+      if (computedWidth > 0 && computedHeight > 0) {
+        width = computedWidth;
+        height = computedHeight;
+      } else {
+        // If still no dimensions, schedule a retry and return early
+        // The retry will be handled by ResizeObserver or the next render
+        setTimeout(() => {
+          const newRect = wrap.getBoundingClientRect();
+          if (newRect.width > 0 && newRect.height > 0) {
+            buildGrid(); // Recursively call to rebuild with correct dimensions
+          }
+        }, 100);
+        return; // Exit early, will retry on next attempt
+      }
     }
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
 
-    const ctx = canvas.getContext('2d');
-    if (ctx) ctx.scale(dpr, dpr);
+    // Responsive adjustments for smaller screens
+    const isSmallScreen = width < 768;
+    
+    // Adjust gap and dotSize for better performance on smaller screens
+    const adjustedGap = isSmallScreen ? Math.max(currentGap * 1.5, currentGap) : currentGap;
+    const adjustedDotSize = isSmallScreen ? Math.max(currentDotSize * 0.9, currentDotSize * 0.8) : currentDotSize;
 
-    const cols = Math.floor((width + gap) / (dotSize + gap));
-    const rows = Math.floor((height + gap) / (dotSize + gap));
-    const cell = dotSize + gap;
-    const gridW = cell * cols - gap;
-    const gridH = cell * rows - gap;
-    const extraX = width - gridW;
-    const extraY = height - gridH;
-    const startX = extraX / 2 + dotSize / 2;
-    const startY = extraY / 2 + dotSize / 2;
+    // Limit canvas size for very small screens to prevent performance issues
+    const maxCanvasSize = 4096; // Maximum canvas dimension
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2 for performance
+    
+    // Calculate actual canvas dimensions
+    const canvasWidth = Math.min(width, maxCanvasSize);
+    const canvasHeight = Math.min(height, maxCanvasSize);
+    
+    // Set canvas dimensions properly
+    canvas.width = canvasWidth * dpr;
+    canvas.height = canvasHeight * dpr;
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+    
+    // Scale context properly
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Calculate grid with adjusted values
+    const cols = Math.max(1, Math.floor((canvasWidth + adjustedGap) / (adjustedDotSize + adjustedGap)));
+    const rows = Math.max(1, Math.floor((canvasHeight + adjustedGap) / (adjustedDotSize + adjustedGap)));
+    const cell = adjustedDotSize + adjustedGap;
+    const gridW = cell * cols - adjustedGap;
+    const gridH = cell * rows - adjustedGap;
+    const extraX = canvasWidth - gridW;
+    const extraY = canvasHeight - gridH;
+    const startX = extraX / 2 + adjustedDotSize / 2;
+    const startY = extraY / 2 + adjustedDotSize / 2;
 
     const dots: Dot[] = [];
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const cx = startX + x * cell;
         const cy = startY + y * cell;
-        dots.push({ cx, cy, xOffset: 0, yOffset: 0, _inertiaApplied: false });
+        // Only add dots that are within canvas bounds
+        if (cx >= 0 && cx <= canvasWidth && cy >= 0 && cy <= canvasHeight) {
+          dots.push({ cx, cy, xOffset: 0, yOffset: 0, _inertiaApplied: false });
+        }
       }
     }
 
     dotsRef.current = dots;
-  }, [dotSize, gap]);
+  }, []); // Empty deps - uses refs instead
 
   useEffect(() => {
     if (!circlePath) return;
     let rafId: number;
+    let isDrawing = true;
     const proxSq = proximity * proximity;
 
     const draw = () => {
+      if (!isDrawing) return;
+      
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!canvas || canvas.width === 0 || canvas.height === 0) {
+        rafId = requestAnimationFrame(draw);
+        return;
+      }
 
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      if (!ctx) {
+        rafId = requestAnimationFrame(draw);
+        return;
+      }
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas - context is already scaled, so use logical dimensions
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const logicalWidth = canvas.width / dpr;
+      const logicalHeight = canvas.height / dpr;
+      ctx.clearRect(0, 0, logicalWidth, logicalHeight);
 
       const { x: px, y: py } = pointerRef.current;
+      const dots = dotsRef.current;
 
-      for (const dot of dotsRef.current) {
+      // Early return if no dots
+      if (dots.length === 0) {
+        rafId = requestAnimationFrame(draw);
+        return;
+      }
+
+      for (const dot of dots) {
         const ox = dot.cx + dot.xOffset;
         const oy = dot.cy + dot.yOffset;
         const dx = dot.cx - px;
@@ -190,23 +262,55 @@ const DotGrid: React.FC<DotGridProps> = ({
 
     draw();
 
-    return () => cancelAnimationFrame(rafId);
+    return () => {
+      isDrawing = false;
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
 
+  // Rebuild grid when props change
   useEffect(() => {
+    buildGrid();
+  }, [dotSize, gap, buildGrid]);
+
+  // Setup ResizeObserver with stable callback
+  useEffect(() => {
+    // Initial build
     buildGrid();
 
     let ro: ResizeObserver | null = null;
-    if ('ResizeObserver' in window) {
-      ro = new ResizeObserver(buildGrid);
-      wrapperRef.current && ro.observe(wrapperRef.current);
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    
+    const handleResize = () => {
+      // Debounce resize events
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        buildGrid();
+      }, 100);
+    };
+
+    if ('ResizeObserver' in window && wrapperRef.current) {
+      ro = new ResizeObserver((entries) => {
+        // Only rebuild if dimensions actually changed
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          if (width > 0 && height > 0) {
+            handleResize();
+          }
+        }
+      });
+      ro.observe(wrapperRef.current);
     } else {
-      (window as Window).addEventListener('resize', buildGrid);
+      window.addEventListener('resize', handleResize, { passive: true });
     }
 
     return () => {
-      if (ro) ro.disconnect();
-      else window.removeEventListener('resize', buildGrid);
+      clearTimeout(resizeTimeout);
+      if (ro) {
+        ro.disconnect();
+      } else {
+        window.removeEventListener('resize', handleResize);
+      }
     };
   }, [buildGrid]);
 
@@ -235,7 +339,11 @@ const DotGrid: React.FC<DotGridProps> = ({
       pr.vy = vy;
       pr.speed = speed;
 
-      const rect = canvasRef.current!.getBoundingClientRect();
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      // Mouse coordinates are already in logical space (matching canvas.style dimensions)
       pr.x = e.clientX - rect.left;
       pr.y = e.clientY - rect.top;
 
@@ -282,7 +390,11 @@ const DotGrid: React.FC<DotGridProps> = ({
     };
 
     const onClick = (e: MouseEvent) => {
-      const rect = canvasRef.current!.getBoundingClientRect();
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      // Mouse coordinates are already in logical space (matching canvas.style dimensions)
       const cx = e.clientX - rect.left;
       const cy = e.clientY - rect.top;
 

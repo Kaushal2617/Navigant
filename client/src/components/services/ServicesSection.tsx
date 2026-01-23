@@ -62,13 +62,6 @@ const ServicesSection: React.FC = () => {
       shortDescription: 'Complete HR solutions to manage your workforce efficiently and effectively.',
     },
     {
-      id: '1',
-      name: 'Digital Workers',
-      slug: 'digital-workers',
-      description: 'Leverage AI-powered digital workers to automate your business processes and increase efficiency.',
-      shortDescription: 'AI-powered automation solutions that transform your workforce and streamline operations.',
-    },
-    {
       id: '11',
       name: 'Lead Generation',
       slug: 'lead-generation',

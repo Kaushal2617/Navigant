@@ -194,13 +194,21 @@ const Navigation: React.FC = () => {
                 );
               }
 
+              const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
+              
               return (
                 <li key={item.label}>
                   <a 
                     href={item.path} 
                     className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
+                    {...(isExternalLink && { target: '_blank', rel: 'noopener noreferrer' })}
                   >
                     {item.label}
+                    {isExternalLink && (
+                      <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    )}
                   </a>
                 </li>
               );
@@ -229,20 +237,56 @@ const Navigation: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="lg:hidden flex flex-col gap-1.5 p-2 text-black hover:text-black transition-colors"
+            className="lg:hidden flex flex-col gap-1.5 p-2 text-black hover:text-[#CA1411] transition-all duration-300 relative z-50"
             aria-label="Toggle menu"
           >
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${
+              mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''
+            }`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ease-in-out ${
+              mobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+            }`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${
+              mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
+            }`}></span>
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        <div className={`lg:hidden w-full overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="px-4 sm:px-6 py-4 bg-white border-t border-gray-200">
+        {/* Mobile Menu Overlay */}
+        <div 
+          className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-out ${
+            mobileMenuOpen 
+              ? 'bg-black bg-opacity-10 backdrop-blur-sm opacity-100' 
+              : 'bg-transparent opacity-0 pointer-events-none'
+          }`}
+          onClick={toggleMobileMenu}
+        />
+
+        {/* Mobile Menu Sidebar */}
+        <div className={`lg:hidden fixed top-0 right-0 h-full w-72 max-w-[80vw] bg-white shadow-2xl z-50 transform transition-all duration-500 ease-out overflow-y-auto ${
+          mobileMenuOpen 
+            ? 'translate-x-0 opacity-100' 
+            : 'translate-x-full opacity-0'
+        }`}
+        style={{
+          boxShadow: mobileMenuOpen ? '0 0 50px rgba(0, 0, 0, 0.3)' : 'none'
+        }}>
+          {/* Close Button */}
+          <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gradient-to-r from-white to-gray-50">
+            <h3 className="text-lg font-semibold text-gray-900">Menu</h3>
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 text-gray-600 hover:text-[#CA1411] hover:bg-gray-100 rounded-full transition-all duration-300 transform hover:rotate-90"
+              aria-label="Close menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div className="px-4 sm:px-6 py-4">
             <ul className="flex flex-col list-none m-0 p-0 gap-0 w-full">
-              {navConfig.mainNavItems.map((item) => {
+              {navConfig.mainNavItems.map((item, itemIndex) => {
                 const dropdownItems: DropdownItem[] = getDropdownItems(item).map((navItem) => ({
                   label: navItem.label,
                   path: navItem.path,
@@ -257,6 +301,11 @@ const Navigation: React.FC = () => {
                     <li
                       key={item.label}
                       className="relative w-full border-b border-gray-100 last:border-b-0"
+                      style={{
+                        opacity: mobileMenuOpen ? 1 : 0,
+                        transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)',
+                        transition: `opacity 0.3s ease-out ${itemIndex * 0.05}s, transform 0.3s ease-out ${itemIndex * 0.05}s`
+                      }}
                     >
                       <Dropdown
                         trigger={
@@ -267,14 +316,14 @@ const Navigation: React.FC = () => {
                                 e.preventDefault();
                                 handleDropdownToggle(item.label, true);
                               }}
-                              className="no-underline text-[#CA1411] font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-[#CA1411] text-base sm:text-lg w-full cursor-pointer bg-transparent border-none text-left"
+                              className="no-underline text-[#CA1411] font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#B0120F] hover:bg-gray-50 text-base sm:text-lg w-full cursor-pointer bg-transparent border-none text-left rounded-md px-2 -mx-2"
                             >
                               {item.label}
                             </button>
                           ) : (
                             <a 
                               href={item.path} 
-                              className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-black text-base sm:text-lg w-full"
+                              className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#CA1411] hover:bg-gray-50 text-base sm:text-lg w-full rounded-md px-2 -mx-2"
                             >
                               {item.label}
                             </a>
@@ -291,17 +340,30 @@ const Navigation: React.FC = () => {
                   );
                 }
 
+                const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
+                
                 return (
                   <li
                     key={item.label}
                     className="relative w-full border-b border-gray-100 last:border-b-0"
+                    style={{
+                      opacity: mobileMenuOpen ? 1 : 0,
+                      transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)',
+                      transition: `opacity 0.3s ease-out ${itemIndex * 0.05}s, transform 0.3s ease-out ${itemIndex * 0.05}s`
+                    }}
                   >
                     <a 
                       href={item.path} 
-                      className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-colors duration-300 hover:text-black text-base sm:text-lg w-full"
+                      className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#CA1411] hover:bg-gray-50 text-base sm:text-lg w-full rounded-md px-2 -mx-2"
                       onClick={() => setMobileMenuOpen(false)}
+                      {...(isExternalLink && { target: '_blank', rel: 'noopener noreferrer' })}
                     >
                       {item.label}
+                      {isExternalLink && (
+                        <svg className="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      )}
                     </a>
                   </li>
                 );
@@ -309,10 +371,17 @@ const Navigation: React.FC = () => {
             </ul>
             
             {/* Mobile Contact Button */}
-            <div className="mt-4 pt-4 border-t border-gray-200 w-full">
+            <div 
+              className="mt-4 pt-4 border-t border-gray-200 w-full"
+              style={{
+                opacity: mobileMenuOpen ? 1 : 0,
+                transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(10px)',
+                transition: `opacity 0.3s ease-out ${navConfig.mainNavItems.length * 0.05 + 0.1}s, transform 0.3s ease-out ${navConfig.mainNavItems.length * 0.05 + 0.1}s`
+              }}
+            >
               <button 
                 style={{ backgroundColor: '#CA1411' }}
-                className="text-white border-none py-3 px-6 rounded-md font-medium cursor-pointer transition-all duration-300 flex items-center justify-center gap-2 w-full hover:bg-[#CA1411] active:scale-95 text-base sm:text-lg"
+                className="text-white border-none py-3 px-6 rounded-lg font-medium cursor-pointer transition-all duration-300 flex items-center justify-center gap-2 w-full hover:bg-[#B0120F] active:scale-95 text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>

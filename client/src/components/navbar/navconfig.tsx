@@ -88,6 +88,10 @@ export const navConfig: NavConfig = {
       path: '/contact',
     },
     {
+      label: 'For Employees',
+      path: 'https://app.perk.com/login',
+    },
+    {
       label: 'Explore',
       path: '/explore',
       hasDropdown: true,

@@ -115,15 +115,6 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="/services/digital-workers"
-                  className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300 text-sm flex items-center group"
-                >
-                  <span className="w-0 group-hover:w-2 h-0.5 bg-[#CA1411] mr-0 group-hover:mr-2 transition-all duration-300" />
-                  Digital Workers
-                </a>
-              </li>
-              <li>
-                <a
                   href="/services/bpo-services"
                   className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300 text-sm flex items-center group"
                 >
@@ -133,11 +124,29 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="/services/tata-tele-services"
+                  href="/services/amazon-global-selling"
                   className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300 text-sm flex items-center group"
                 >
                   <span className="w-0 group-hover:w-2 h-0.5 bg-[#CA1411] mr-0 group-hover:mr-2 transition-all duration-300" />
-                  Tata Tele Services
+                  Amazon Global Selling
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/lead-generation"
+                  className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300 text-sm flex items-center group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-[#CA1411] mr-0 group-hover:mr-2 transition-all duration-300" />
+                  Lead Generation
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/ecommerce-management"
+                  className="text-gray-600 hover:text-[#CA1411] transition-colors duration-300 text-sm flex items-center group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-[#CA1411] mr-0 group-hover:mr-2 transition-all duration-300" />
+                  Ecommerce Management
                 </a>
               </li>
               <li>
