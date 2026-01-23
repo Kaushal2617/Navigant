@@ -195,16 +195,18 @@ const Navigation: React.FC = () => {
               }
 
               const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
+              const isForEmployees = item.label === 'For Employees';
+              const shouldOpenInNewTab = isExternalLink && !isForEmployees;
               
               return (
                 <li key={item.label}>
                   <a 
                     href={item.path} 
                     className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
-                    {...(isExternalLink && { target: '_blank', rel: 'noopener noreferrer' })}
+                    {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
                   >
                     {item.label}
-                    {isExternalLink && (
+                    {shouldOpenInNewTab && (
                       <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -341,6 +343,8 @@ const Navigation: React.FC = () => {
                 }
 
                 const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
+                const isForEmployees = item.label === 'For Employees';
+                const shouldOpenInNewTab = isExternalLink && !isForEmployees;
                 
                 return (
                   <li
@@ -356,10 +360,10 @@ const Navigation: React.FC = () => {
                       href={item.path} 
                       className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#CA1411] hover:bg-gray-50 text-base sm:text-lg w-full rounded-md px-2 -mx-2"
                       onClick={() => setMobileMenuOpen(false)}
-                      {...(isExternalLink && { target: '_blank', rel: 'noopener noreferrer' })}
+                      {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
                     >
                       {item.label}
-                      {isExternalLink && (
+                      {shouldOpenInNewTab && (
                         <svg className="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
