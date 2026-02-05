@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { caseStudiesData, caseStudiesSectionConfig, type CaseStudy } from './caseStudiesData';
+import { caseStudiesSectionConfig, type CaseStudy } from './caseStudiesData';
 import DotGrid from './DotGrid';
 import ContactForm from './ContactForm';
 
@@ -21,11 +21,8 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
   enableHorizontalScroll = true, // Default to true for home page
   isFullPage = false, // Default to false for home page sections
 }) => {
-  const [fetchedCaseStudies, setFetchedCaseStudies] = useState<CaseStudy[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // Determine which case studies to display: props or fetched
-  const caseStudies = propCaseStudies || fetchedCaseStudies;
+  // Determine which case studies to display: props or empty array
+  const caseStudies = propCaseStudies || [];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
