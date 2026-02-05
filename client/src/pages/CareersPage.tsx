@@ -28,143 +28,7 @@ const CareersPage: React.FC = () => {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [modalJob, setModalJob] = useState<Job | null>(null);
 
-  // Fallback job data (used if API fails)
-  const fallbackJobs: Job[] = [
-    {
-      id: 'job-1',
-      title: 'Senior BPO Executive',
-      department: 'BPO Services',
-      location: 'New Delhi, India',
-      type: 'Full-time',
-      experience: '3-5 years',
-      description: 'We are looking for an experienced BPO Executive to manage client relationships and ensure exceptional service delivery.',
-      requirements: `<ul>
-        <li>Bachelor's degree in Business Administration or related field</li>
-        <li>3-5 years of experience in BPO operations</li>
-        <li>Excellent communication and interpersonal skills</li>
-        <li>Strong problem-solving abilities</li>
-        <li>Proficiency in CRM software</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Manage client accounts and maintain relationships</li>
-        <li>Oversee daily operations and ensure service quality</li>
-        <li>Coordinate with cross-functional teams</li>
-        <li>Analyze performance metrics and implement improvements</li>
-      </ul>`,
-    },
-    {
-      id: 'job-2',
-      title: 'Customer Support Specialist',
-      department: 'Customer Service',
-      location: 'Gurugram, India',
-      type: 'Full-time',
-      experience: '1-3 years',
-      description: 'Join our customer support team to provide exceptional service and support to our clients.',
-      requirements: `<ul>
-        <li>High school diploma or equivalent</li>
-        <li>1-3 years of customer service experience</li>
-        <li>Excellent verbal and written communication skills</li>
-        <li>Ability to work in a fast-paced environment</li>
-        <li>Basic computer skills</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Handle customer inquiries via phone, email, and chat</li>
-        <li>Resolve customer issues promptly and professionally</li>
-        <li>Maintain accurate records of customer interactions</li>
-        <li>Escalate complex issues to appropriate departments</li>
-      </ul>`,
-    },
-    {
-      id: 'job-3',
-      title: 'Digital Marketing Manager',
-      department: 'Marketing',
-      location: 'Remote',
-      type: 'Full-time',
-      experience: '5+ years',
-      description: 'Lead our digital marketing initiatives and drive brand awareness through innovative campaigns.',
-      requirements: `<ul>
-        <li>Bachelor's degree in Marketing or related field</li>
-        <li>5+ years of digital marketing experience</li>
-        <li>Proficiency in SEO, SEM, and social media marketing</li>
-        <li>Strong analytical skills</li>
-        <li>Experience with marketing automation tools</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Develop and execute digital marketing strategies</li>
-        <li>Manage social media accounts and content creation</li>
-        <li>Analyze campaign performance and optimize ROI</li>
-        <li>Collaborate with cross-functional teams</li>
-      </ul>`,
-    },
-    {
-      id: 'job-4',
-      title: 'IT Support Engineer',
-      department: 'IT Services',
-      location: 'New Delhi, India',
-      type: 'Full-time',
-      experience: '2-4 years',
-      description: 'Provide technical support and maintain IT infrastructure for our organization.',
-      requirements: `<ul>
-        <li>Bachelor's degree in Computer Science or IT</li>
-        <li>2-4 years of IT support experience</li>
-        <li>Knowledge of networking, hardware, and software</li>
-        <li>Strong troubleshooting skills</li>
-        <li>Certifications in relevant technologies preferred</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Provide technical support to employees</li>
-        <li>Maintain and troubleshoot IT systems</li>
-        <li>Install and configure software and hardware</li>
-        <li>Document technical procedures and solutions</li>
-      </ul>`,
-    },
-    {
-      id: 'job-5',
-      title: 'HR Recruiter',
-      department: 'Human Resources',
-      location: 'New Delhi, India',
-      type: 'Full-time',
-      experience: '2-3 years',
-      description: 'Help us find and attract top talent to join our growing team.',
-      requirements: `<ul>
-        <li>Bachelor's degree in HR or related field</li>
-        <li>2-3 years of recruitment experience</li>
-        <li>Strong sourcing and screening skills</li>
-        <li>Excellent communication skills</li>
-        <li>Knowledge of recruitment tools and platforms</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Source and attract qualified candidates</li>
-        <li>Screen resumes and conduct initial interviews</li>
-        <li>Coordinate with hiring managers</li>
-        <li>Manage candidate pipeline and applicant tracking</li>
-      </ul>`,
-    },
-    {
-      id: 'job-6',
-      title: 'Sales Executive',
-      department: 'Sales',
-      location: 'Multiple Locations',
-      type: 'Full-time',
-      experience: '2-5 years',
-      description: 'Drive business growth by acquiring new clients and expanding existing relationships.',
-      requirements: `<ul>
-        <li>Bachelor's degree in Business or related field</li>
-        <li>2-5 years of sales experience</li>
-        <li>Proven track record of meeting sales targets</li>
-        <li>Excellent negotiation and presentation skills</li>
-        <li>Strong relationship-building abilities</li>
-      </ul>`,
-      responsibilities: `<ul>
-        <li>Identify and pursue new business opportunities</li>
-        <li>Build and maintain client relationships</li>
-        <li>Prepare and deliver sales presentations</li>
-        <li>Achieve monthly and quarterly sales targets</li>
-      </ul>`,
-    },
-  ];
-
-  // Fetch jobs from API with fallback to local data
+  // Fetch jobs from API (backend/admin data only)
   useEffect(() => {
     const fetchJobs = async () => {
       setLoading(true);
@@ -173,14 +37,14 @@ const CareersPage: React.FC = () => {
         if (response.success && response.data && response.data.length > 0) {
           setJobs(response.data);
         } else {
-          // Fallback to local data if API returns empty or fails
-          console.warn('API returned no jobs, using fallback data');
-          setJobs(fallbackJobs);
+          // No jobs available from backend
+          console.warn('API returned no jobs');
+          setJobs([]);
         }
       } catch (error) {
         console.error('Error fetching jobs:', error);
-        // Fallback to local data on error
-        setJobs(fallbackJobs);
+        // Set empty array on error - only show backend data
+        setJobs([]);
       } finally {
         setLoading(false);
       }

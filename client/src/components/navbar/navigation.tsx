@@ -195,8 +195,7 @@ const Navigation: React.FC = () => {
               }
 
               const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
-              const isForEmployees = item.label === 'For Employees';
-              const shouldOpenInNewTab = isExternalLink && !isForEmployees;
+              const shouldOpenInNewTab = isExternalLink;
               
               return (
                 <li key={item.label}>
@@ -343,8 +342,7 @@ const Navigation: React.FC = () => {
                 }
 
                 const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
-                const isForEmployees = item.label === 'For Employees';
-                const shouldOpenInNewTab = isExternalLink && !isForEmployees;
+                const shouldOpenInNewTab = isExternalLink;
                 
                 return (
                   <li
