@@ -132,21 +132,9 @@ const ContactPage: React.FC = () => {
                   <p className="text-white/90 mb-4">
                     If you have any concerns about our Employee Background Verification, please don't hesitate to reach out to us.
                   </p>
-                  <a
-                    href="mailto:verification@navigant.in"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#CA1411] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-                  >
-                    <span>Contact Us</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </a>
+                  <p className="text-white/90">
+                    Please contact on <a href="mailto:verification@navigant.in" className="!text-white underline decoration-white underline-offset-2 hover:!text-white transition-colors" style={{ color: 'white', textDecoration: 'underline', textDecorationColor: 'white' }}>verification@navigant.in</a> for employee verification.
+                  </p>
                 </div>
               </div>
             </div>
