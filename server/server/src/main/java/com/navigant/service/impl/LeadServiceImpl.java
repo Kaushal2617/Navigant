@@ -169,6 +169,14 @@ public class LeadServiceImpl implements LeadService {
 		return toResponse(saved, null);
 	}
 
+	@Override
+	public void deleteLead(String id) {
+		if (!leadRepository.existsById(id)) {
+			throw new LeadNotFoundException("Lead not found with id: " + id);
+		}
+		leadRepository.deleteById(id);
+	}
+
 	// --- Private helper: Lead → LeadResponse ---
 	private LeadResponse toResponse(Lead lead, String reviewerName) {
 		LeadResponse response = new LeadResponse(lead);

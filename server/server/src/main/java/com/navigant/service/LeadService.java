@@ -66,4 +66,11 @@ public interface LeadService {
 	 */
 	LeadResponse updateAdminComments(String id, String comments);
 
+	/**
+	 * Deletes a lead by ID.
+	 * 
+	 * @param id Lead ID.
+	 */
+	void deleteLead(String id);
+
 }

@@ -126,4 +126,16 @@ public class LeadController {
 			@RequestBody java.util.Map<String, String> payload) {
 		return leadService.updateAdminComments(id, payload.get("comments"));
 	}
+
+	/**
+	 * ADMIN: Deletes a lead by ID.
+	 * 
+	 * @param id    Lead ID.
+	 * @param admin Authenticated admin user.
+	 */
+	@org.springframework.web.bind.annotation.DeleteMapping("/admin/leads/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteLead(@PathVariable String id, @AuthenticationPrincipal AdminUserDetails admin) {
+		leadService.deleteLead(id);
+	}
 }

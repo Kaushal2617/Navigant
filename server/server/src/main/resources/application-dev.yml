@@ -32,7 +32,7 @@ logging:
 app:
   env: development
   cors:
-    allowed-origins: http://localhost:3000,http://localhost:3005 
+    allowed-origins: "*" 
   # JWT - Hardcoded for Dev
   jwt:
     secret: dev-secret-key-must-be-very-long-for-security-at-least-64-bytes-for-hs512

@@ -91,6 +91,25 @@ export default function Leads() {
         }
     };
 
+    const handleDelete = async (id: string) => {
+        if (!window.confirm('Are you sure you want to delete this lead? This action cannot be undone.')) {
+            return;
+        }
+        try {
+            await client.delete(`/admin/leads/${id}`);
+            setLeads(prev => prev.filter(l => l.id !== id));
+            setSnackbar({ open: true, message: 'Lead deleted successfully', severity: 'success' });
+            if (selectedLead?.id === id) {
+                setIsModalOpen(false);
+                setSelectedLead(null);
+            }
+        } catch (error: any) {
+            console.error("Failed to delete lead", error);
+            const msg = error.response?.data?.detail || 'Failed to delete lead';
+            setSnackbar({ open: true, message: msg, severity: 'error' });
+        }
+    };
+
     const handleExport = async () => {
         try {
             const response = await client.get('/admin/leads/export', { responseType: 'blob' });
@@ -180,7 +199,10 @@ export default function Leads() {
             align: 'center',
             minWidth: 80,
             render: (row) => (
-                <TableActions onView={() => handleView(row)} />
+                <TableActions
+                    onView={() => handleView(row)}
+                    onDelete={() => handleDelete(row.id)}
+                />
             ),
         },
     ];

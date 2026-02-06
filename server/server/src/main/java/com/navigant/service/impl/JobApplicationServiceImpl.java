@@ -196,8 +196,13 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
 		// Delete resume from Cloudinary
 		if (application.getResumePublicId() != null) {
-			cloudinary.uploader().destroy(application.getResumePublicId(),
-					ObjectUtils.asMap("resource_type", "raw"));
+			try {
+				cloudinary.uploader().destroy(application.getResumePublicId(),
+						ObjectUtils.asMap("resource_type", "raw"));
+			} catch (Exception e) {
+				// Log error but proceed with DB deletion
+				System.err.println("Failed to delete resume from Cloudinary: " + e.getMessage());
+			}
 		}
 
 		// Delete from database
