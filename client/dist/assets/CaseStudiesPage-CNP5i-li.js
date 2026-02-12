@@ -1,1 +1,0 @@
-import{j as t}from"./index-DFwkJ0tP.js";import{A as o}from"./DotGrid-BzInw-RP.js";import{C as e}from"./CaseStudiesSection-CsuUow2P.js";import"./caseStudiesData-D6r6tT-t.js";import"./ContactForm-C3Df5n1P.js";import"./api-b2H5vNAn.js";const p=()=>t.jsx(o,{children:t.jsx(e,{showViewAllButton:!1,enableHorizontalScroll:!1,isFullPage:!0})});export{p as default};

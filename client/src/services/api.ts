@@ -17,20 +17,28 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
-// Generic API request function
+// Generic API request function with timeout and credentials
 export const apiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> => {
+  // Add 30-second timeout using AbortController
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+
   try {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       ...options,
+      signal: controller.signal,
+      credentials: 'include', // CRITICAL: Include cookies for cross-origin requests
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
       },
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.statusText}`);
@@ -42,10 +50,22 @@ export const apiRequest = async <T>(
       data,
     };
   } catch (error) {
+    clearTimeout(timeoutId);
     console.error(`API Error (${endpoint}):`, error);
+
+    // Better error messages
+    let errorMessage = 'Unknown error occurred';
+    if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        errorMessage = 'Request timeout - please check your connection';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      error: errorMessage,
     };
   }
 };
@@ -91,13 +111,21 @@ export const apiPostFormData = async <T>(
   endpoint: string,
   formData: FormData
 ): Promise<ApiResponse<T>> => {
+  // Add 60-second timeout for file uploads (longer than regular requests)
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000);
+
   try {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'POST',
       body: formData,
+      signal: controller.signal,
+      credentials: 'include', // Include cookies for authenticated uploads
       // Don't set Content-Type header, let browser set it with boundary
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.statusText}`);
@@ -109,10 +137,21 @@ export const apiPostFormData = async <T>(
       data,
     };
   } catch (error) {
+    clearTimeout(timeoutId);
     console.error(`API Error (${endpoint}):`, error);
+
+    let errorMessage = 'Unknown error occurred';
+    if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        errorMessage = 'Upload timeout - file may be too large or connection is slow';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      error: errorMessage,
     };
   }
 };

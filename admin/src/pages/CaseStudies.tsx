@@ -61,8 +61,17 @@ export default function CaseStudies() {
     const handleSubmit = async () => {
         try {
             if (editingItem) {
+                // Send complete update request matching backend CaseStudyUpdateRequest
                 await client.put(`/admin/case-studies/${editingItem.id}`, {
-                    ...formData, status: editingItem.status
+                    title: formData.title,
+                    description: formData.description,
+                    fullContent: formData.fullContent || '',
+                    image: formData.image || '',
+                    category: formData.category,
+                    alt: formData.alt || '',
+                    status: editingItem.status, // Required by backend
+                    order: formData.order || 0,
+                    publishDate: formData.publishDate || ''
                 });
                 setSnackbar({ open: true, message: 'Case study updated', severity: 'success' });
             } else {
@@ -82,7 +91,18 @@ export default function CaseStudies() {
         const item = caseStudies.find(c => c.id === id);
         if (!item) return;
         try {
-            await client.put(`/admin/case-studies/${id}`, { ...item, status });
+            // Send complete update request with all required fields
+            await client.put(`/admin/case-studies/${id}`, {
+                title: item.title,
+                description: item.description,
+                fullContent: item.fullContent || '',
+                image: item.image || '',
+                category: item.category,
+                alt: item.alt || '',
+                status: status, // New status
+                order: item.order || 0,
+                publishDate: item.publishDate || ''
+            });
             fetchData();
         } catch (error) {
             console.error('Failed to update status', error);

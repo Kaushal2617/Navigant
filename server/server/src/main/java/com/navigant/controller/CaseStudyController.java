@@ -53,7 +53,7 @@ public class CaseStudyController {
 		return service.getById(id);
 	}
 
-	@PutMapping("admin/case-studies/{id}")
+	@PutMapping("/admin/case-studies/{id}")
 	public CaseStudyResponse update(@PathVariable String id,
 			@Valid @RequestBody CaseStudyUpdateRequest request,
 			@AuthenticationPrincipal AdminUserDetails admin) {

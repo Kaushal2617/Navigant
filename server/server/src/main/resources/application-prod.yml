@@ -29,7 +29,7 @@ logging:
 app:
   env: production
   cors:
-    allowed-origins: https://navigant.in,https://admin.navigant.in,http://82.29.165.36,http://82.29.165.36:3005
+    allowed-origins: https://navigant.in,https://www.navigant.in,https://admin.navigant.in,http://82.29.165.36,http://82.29.165.36:3005
   # JWT - Env Vars for Prod
   jwt:
     secret: ${JWT_SECRET}
