@@ -155,7 +155,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   // Teams booking URL
-  const teamsBookingUrl = 'https://outlook.office.com/book/MeetingwithSonalArora@navigant.in/';
+  const teamsBookingUrl = 'https://outlook.office.com/book/MeetingwithSonalArora1@navigant.in/?ismsaljsauthenabled';
 
   const handleScheduleMeeting = () => {
     window.open(teamsBookingUrl, '_blank', 'noopener,noreferrer');

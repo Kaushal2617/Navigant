@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
       <CertificatesSection />
 
       {/* Case Studies Section */}
-      <CaseStudiesSection />
+      <CaseStudiesSection maxItems={3} />
 
       {/* Team Members Section */}
       <TeamMembersSection />

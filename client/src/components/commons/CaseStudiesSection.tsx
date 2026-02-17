@@ -12,6 +12,7 @@ interface CaseStudiesSectionProps {
   showViewAllButton?: boolean; // Control whether to show the "View All" button
   enableHorizontalScroll?: boolean; // Control whether to enable horizontal scroll on mobile
   isFullPage?: boolean; // Control whether this is used as a full page (needs extra top padding for navbar)
+  maxItems?: number; // Limit the number of case studies displayed
 }
 
 const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
@@ -21,13 +22,16 @@ const CaseStudiesSection: React.FC<CaseStudiesSectionProps> = ({
   showViewAllButton = true, // Default to true for home page
   enableHorizontalScroll = true, // Default to true for home page
   isFullPage = false, // Default to false for home page sections
+  maxItems,
 }) => {
   // State for fetched case studies
   const [fetchedCaseStudies, setFetchedCaseStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Use prop case studies if provided, otherwise use fetched case studies
-  const caseStudies = propCaseStudies || fetchedCaseStudies;
+  const allCaseStudies = propCaseStudies || fetchedCaseStudies;
+  // Apply maxItems limit if specified
+  const caseStudies = maxItems ? allCaseStudies.slice(0, maxItems) : allCaseStudies;
 
   // Fetch case studies from API on mount (only if not provided via props)
   useEffect(() => {
