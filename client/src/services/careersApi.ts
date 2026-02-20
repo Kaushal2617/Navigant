@@ -116,7 +116,7 @@ export const convertJobPostToJob = (jobPost: JobPost): Job => {
     requirements: jobPost.requirements || '', // HTML string
     responsibilities: jobPost.responsibilities || '', // HTML string
     salaryRange: jobPost.salaryRange,
-    isActive: jobPost.status === 'ACTIVE',
+    isActive: jobPost.status === 'PUBLISHED',
     createdAt: jobPost.createdAt,
     updatedAt: jobPost.updatedAt,
   };

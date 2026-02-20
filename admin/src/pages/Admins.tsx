@@ -12,11 +12,18 @@ import client from '../api/client';
 import type { AdminResponse } from '../api/types';
 import AppModal from '../components/AppModal';
 import AppTable, { TableActions, type TableColumn } from '../components/AppTable';
+import { useAuthStore } from '../store/authStore';
+import { Navigate } from 'react-router-dom';
 
 export default function Admins() {
     const theme = useTheme();
+    const { user } = useAuthStore();
     const [admins, setAdmins] = useState<AdminResponse[]>([]);
     const [loading, setLoading] = useState(true);
+
+    if (user?.role === 'ADMIN') {
+        return <Navigate to="/jobs" replace />;
+    }
     const [open, setOpen] = useState(false);
     const [newAdmin, setNewAdmin] = useState({ email: '', password: '', name: '', role: 'ADMIN' });
     const [showPassword, setShowPassword] = useState(false);

@@ -75,13 +75,16 @@ const Navigation: React.FC = () => {
 
   const handleMouseLeave = (e: React.MouseEvent) => {
     // Don't close dropdown if mouse is moving to dropdown menu
-    const relatedTarget = e.relatedTarget as HTMLElement;
-    if (relatedTarget && (
-      relatedTarget.closest('.dropdown-menu') || 
-      relatedTarget.closest('[data-dropdown]')
-    )) {
-      return;
+    const relatedTarget = e.relatedTarget as Node | null;
+
+    // Check if relatedTarget exists and is an Element (has closest method)
+    if (relatedTarget && relatedTarget.nodeType === Node.ELEMENT_NODE) {
+      const element = relatedTarget as Element;
+      if (element.closest('.dropdown-menu') || element.closest('[data-dropdown]')) {
+        return;
+      }
     }
+
     if (!mobileMenuOpen) {
       setActiveDropdown(null);
     }
@@ -102,8 +105,8 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav 
-    className="fixed top-0 left-0 right-0 z-50 
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 
             bg-white 
             dark:bg-gray-900 
             border-b border-gray-200 dark:border-gray-700/50
@@ -118,9 +121,9 @@ const Navigation: React.FC = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className="no-underline transition-all duration-300 hover:opacity-80 flex items-center">
-              <img 
-                src={navConfig.logo} 
-                alt="Navigant Technologies Logo" 
+              <img
+                src={navConfig.logo}
+                alt="Navigant Technologies Logo"
                 className="h-6 sm:h-8 md:h-10 w-auto object-contain"
                 onError={(e) => {
                   // Fallback to text if image fails to load
@@ -157,7 +160,7 @@ const Navigation: React.FC = () => {
                     <Dropdown
                       trigger={
                         isExplore ? (
-                          <button 
+                          <button
                             type="button"
                             onClick={(e) => {
                               e.preventDefault();
@@ -171,8 +174,8 @@ const Navigation: React.FC = () => {
                             </span>
                           </button>
                         ) : (
-                          <a 
-                            href={item.path} 
+                          <a
+                            href={item.path}
                             className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
                           >
                             {item.label}
@@ -196,11 +199,11 @@ const Navigation: React.FC = () => {
 
               const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
               const shouldOpenInNewTab = isExternalLink;
-              
+
               return (
                 <li key={item.label}>
-                  <a 
-                    href={item.path} 
+                  <a
+                    href={item.path}
                     className="no-underline text-black font-medium py-2 px-1 flex items-center gap-1 transition-colors duration-300 hover:text-black text-sm xl:text-base"
                     {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
                   >
@@ -218,15 +221,15 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Contact Button */}
           <div className="hidden lg:flex items-center flex-shrink-0">
-            <button 
+            <button
               style={{ backgroundColor: '#CA1411' }}
               className="text-white hover:text-black border-none py-2.5 px-4 xl:py-3 xl:px-6 rounded-md font-medium cursor-pointer transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:bg-[#CA1411] hover:-translate-y-0.5 active:translate-y-0 text-sm xl:text-base"
             >
               <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
               </svg>
-              <a 
-                href={`tel:${navConfig.contactNumber}`} 
+              <a
+                href={`tel:${navConfig.contactNumber}`}
                 style={{ color: '#FFFFFF' }}
                 className="no-underline"
               >
@@ -241,37 +244,32 @@ const Navigation: React.FC = () => {
             className="lg:hidden flex flex-col gap-1.5 p-2 text-black hover:text-[#CA1411] transition-all duration-300 relative z-50"
             aria-label="Toggle menu"
           >
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${
-              mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''
-            }`}></span>
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ease-in-out ${
-              mobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-            }`}></span>
-            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${
-              mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
-            }`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''
+              }`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+              }`}></span>
+            <span className={`block h-0.5 w-6 bg-current transition-all duration-500 ease-in-out origin-center ${mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
+              }`}></span>
           </button>
         </div>
 
         {/* Mobile Menu Overlay */}
-        <div 
-          className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-out ${
-            mobileMenuOpen 
-              ? 'bg-black bg-opacity-10 backdrop-blur-sm opacity-100' 
+        <div
+          className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-out ${mobileMenuOpen
+              ? 'bg-black bg-opacity-10 backdrop-blur-sm opacity-100'
               : 'bg-transparent opacity-0 pointer-events-none'
-          }`}
+            }`}
           onClick={toggleMobileMenu}
         />
 
         {/* Mobile Menu Sidebar */}
-        <div className={`lg:hidden fixed top-0 right-0 h-full w-72 max-w-[80vw] bg-white shadow-2xl z-50 transform transition-all duration-500 ease-out overflow-y-auto ${
-          mobileMenuOpen 
-            ? 'translate-x-0 opacity-100' 
+        <div className={`lg:hidden fixed top-0 right-0 h-full w-72 max-w-[80vw] bg-white shadow-2xl z-50 transform transition-all duration-500 ease-out overflow-y-auto ${mobileMenuOpen
+            ? 'translate-x-0 opacity-100'
             : 'translate-x-full opacity-0'
-        }`}
-        style={{
-          boxShadow: mobileMenuOpen ? '0 0 50px rgba(0, 0, 0, 0.3)' : 'none'
-        }}>
+          }`}
+          style={{
+            boxShadow: mobileMenuOpen ? '0 0 50px rgba(0, 0, 0, 0.3)' : 'none'
+          }}>
           {/* Close Button */}
           <div className="flex justify-between items-center p-4 border-b border-gray-200 bg-gradient-to-r from-white to-gray-50">
             <h3 className="text-lg font-semibold text-gray-900">Menu</h3>
@@ -311,7 +309,7 @@ const Navigation: React.FC = () => {
                       <Dropdown
                         trigger={
                           isExplore ? (
-                            <button 
+                            <button
                               type="button"
                               onClick={(e) => {
                                 e.preventDefault();
@@ -322,8 +320,8 @@ const Navigation: React.FC = () => {
                               {item.label}
                             </button>
                           ) : (
-                            <a 
-                              href={item.path} 
+                            <a
+                              href={item.path}
                               className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#CA1411] hover:bg-gray-50 text-base sm:text-lg w-full rounded-md px-2 -mx-2"
                             >
                               {item.label}
@@ -343,7 +341,7 @@ const Navigation: React.FC = () => {
 
                 const isExternalLink = item.path.startsWith('http://') || item.path.startsWith('https://');
                 const shouldOpenInNewTab = isExternalLink;
-                
+
                 return (
                   <li
                     key={item.label}
@@ -354,8 +352,8 @@ const Navigation: React.FC = () => {
                       transition: `opacity 0.3s ease-out ${itemIndex * 0.05}s, transform 0.3s ease-out ${itemIndex * 0.05}s`
                     }}
                   >
-                    <a 
-                      href={item.path} 
+                    <a
+                      href={item.path}
                       className="no-underline text-black font-medium py-3 sm:py-4 flex items-center gap-2 transition-all duration-300 hover:text-[#CA1411] hover:bg-gray-50 text-base sm:text-lg w-full rounded-md px-2 -mx-2"
                       onClick={() => setMobileMenuOpen(false)}
                       {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
@@ -371,9 +369,9 @@ const Navigation: React.FC = () => {
                 );
               })}
             </ul>
-            
+
             {/* Mobile Contact Button */}
-            <div 
+            <div
               className="mt-4 pt-4 border-t border-gray-200 w-full"
               style={{
                 opacity: mobileMenuOpen ? 1 : 0,
@@ -381,15 +379,15 @@ const Navigation: React.FC = () => {
                 transition: `opacity 0.3s ease-out ${navConfig.mainNavItems.length * 0.05 + 0.1}s, transform 0.3s ease-out ${navConfig.mainNavItems.length * 0.05 + 0.1}s`
               }}
             >
-              <button 
+              <button
                 style={{ backgroundColor: '#CA1411' }}
                 className="text-white border-none py-3 px-6 rounded-lg font-medium cursor-pointer transition-all duration-300 flex items-center justify-center gap-2 w-full hover:bg-[#B0120F] active:scale-95 text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                 </svg>
-                <a 
-                  href={`tel:${navConfig.contactNumber}`} 
+                <a
+                  href={`tel:${navConfig.contactNumber}`}
                   style={{ color: '#FFFFFF' }}
                   className="no-underline"
                 >

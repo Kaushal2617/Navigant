@@ -27,7 +27,7 @@ const drawerWidth = 280;
 const collapsedDrawerWidth = 80;
 
 export default function AdminLayout() {
-    const { isAuthenticated, logout } = useAuthStore();
+    const { isAuthenticated, logout, user } = useAuthStore();
     const navigate = useNavigate();
     const location = useLocation();
     const theme = useTheme();
@@ -86,13 +86,13 @@ export default function AdminLayout() {
         { text: 'Dashboard', icon: <DashboardRoundedIcon />, path: '/dashboard' },
         { text: 'Jobs', icon: <WorkRoundedIcon />, path: '/jobs' },
         { text: 'Applications', icon: <DescriptionRoundedIcon />, path: '/applications' },
-        { text: 'Leads', icon: <ContactsRoundedIcon />, path: '/leads' },
+        { text: 'Leads', icon: <ContactsRoundedIcon />, path: '/leads', hideForHR: true },
         { text: 'Reviews', icon: <RateReviewRoundedIcon />, path: '/reviews' },
         { text: 'Case Studies', icon: <ArticleRoundedIcon />, path: '/case-studies' },
-        { text: 'Admins', icon: <SupervisorAccountRoundedIcon />, path: '/admins' },
-        { text: 'Activity Logs', icon: <HistoryRoundedIcon />, path: '/logs' },
-        { text: 'Settings', icon: <SettingsRoundedIcon />, path: '/settings' },
-    ];
+        { text: 'Admins', icon: <SupervisorAccountRoundedIcon />, path: '/admins', hideForHR: true },
+        { text: 'Activity Logs', icon: <HistoryRoundedIcon />, path: '/logs', hideForHR: true },
+        { text: 'Settings', icon: <SettingsRoundedIcon />, path: '/settings', hideForHR: true },
+    ].filter(item => !(user?.role === 'ADMIN' && item.hideForHR));
 
     const currentDrawerWidth = isCollapsed ? collapsedDrawerWidth : drawerWidth;
 

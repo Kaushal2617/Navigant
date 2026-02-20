@@ -4,6 +4,8 @@ import { useTheme, alpha } from '@mui/material/styles';
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 import client from '../api/client';
 import AppTable, { type TableColumn } from '../components/AppTable';
+import { useAuthStore } from '../store/authStore';
+import { Navigate } from 'react-router-dom';
 
 interface Log {
     id: string;
@@ -23,8 +25,13 @@ interface PageData<T> {
 
 export default function Logs() {
     const theme = useTheme();
+    const { user } = useAuthStore();
     const [logs, setLogs] = useState<Log[]>([]);
     const [loading, setLoading] = useState(true);
+
+    if (user?.role === 'HR') {
+        return <Navigate to="/jobs" replace />;
+    }
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(20);
     const [totalElements, setTotalElements] = useState(0);

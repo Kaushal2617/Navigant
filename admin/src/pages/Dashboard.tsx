@@ -10,6 +10,7 @@ import ContactsRoundedIcon from '@mui/icons-material/ContactsRounded';
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import client from '../api/client';
 import type { DashboardStatsResponse } from '../api/types';
+import { useAuthStore } from '../store/authStore';
 
 // Animated Counter Component
 const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?: number }) => {
@@ -38,6 +39,7 @@ const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?:
 
 export default function Dashboard() {
     const theme = useTheme();
+    const { user } = useAuthStore();
     const [stats, setStats] = useState<DashboardStatsResponse | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -189,7 +191,7 @@ export default function Dashboard() {
             gradient: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
             lightGradient: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%)',
         },
-    ];
+    ].filter(card => !(user?.role === 'ADMIN' && card.title === 'Total Leads'));
 
     const isAppsPrimary = primaryChart === 'applications';
 
@@ -311,7 +313,7 @@ export default function Dashboard() {
 
                 {/* Applications Trend Chart (Line) */}
                 <Grid
-                    size={{ xs: 12, md: isAppsPrimary ? 8 : 4 }}
+                    size={{ xs: 12, md: (isAppsPrimary || user?.role === 'ADMIN') ? 12 : 4 }}
                     order={{ xs: 1, md: isAppsPrimary ? 1 : 2 }}
                 >
                     <Card
@@ -349,43 +351,45 @@ export default function Dashboard() {
                 </Grid>
 
                 {/* Leads Status Chart (Bar) */}
-                <Grid
-                    size={{ xs: 12, md: isAppsPrimary ? 4 : 8 }}
-                    order={{ xs: 2, md: isAppsPrimary ? 2 : 1 }}
-                >
-                    <Card
-                        onClick={() => isAppsPrimary && setPrimaryChart('leads')}
-                        sx={{
-                            borderRadius: 4,
-                            height: 400,
-                            boxShadow: 'none',
-                            border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
-                            cursor: !isAppsPrimary ? 'default' : 'pointer',
-                            transition: 'all 0.3s ease',
-                            '&:hover': {
-                                boxShadow: !isAppsPrimary ? 'none' : `0 0 0 2px ${alpha(theme.palette.primary.main, 0.2)}`,
-                                transform: !isAppsPrimary ? 'none' : 'scale(1.01)'
-                            }
-                        }}
+                {user?.role !== 'ADMIN' && (
+                    <Grid
+                        size={{ xs: 12, md: isAppsPrimary ? 4 : 8 }}
+                        order={{ xs: 2, md: isAppsPrimary ? 2 : 1 }}
                     >
-                        <CardContent>
-                            <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>Leads Pipeline</Typography>
-                            <ResponsiveContainer width="100%" height={320}>
-                                <BarChart data={leadsData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={alpha(theme.palette.divider, 0.5)} />
-                                    <XAxis dataKey="status" axisLine={false} tickLine={false} tick={{ fontSize: 10 }} interval={0} angle={-45} textAnchor="end" height={60} />
-                                    <YAxis axisLine={false} tickLine={false} allowDecimals={false} />
-                                    <Tooltip contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }} />
-                                    <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                                        {leadsData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={getBarColor(entry.status)} />
-                                        ))}
-                                    </Bar>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </CardContent>
-                    </Card>
-                </Grid>
+                        <Card
+                            onClick={() => isAppsPrimary && setPrimaryChart('leads')}
+                            sx={{
+                                borderRadius: 4,
+                                height: 400,
+                                boxShadow: 'none',
+                                border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+                                cursor: !isAppsPrimary ? 'default' : 'pointer',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    boxShadow: !isAppsPrimary ? 'none' : `0 0 0 2px ${alpha(theme.palette.primary.main, 0.2)}`,
+                                    transform: !isAppsPrimary ? 'none' : 'scale(1.01)'
+                                }
+                            }}
+                        >
+                            <CardContent>
+                                <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>Leads Pipeline</Typography>
+                                <ResponsiveContainer width="100%" height={320}>
+                                    <BarChart data={leadsData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={alpha(theme.palette.divider, 0.5)} />
+                                        <XAxis dataKey="status" axisLine={false} tickLine={false} tick={{ fontSize: 10 }} interval={0} angle={-45} textAnchor="end" height={60} />
+                                        <YAxis axisLine={false} tickLine={false} allowDecimals={false} />
+                                        <Tooltip contentStyle={{ borderRadius: 12, border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.1)' }} />
+                                        <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                                            {leadsData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={getBarColor(entry.status)} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                )}
             </Grid>
         </Box>
     );

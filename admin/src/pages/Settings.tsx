@@ -11,11 +11,18 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import client from '../api/client';
 import type { SettingDTO } from '../api/types';
 import AppTable, { type TableColumn } from '../components/AppTable';
+import { useAuthStore } from '../store/authStore';
+import { Navigate } from 'react-router-dom';
 
 export default function Settings() {
     const theme = useTheme();
+    const { user } = useAuthStore();
     const [settings, setSettings] = useState<SettingDTO[]>([]);
     const [loading, setLoading] = useState(true);
+
+    if (user?.role === 'HR') {
+        return <Navigate to="/jobs" replace />;
+    }
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editValue, setEditValue] = useState('');
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });

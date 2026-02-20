@@ -14,11 +14,18 @@ import type { LeadResponse, Page } from '../api/types';
 import AppSelect from '../components/AppSelect';
 import AppModal from '../components/AppModal';
 import AppTable, { StatusChip, TableActions, type TableColumn } from '../components/AppTable';
+import { useAuthStore } from '../store/authStore';
+import { Navigate } from 'react-router-dom';
 
 export default function Leads() {
     const theme = useTheme();
+    const { user } = useAuthStore();
     const [leads, setLeads] = useState<LeadResponse[]>([]);
     const [loading, setLoading] = useState(true);
+
+    if (user?.role === 'ADMIN') {
+        return <Navigate to="/jobs" replace />;
+    }
     const [selectedLead, setSelectedLead] = useState<LeadResponse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditingRemarks, setIsEditingRemarks] = useState(false);
