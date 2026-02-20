@@ -20,7 +20,7 @@ export default function Settings() {
     const [settings, setSettings] = useState<SettingDTO[]>([]);
     const [loading, setLoading] = useState(true);
 
-    if (user?.role === 'HR') {
+    if (user?.role === 'ADMIN') {
         return <Navigate to="/jobs" replace />;
     }
     const [editingId, setEditingId] = useState<string | null>(null);

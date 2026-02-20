@@ -29,7 +29,7 @@ export default function Logs() {
     const [logs, setLogs] = useState<Log[]>([]);
     const [loading, setLoading] = useState(true);
 
-    if (user?.role === 'HR') {
+    if (user?.role === 'ADMIN') {
         return <Navigate to="/jobs" replace />;
     }
     const [page, setPage] = useState(0);
