@@ -7,6 +7,7 @@ import CertificatesSection from '../components/commons/CertificatesSection';
 import CaseStudiesSection from '../components/commons/CaseStudiesSection';
 import TeamMembersSection from '../components/commons/TeamMembersSection';
 import TestimonialsCarouselSection from '../components/commons/TestimonialsCarouselSection';
+import HomeFAQSection from '../components/commons/HomeFAQSection';
 import ContactFormSection from '../components/commons/ContactFormSection';
 import { lazyWithDelay } from '../utils/lazyWithDelay';
 
@@ -40,6 +41,9 @@ const HomePage: React.FC = () => {
 
       {/* Testimonials Carousel Section */}
       <TestimonialsCarouselSection />
+
+      {/* FAQ Section - 4 FAQs + View all */}
+      <HomeFAQSection />
 
       {/* Contact Form Section */}
       <ContactFormSection />

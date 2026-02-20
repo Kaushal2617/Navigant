@@ -210,7 +210,7 @@ const TestimonialsCarouselSection: React.FC<TestimonialsCarouselSectionProps> = 
   );
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-gray-50/50 to-white pt-10 pb-6 md:pb-8 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-white via-gray-50/50 to-white pt-10 pb-2 md:pb-4 overflow-hidden">
       {/* Background animation */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <DotGrid

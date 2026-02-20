@@ -162,7 +162,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <section className={`pt-6 md:pt-8 lg:pt-10 pb-12 md:pb-16 lg:pb-6 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden ${className}`}>
+    <section className={`pt-2 md:pt-4 lg:pt-6 pb-12 md:pb-16 lg:pb-6 bg-gradient-to-br from-white via-gray-50/50 to-white relative overflow-hidden ${className}`}>
       {/* DotGrid Background */}
       {showBackground && (
         <div className="absolute inset-0 pointer-events-none opacity-40">

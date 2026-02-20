@@ -18,6 +18,7 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'))
 const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage'))
 const BeetelPage = lazy(() => import('./pages/BeetelPage'))
+const FAQsPage = lazy(() => import('./pages/FAQsPage'))
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           <Route path="/cookie-policy" element={<CookiePolicyPage />} />
           <Route path="/beetel" element={<BeetelPage />} />
+          <Route path="/faqs" element={<FAQsPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>
