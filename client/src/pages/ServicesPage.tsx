@@ -95,6 +95,13 @@ const ServicesPage: React.FC = () => {
       shortDescription: 'Strategic digital marketing solutions to grow your online presence and reach.',
     },
     {
+      id: '14',
+      name: 'SEO | GEO | AEO Services',
+      slug: 'seo-geo-aeo',
+      description: 'Managed search visibility services across SEO, Generative Engine Optimization, and Answer Engine Optimization.',
+      shortDescription: 'Unified SEO, GEO, and AEO execution to improve rankings, AI visibility, and answer-surface presence.',
+    },
+    {
       id: '4',
       name: 'Tata Tele Services',
       slug: 'tata-tele-services',

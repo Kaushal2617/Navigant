@@ -8,16 +8,17 @@ import type { DropdownItem } from '../commons/Dropdown';
 // Ordered as: BPO, Amazon Global Selling, End to End Sales, Lead Generation, Ecommerce Management, RPO & Staffing Services, Others, Tata Tele Services (last)
 const MOCK_SERVICES: NavItem[] = [
   { label: 'BPO Services', path: '/services/bpo-services' },
-  { label: 'Amazon Global Selling', path: '/services/amazon-global-selling' },
-  { label: 'End to End Sales', path: '/services/end-to-end-sales' },
+  { label: 'RPO & Staffing Services', path: '/services/hr-services' },
+  { label: 'IT Services', path: '/services/it-services' },
+  { label: 'SEO | GEO | AEO Services', path: '/services/seo-geo-aeo' },
   { label: 'Ecommerce Management', path: '/services/ecommerce-management' },
   { label: 'Lead Generation', path: '/services/lead-generation' },
+  { label: 'Amazon Global Selling', path: '/services/amazon-global-selling' },
+  { label: 'End to End Sales', path: '/services/end-to-end-sales' },
   { label: 'Digital Marketing', path: '/services/digital-marketing' },
-  { label: 'RPO & Staffing Services', path: '/services/hr-services' },
   { label: 'Healthcare Services', path: '/services/healthcare-services' },
   { label: 'Market Research', path: '/services/market-research' },
   { label: 'Finance & Accounting', path: '/services/finance-accounting' },
-  { label: 'IT Services', path: '/services/it-services' },
   { label: 'Tata Tele Services', path: '/services/tata-tele-services' },
 ];
 

@@ -43,9 +43,9 @@ const IndustrySolutions: React.FC<IndustrySolutionsProps> = ({ industries }) => 
               <span className="absolute bottom-2 left-0 right-0 h-3 bg-[#CA1411]/10 -z-10 transform -skew-x-12" />
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
+          {/* <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-3">
             Navigant provides these solutions for Tata Tele Services.
-          </p>
+          </p> */}
         </div>
 
         {/* Industries Grid */}

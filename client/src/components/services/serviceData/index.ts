@@ -11,6 +11,7 @@ import { ecommerceManagementServicesData } from './ecommerceManagementServices';
 import { itServicesData } from './itServices';
 import { hrServicesData } from './hrServices';
 import { tataTeleServicesData } from './tataTeleServices';
+import { seoGeoAeoServicesData } from './seoGeoAeoServices';
 import type { ServiceData } from '../serviceTypes';
 
 // Export all service data
@@ -27,6 +28,7 @@ export const serviceDataRegistry: Record<string, ServiceData> = {
   'it-services': itServicesData,
   'hr-services': hrServicesData,
   'tata-tele-services': tataTeleServicesData,
+  'seo-geo-aeo': seoGeoAeoServicesData,
   // Add more services here as they are created
   // 'digital-workers': digitalWorkersData,
   // 'it-services': itServicesData,
@@ -51,6 +53,7 @@ export {
   itServicesData,
   hrServicesData,
   tataTeleServicesData,
+  seoGeoAeoServicesData,
 };
 
 

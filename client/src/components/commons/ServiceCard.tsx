@@ -55,34 +55,35 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
           }}
         />
 
-        {/* Icon */}
-        <div className="mb-4 flex-shrink-0 relative z-10">
-          <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 ease-out"
-            style={{
-              background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.08), rgba(202, 20, 17, 0.04))',
-            }}
-          >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#CA1411] to-[#CA1411] flex items-center justify-center shadow-lg shadow-[#CA1411]/20 transform group-hover:rotate-6 transition-transform duration-500 ease-out">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <path d={iconPath} />
-              </svg>
+        {/* Icon + Title Row */}
+        <div className="mb-4 flex items-start gap-4 relative z-10">
+          <div className="flex-shrink-0">
+            <div
+              className="w-14 h-14 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 ease-out"
+              style={{
+                background: 'linear-gradient(135deg, rgba(202, 20, 17, 0.08), rgba(202, 20, 17, 0.04))',
+              }}
+            >
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#CA1411] to-[#CA1411] flex items-center justify-center shadow-lg shadow-[#CA1411]/20 transform group-hover:rotate-6 transition-transform duration-500 ease-out">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <path d={iconPath} />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Title */}
-        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#CA1411] transition-colors duration-300 relative z-10">
-          {serviceTitle}
-        </h3>
+          <h3 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#CA1411] transition-colors duration-300 leading-tight flex-1 self-center">
+            {serviceTitle}
+          </h3>
+        </div>
 
         {/* Description */}
         <p className="text-gray-600 text-base leading-relaxed line-clamp-3 group-hover:text-gray-700 transition-colors duration-300 relative z-10 flex-grow mb-4">
