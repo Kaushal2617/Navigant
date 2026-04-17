@@ -20,5 +20,11 @@ app:
   env: ${APP_ENV:development}
   cors:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
+  recaptcha:
+    enabled: ${RECAPTCHA_ENABLED:true}
+    secret-key: ${RECAPTCHA_SECRET_KEY:}
+    minimum-score: ${RECAPTCHA_MIN_SCORE:0.5}
+    expected-action: ${RECAPTCHA_EXPECTED_ACTION:lead_submit}
+    verify-url: ${RECAPTCHA_VERIFY_URL:https://www.google.com/recaptcha/api/siteverify}
 
 

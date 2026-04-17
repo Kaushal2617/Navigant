@@ -52,6 +52,14 @@ public class GlobalExceptionHandler {
 		return problem;
 	}
 
+	@ExceptionHandler(RecaptchaValidationException.class)
+	ProblemDetail handleRecaptchaValidation(RecaptchaValidationException ex) {
+		ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+		problem.setTitle("reCAPTCHA validation failed");
+		problem.setProperty("timestamp", Instant.now());
+		return problem;
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	ProblemDetail handleValidationErrors(MethodArgumentNotValidException ex) {
 

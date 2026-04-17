@@ -19,6 +19,7 @@ import com.navigant.dto.LeadCreateRequest;
 import com.navigant.dto.LeadResponse;
 import com.navigant.security.AdminUserDetails;
 import com.navigant.service.LeadService;
+import com.navigant.service.RecaptchaService;
 
 import jakarta.validation.Valid;
 
@@ -35,9 +36,11 @@ import jakarta.validation.Valid;
 public class LeadController {
 
 	private final LeadService leadService;
+	private final RecaptchaService recaptchaService;
 
-	public LeadController(LeadService leadService) {
+	public LeadController(LeadService leadService, RecaptchaService recaptchaService) {
 		this.leadService = leadService;
+		this.recaptchaService = recaptchaService;
 	}
 
 	/**
@@ -53,7 +56,9 @@ public class LeadController {
 	 */
 	@PostMapping("/leads")
 	@ResponseStatus(HttpStatus.CREATED)
-	public LeadResponse createLead(@Valid @RequestBody LeadCreateRequest request) {
+	public LeadResponse createLead(@Valid @RequestBody LeadCreateRequest request,
+			jakarta.servlet.http.HttpServletRequest httpRequest) {
+		recaptchaService.verifyLeadSubmission(request.getRecaptchaToken(), httpRequest.getRemoteAddr());
 		return leadService.createLead(request);
 	}
 

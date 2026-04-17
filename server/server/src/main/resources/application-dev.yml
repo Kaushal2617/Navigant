@@ -41,6 +41,12 @@ app:
   notifications:
     leads-email: "ashishrathoreetw@gmail.com"
     hr-email: "ashishrathoreetw@gmail.com"
+  recaptcha:
+    enabled: true
+    secret-key: 6LejErwsAAAAAOBgFhBUKAKqAOoXD0kzxtp-2u5G
+    minimum-score: 0.5
+    expected-action: lead_submit
+    verify-url: https://www.google.com/recaptcha/api/siteverify
 
 management:
   endpoint:

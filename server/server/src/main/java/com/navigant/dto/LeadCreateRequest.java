@@ -31,6 +31,9 @@ public class LeadCreateRequest {
 
 	private String remarks;
 
+	@NotBlank(message = "reCAPTCHA token is required")
+	private String recaptchaToken;
+
 	// Getters and Setters
 	public String getFullName() {
 		return fullName;
@@ -78,6 +81,14 @@ public class LeadCreateRequest {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getRecaptchaToken() {
+		return recaptchaToken;
+	}
+
+	public void setRecaptchaToken(String recaptchaToken) {
+		this.recaptchaToken = recaptchaToken;
 	}
 
 }

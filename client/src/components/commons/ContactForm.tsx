@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import DotGrid from './DotGrid';
 import { submitLead, type LeadCreateRequest } from '../../services/leadsApi';
 
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
 interface ContactFormProps {
   title?: string;
   subtitle?: string;
@@ -33,6 +42,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY as string | undefined;
 
   // Available service types
   const serviceTypes = [
@@ -112,6 +122,15 @@ const ContactForm: React.FC<ContactFormProps> = ({
     if (validateForm()) {
       setSubmitting(true);
       try {
+        if (!recaptchaSiteKey) {
+          throw new Error('reCAPTCHA site key is missing. Set VITE_RECAPTCHA_SITE_KEY.');
+        }
+
+        const recaptchaToken = await getRecaptchaToken(recaptchaSiteKey);
+        if (!recaptchaToken) {
+          throw new Error('Failed to verify reCAPTCHA. Please refresh and try again.');
+        }
+
         // Prepare lead data matching server DTO
         const leadData: LeadCreateRequest = {
           fullName: formData.fullName,
@@ -120,6 +139,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
           serviceType: formData.serviceType,
           numberOfSeats: parseInt(formData.numberOfSeats, 10),
           remarks: formData.remarks || undefined,
+          recaptchaToken,
         };
 
         // Submit to API
@@ -437,6 +457,50 @@ const ContactForm: React.FC<ContactFormProps> = ({
       </div>
     </section>
   );
+};
+
+const RECAPTCHA_SCRIPT_ID = 'google-recaptcha-v3-script';
+
+const loadRecaptchaScript = (siteKey: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    if (window.grecaptcha) {
+      resolve();
+      return;
+    }
+
+    const existingScript = document.getElementById(RECAPTCHA_SCRIPT_ID) as HTMLScriptElement | null;
+    if (existingScript) {
+      existingScript.addEventListener('load', () => resolve(), { once: true });
+      existingScript.addEventListener('error', () => reject(new Error('reCAPTCHA script failed to load.')), { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = RECAPTCHA_SCRIPT_ID;
+    script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('reCAPTCHA script failed to load.'));
+    document.head.appendChild(script);
+  });
+};
+
+const getRecaptchaToken = async (siteKey: string): Promise<string> => {
+  await loadRecaptchaScript(siteKey);
+
+  if (!window.grecaptcha) {
+    throw new Error('reCAPTCHA is unavailable in this browser.');
+  }
+
+  return new Promise((resolve, reject) => {
+    window.grecaptcha?.ready(() => {
+      window.grecaptcha
+        ?.execute(siteKey, { action: 'lead_submit' })
+        .then(resolve)
+        .catch(() => reject(new Error('Could not execute reCAPTCHA.')));
+    });
+  });
 };
 
 export default ContactForm;

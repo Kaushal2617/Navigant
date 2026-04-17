@@ -18,6 +18,7 @@ export interface LeadCreateRequest {
     serviceType: string;   // Required - @NotBlank
     numberOfSeats: number; // Required - @NotNull
     remarks?: string;      // Optional
+    recaptchaToken: string; // Required - validated server-side
 }
 
 /**
